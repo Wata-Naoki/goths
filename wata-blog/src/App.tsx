@@ -30,7 +30,6 @@ function App() {
       <RecoilRoot>
       <Router>
         <Routes>
-
           <Route path="/form" element={<FormComponent />} />{/* 1 */}
           <Route path="/nologin" element={<Nologin />} />{/* 1 */}
           <Route path="/login" element={<Login />} />

@@ -23,9 +23,7 @@ const BlogIdArticleId = () => {
   const { loading, error, data } = useQuery(BLOGIDARTICLESID_QUERY);
   const { id, articleId } = useParams();
 
-  // console.log(data);
-  // console.log(id, articleId);
-  //find使う
+  
   const targetArticle = data?.article.data.find(
     (x: any) => x.articleId === articleId
   );

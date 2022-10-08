@@ -30,7 +30,6 @@ function App() {
       <RecoilRoot>
       <Router>
         <Routes>
-
           <Route path="/form" element={<FormComponent />} />{/* 1 */}
           <Route path="/nologin" element={<Nologin />} />{/* 1 */}
           <Route path="/login" element={<Login />} />
@@ -40,7 +39,6 @@ function App() {
            <Route path="/blogs/:id/articles" element={<BlogIdArticle />} />{/* 3 */}
            <Route path="/blogs/:id/articles/:articleId" element={<BlogIdArticleId />} />{/* 4 */}
            <Route path="/favorites" element={<Favorites />} />{/* 5 */}
-
            <Route path="/search/:text" element={<Searches />} />{/* 6 */}
            <Route path="/search" element={<ResultSearch />} />{/* 6 */}
 

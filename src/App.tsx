@@ -21,52 +21,54 @@ import { Register } from "./components/authentication/resister";
 import { Authentication } from "./components/authentication/authentication";
 import { RecoilRoot } from "recoil";
 
-
-
-
 function App() {
   return (
     <div>
       <RecoilRoot>
-      <Router>
-        <Routes>
-          <Route path="/form" element={<FormComponent />} />{/* 1 */}
-          <Route path="/nologin" element={<Nologin />} />{/* 1 */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/authentication" element={<Authentication />} />
-          <Route path="/" element={<BlogArticle />} />{/* 2 */}
-           <Route path="/blogs/:id/articles" element={<BlogIdArticle />} />{/* 3 */}
-           <Route path="/blogs/:id/articles/:articleId" element={<BlogIdArticleId />} />{/* 4 */}
-           <Route path="/favorites" element={<Favorites />} />{/* 5 */}
-           <Route path="/search/:text" element={<Searches />} />{/* 6 */}
-           <Route path="/search" element={<ResultSearch />} />{/* 6 */}
-
-           <Route path="/mypage" element={<Mypage />} />{/* 7 */}
-           <Route path="/admin/blogs" element={<AdminBlogs />} />{/* 8 */}
-           <Route path="/admin/blogs/:id" element={<AdminBlogsId />} />{/* 9 */}
-           <Route path="/admin/blogs/:id/articles/:articleId" element={<AdminBlogsIdArticlesId />} />{/* 10 */}
-
-          {/*  以下はクエリ作ってない */}
-          <Route path="/admin/blogs/:id/articles/:id/edit" element={<AdminBlogsIdEditors />} />{/* 11 */}
-           <Route path="/admin/blogs/:id/articles/create" element={<AdminBlogsIdArticlesCreate />} />{/* 12 */}
-           <Route path="/admin/blogs/:id/config" element={<AdminBlogsIdConfig />} />{/* 13 */}
-           <Route path="/admin/blogs/:id/editors" element={<AdminBlogIdArticlesIdEdit />} />{/* 14 */}
-        </Routes>
-      </Router>
+        <Router>
+          <Routes>
+            <Route path="/form" element={<FormComponent />} />
+            <Route path="/nologin" element={<Nologin />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/authentication" element={<Authentication />} />
+            <Route path="/" element={<BlogArticle />} />
+            <Route path="/blogs/:id/articles" element={<BlogIdArticle />} />
+            <Route
+              path="/blogs/:id/articles/:articleId"
+              element={<BlogIdArticleId />}
+            />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/search/:text" element={<Searches />} />
+            <Route path="/search" element={<ResultSearch />} />
+            <Route path="/mypage" element={<Mypage />} />
+            <Route path="/admin/blogs" element={<AdminBlogs />} />
+            <Route path="/admin/blogs/:id" element={<AdminBlogsId />} />
+            <Route
+              path="/admin/blogs/:id/articles/:articleId"
+              element={<AdminBlogsIdArticlesId />}
+            />
+            <Route
+              path="/admin/blogs/:id/articles/:id/edit"
+              element={<AdminBlogsIdEditors />}
+            />
+            <Route
+              path="/admin/blogs/:id/articles/create"
+              element={<AdminBlogsIdArticlesCreate />}
+            />
+            <Route
+              path="/admin/blogs/:id/config"
+              element={<AdminBlogsIdConfig />}
+            />
+            <Route
+              path="/admin/blogs/:id/editors"
+              element={<AdminBlogIdArticlesIdEdit />}
+            />
+          </Routes>
+        </Router>
       </RecoilRoot>
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
 
 export default App;

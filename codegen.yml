@@ -1,0 +1,7 @@
+overwrite: true
+schema: "https://wata-blog.hasura.app/v1/graphql"
+documents: "src/queries/**/*.ts"
+generates:
+  types/generated/graphql.tsx:
+    preset: "client"
+    plugins: []

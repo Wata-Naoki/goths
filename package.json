@@ -26,7 +26,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "gen-types": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {
     "extends": [
@@ -47,10 +48,16 @@
     ]
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.13.5",
+    "@graphql-codegen/client-preset": "1.0.5",
+    "@graphql-codegen/typescript": "^2.7.3",
+    "add": "^2.0.6",
     "autoprefixer": "^10.4.7",
+    "graphql": "^16.6.0",
     "msw": "^0.42.0",
     "postcss": "^8.4.14",
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.0.24",
+    "yarn": "^1.22.19"
   },
   "msw": {
     "workerDirectory": "public"

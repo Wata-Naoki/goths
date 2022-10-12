@@ -2,7 +2,9 @@ import { gql, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { Form } from "../2.articles/blogArticle";
+
+
+
 import { blogChoiceState } from "../Atom/BlogChoiceAtom";
 import { Header } from "../header/SearchHeader";
 
@@ -186,7 +188,7 @@ export const AdminBlogs = () => {
           )}
 
           <div className="mt-8 flex justify-center">
-            <Form />
+            {/* <Form /> */}
           </div>
         </div>
       </div>

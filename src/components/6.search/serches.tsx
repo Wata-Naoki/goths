@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useQuery, gql } from "@apollo/client";
-import { Form } from "../2.articles/blogArticle";
+import { Form } from "../../pages/Articles/blogArticle";
 import { Header} from "../header/SearchHeader";
 
 import { useParams } from "react-router-dom";

@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { Form } from "../2.articles/blogArticle";
+import { Form } from "../../pages/Articles/blogArticle";
 import { Header } from "../header/SearchHeader";
 
 const FAVORITES_QUERY = gql`

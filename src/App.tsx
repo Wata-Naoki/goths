@@ -6,11 +6,11 @@ import { AdminBlogsIdArticlesId } from "./components/10.adminBlogsIdArticlesId/A
 import { AdminBlogsIdConfig } from "./components/13.adminBlogsIdConfig/AdminBlogsIdConfig";
 import { AdminBlogsIdEditors } from "./components/11.adminBlogsIdEditors/AdminBlogsIdEditors";
 
-import BlogArticle from "./components/2.articles/blogArticle";
-import BlogIdArticle from "./components/3.blogIdArticleId/BlogIdArticle";
+import BlogArticle from "./pages/Articles/blogArticle";
+import BlogIdArticle from "./pages/BlogIdArticle/BlogIdArticle";
 import BlogIdArticleId from "./components/4.blogIdArticles/BlogIdArticleId";
 import Favorites from "./components/5.favorites/favorites";
-import { FormComponent } from "./components/1.form/FormComponent";
+import { FormComponent } from "./pages/form/FormComponent";
 import Mypage from "./components/7.mypage/mypage";
 import Searches from "./components/6.search/serches";
 import { AdminBlogIdArticlesIdEdit } from "./components/14.AdminBlogsIdArticlesIdEdit/AdminBlogIdArticlesIdEdit";
@@ -35,7 +35,7 @@ function App() {
             <Route path="/" element={<BlogArticle />} />
             <Route path="/blogs/:id/articles" element={<BlogIdArticle />} />
             <Route
-              path="/blogs/:id/articles/:articleId"
+              path="/blogs/articles/:articleId"
               element={<BlogIdArticleId />}
             />
             <Route path="/favorites" element={<Favorites />} />

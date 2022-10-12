@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { Manage } from "../2.articles/blogArticle";
+import { Manage } from "../../pages/Articles/blogArticle";
 import { blogIdState } from "../Atom/BlogChoiceAtom";
 import { ModalBlogHeader } from "./ModalBlogHeader";
 import UserIcon from "./UserIcon";

@@ -2,7 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Form } from "../2.articles/blogArticle";
+import { Form } from "../../pages/Articles/blogArticle";
 import { blogChoiceState, blogIdState } from "../Atom/BlogChoiceAtom";
 import { BlogHeader } from "../header/BlogHeader";
 import { Header } from "../header/SearchHeader";

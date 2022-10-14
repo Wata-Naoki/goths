@@ -1,7 +1,10 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { type } from "@testing-library/user-event/dist/type";
-import React, { useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
+import { GET_USER, UPDATE_USER } from "../../queries/queries";
+import { UpdateUserMutation } from "../../types/generated/graphql.tsx/graphql";
 import { Header } from "../header/SearchHeader";
+import { Loading } from "../Loading/Loading";
 
 const MYAPAGE_QUERY = gql`
   query articleFavoritesCount {
@@ -16,6 +19,20 @@ const MYAPAGE_QUERY = gql`
 const Mypage = () => {
   const { loading, error, data } = useQuery(MYAPAGE_QUERY);
   // console.log(data);
+  const month = [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月",
+  ];
 
   return (
     <>
@@ -86,75 +103,78 @@ const USER_SETTING = gql`
 `;
 
 export const UserForm = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const {
+    data: userDate,
+    loading: userLoading,
+    error: userError,
+  } = useQuery(GET_USER, { variables: { email: "user1@gmail.com" } });
+
+  console.log(userDate);
+  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
   const [gitToken, setGitToken] = useState("");
 
-  const [userSetting, { loading, error }] = useMutation(USER_SETTING);
+  // const [userSetting, { loading, error }] = useMutation(USER_SETTING);
+  const [updata_users_by_pk, { loading, error }] =
+    useMutation<UpdateUserMutation>(UPDATE_USER);
 
-  const handleSubmit = () => {
-    const result = userSetting({
-      variables: {
-        input: {
-          username: username,
-          email: email,
-          gitToken: gitToken,
-        },
-      },
-    });
-
-    // console.log(result);
-
-    userSetting({
-      variables: {
-        input: {
-          username: username,
-          email: email,
-          gitToken: gitToken,
-        },
-      },
-    });
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (username) {
+      try {
+        await updata_users_by_pk({
+          variables: {
+            id: "1bf773a5-9c62-43bc-b5ce-43633fdb3b14",
+            name: username,
+            email: email,
+          },
+        });
+        alert("変更が保存されました");
+      } catch (err: any) {
+        alert(err.message);
+      }
+    }
   };
+
+  if (userLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
       <div className="flex justify-center">
         <div className="w-3/5">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSubmit();
-            }}
-            className="flex flex-col items-center "
-          >
+          <form onSubmit={handleSubmit} className="flex flex-col items-center ">
             <div className="mb-5">
               <p className="mb-2 text-gray-500">ユーザー名</p>
               <input
+                defaultValue={userDate?.User[0].name}
                 value={username}
                 onChange={(e: any) => setUsername(e.target.value)}
                 className="text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-96 "
               />
             </div>
 
-            <div className="mb-5">
+            <div className="my-6">
               <p className="mb-2 text-gray-500">メールアドレス</p>
               <input
+                defaultValue={userDate?.User[0].email}
                 value={email}
                 onChange={(e: any) => setEmail(e.target.value)}
                 className=" text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-96 "
               />
             </div>
 
-            <div className="mb-5">
+            {/* <div className="mb-5">
               <p className="mb-2 text-gray-500">GitHub Token</p>
               <input
                 value={gitToken}
                 onChange={(e: any) => setGitToken(e.target.value)}
                 className="text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-96 "
               />
-            </div>
+            </div> */}
 
-            <div className="flex flex-wrap items-stretch ">
+            <div className="flex flex-wrap items-stretch my-12">
               <div className="relative flex items-center ">
                 <svg
                   className="h-4 w-4 text-white absolute ml-1.5"

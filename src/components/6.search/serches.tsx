@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { Form } from "../../pages/Articles/blogArticle";
-import { Header} from "../header/SearchHeader";
+import { Header } from "../header/SearchHeader";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { GET_ARTICLES, GET_USER } from "../../queries/queries";
 
 const SEARCHE_QUERY = gql`
   query search {
@@ -19,7 +20,7 @@ const SEARCHE_QUERY = gql`
 `;
 
 const Searches = () => {
-  const { loading, error, data } = useQuery(SEARCHE_QUERY);
+  const { data, loading, error } = useQuery(GET_ARTICLES);
 
   const { text } = useParams();
   return (
@@ -35,20 +36,23 @@ const Searches = () => {
               <div>検索結果</div>
             </div>
             <div>
-              {data?.search.data
-                .filter((data: any) => {
-                  return data.title === text;
-                })
-                .map((x: any) => (
-                  <div key={x.id} className="">
-                    <h2 className="mt-8 text-xl  ">{x.title}</h2>
-                    <div className="flex justify-between text-gray-500 my-2">
-                      <h3>{x.users}</h3>
-                      <h3>{x.createdAt}</h3>
-                    </div>
-                    <p>{x.text}</p>
+              {data?.Article.filter((data: any) => {
+                return data.title === text;
+              }).map((x: any) => (
+                <div key={x.id} className="">
+                  <Link to={`/blogs/articles/${x.id}`}>
+                    <h2 className="mt-8 text-xl  hover:text-gray-500">
+                      {x.title}
+                    </h2>
+                  </Link>
+
+                  <div className="flex justify-between text-gray-500 my-2">
+                    <h3>{x.users}</h3>
+                    <h3>{x.createdAt}</h3>
                   </div>
-                ))}
+                  <p>{x.text}</p>
+                </div>
+              ))}
             </div>
             <div className="flex justify-center mt-10">
               <Form />

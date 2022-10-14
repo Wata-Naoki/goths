@@ -74,3 +74,27 @@ export const GET_BLOGS = gql`
     }
   }
 `;
+
+export const GET_USER = gql`
+  query GetUser($email: String!) {
+    User(where: { email: { _eq: $email } }) {
+      id
+      name
+      email
+      createdAt
+    }
+  }
+`;
+
+export const UPDATE_USER = gql`
+  mutation UpdateUser($id: uuid!, $email: String!, $name: String!) {
+    update_User_by_pk(
+      pk_columns: { id: $id }
+      ,_set: {id: $id, email: $email, name: $name }
+    ) {
+      id
+      name
+      email
+    }
+  }
+`;

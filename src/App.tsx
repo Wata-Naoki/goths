@@ -40,7 +40,7 @@ function App() {
             />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/search/:text" element={<Searches />} />
-            <Route path="/search" element={<ResultSearch />} />
+            <Route path="/search" element={<Searches />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/admin/blogs" element={<AdminBlogs />} />
             <Route path="/admin/blogs/:id" element={<AdminBlogsId />} />

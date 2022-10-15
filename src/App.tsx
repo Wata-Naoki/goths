@@ -8,10 +8,10 @@ import { AdminBlogsIdEditors } from "./components/11.adminBlogsIdEditors/AdminBl
 
 import BlogArticle from "./pages/Articles/blogArticle";
 import BlogIdArticle from "./pages/BlogIdArticle/BlogIdArticle";
-import BlogIdArticleId from "./components/4.blogIdArticles/BlogIdArticleId";
-import Favorites from "./components/5.favorites/favorites";
+import BlogIdArticleId from "./pages/blogIdArticles/BlogIdArticleId";
+import Favorites from "./pages/favorites/favorites";
 import { FormComponent } from "./pages/form/FormComponent";
-import Mypage from "./components/7.mypage/mypage";
+import Mypage from "./pages/mypage/mypage";
 import Searches from "./components/6.search/serches";
 import { AdminBlogIdArticlesIdEdit } from "./components/14.AdminBlogsIdArticlesIdEdit/AdminBlogIdArticlesIdEdit";
 import { ResultSearch } from "./components/6.search/ResultSearch";

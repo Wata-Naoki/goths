@@ -3,8 +3,8 @@ import { type } from "@testing-library/user-event/dist/type";
 import React, { FormEvent, useEffect, useState } from "react";
 import { GET_USER, UPDATE_USER } from "../../queries/queries";
 import { UpdateUserMutation } from "../../types/generated/graphql.tsx/graphql";
-import { Header } from "../header/SearchHeader";
-import { Loading } from "../Loading/Loading";
+import { Header } from "../../components/header/SearchHeader";
+import { Loading } from "../../components/Loading/Loading";
 
 const MYAPAGE_QUERY = gql`
   query articleFavoritesCount {
@@ -118,6 +118,11 @@ export const UserForm = () => {
   const [updata_users_by_pk, { loading, error }] =
     useMutation<UpdateUserMutation>(UPDATE_USER);
 
+  /* useEffect(() => {
+     setUsername(userDate?.User[0].name)
+
+  },[username, email])
+ */
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (username) {

@@ -46,7 +46,6 @@ export const AdminBlogsId = () => {
   // console.log(id);
   return (
     <>
-
       <div>
         <BlogHeader />
       </div>
@@ -66,7 +65,13 @@ export const AdminBlogsId = () => {
                 .filter((x: any) => x.blog === blogState)
                 .map((x: any) => (
                   <div key={x.id}>
-                    <Link to={`/admin/blogs/${id}/articles/${x.id}`} /* onClick={() => {setBlogIdStateValue(`/admin/blogs/${id}/articles/${x.id}`)}} */ state={{title: x.title, text: x.text}}>
+                    <Link
+                      to={`/admin/blogs/${id}/articles/${x.id}`}
+                      /* onClick={() => {setBlogIdStateValue(`/admin/blogs/${id}/articles/${x.id}`)}} */ state={{
+                        title: x.title,
+                        text: x.text,
+                      }}
+                    >
                       <h2 className="text-2xl mt-8">{x.title}</h2>
                     </Link>
 

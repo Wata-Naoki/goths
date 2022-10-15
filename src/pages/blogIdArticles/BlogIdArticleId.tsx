@@ -1,9 +1,9 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { Header } from "../header/SearchHeader";
+import { Header } from "../../components/header/SearchHeader";
 import { GET_ARTICLE } from "../../queries/queries";
-import { Loading } from "../Loading/Loading";
+import { Loading } from "../../components/Loading/Loading";
 
 const BLOGIDARTICLESID_QUERY = gql`
   query article {

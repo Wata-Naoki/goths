@@ -5,13 +5,15 @@ import { blogIdState } from "../Atom/BlogChoiceAtom";
 export const Sidebar = () => {
   const blogIdStateValue = useRecoilValue(blogIdState);
   // console.log(blogIdStateValue);
+  const redirectToGoogle = () => {
+    window.location.href = "https://www.google.com/?hl=ja";
+  };
   return (
     <>
       {/*  <div>Sidebar</div> */}
       <br />
 
-      <div className="w-60 h-5/6 px-1 absolute flex flex-col items-start justify-between ">
-
+      <div className="w-60 min-h-screen px-1 flex flex-col items-start justify-between sticky top-0">
         <div>
           <div className="mb-2">
             <Link
@@ -72,7 +74,7 @@ export const Sidebar = () => {
               <div className="ml-1">記事作成</div>
             </Link>
           </div>
-          <div className="mb-60">
+          <div className="">
             <Link
               to={`${blogIdStateValue}/editors`}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
@@ -153,7 +155,9 @@ export const Sidebar = () => {
                   />
                 </svg>
               </div>
-              <div className="ml-1">ヘルプ</div>
+              <div className="ml-1" onClick={redirectToGoogle}>
+                ヘルプ
+              </div>
             </Link>
           </div>
         </div>

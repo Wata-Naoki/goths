@@ -1,12 +1,15 @@
-import { gql, useQuery, useMutation } from "@apollo/client";
-import React from "react";
+import { gql, useQuery, useMutation, useLazyQuery } from "@apollo/client";
+import React, { useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { blogIdArticleEditState } from "../Atom/BlogChoiceAtom";
+import { GET_ARTICLE, UPDATE_DELETE_ARTICLE } from "../../queries/queries";
+import { UpdateDeleteArticleMutation } from "../../types/generated/graphql.tsx/graphql";
+import { adminBlogState, blogIdArticleEditState } from "../Atom/BlogChoiceAtom";
 import DeleteButton from "../deletButton/atricleDeleteButton";
 
 import { BlogHeader } from "../header/BlogHeader";
 import { Header } from "../header/SearchHeader";
+import { Loading } from "../Loading/Loading";
 import { Sidebar } from "../sidebar/navbar";
 
 const ADMINBLOGSIDARTICLESID_QUERY = gql`
@@ -24,20 +27,102 @@ const ADMINBLOGSIDARTICLESID_QUERY = gql`
   }
 `;
 
-const DELETE_ARTICLE = gql`
-  mutation DeleteArticle($id: ID!) {
-    DeleteArticle(id: $id) {
-      mockAdminBlogsArticles {
-        id
-      }
-    }
-  }
-`;
+// const DELETE_ARTICLE = gql`
+//   mutation DeleteArticle($id: ID!) {
+//     DeleteArticle(id: $id) {
+//       mockAdminBlogsArticles {
+//         id
+//       }
+//     }
+//   }
+// `;
 
 export const AdminBlogsIdArticlesId = () => {
-  const { loading, error, data } = useQuery(ADMINBLOGSIDARTICLESID_QUERY);
   const { id: blogId, articleId } = useParams();
   const navigate = useNavigate();
+  // const [adminBlogFlag, setAdminBlogFlag] = useRecoilState(adminBlogState);
+
+  const [
+    execute,
+    {
+      data: blogArticleData,
+      error: blogArticlesError,
+      loading: blogArticlesLoading,
+    },
+  ] = useLazyQuery(GET_ARTICLE);
+
+  const { data, loading, error } = useQuery(GET_ARTICLE, {
+    variables: { id: articleId },
+  });
+  console.log(data);
+
+
+
+  const [update_Article_by_pk, { loading: deleteLoading, error: deleteError }] =
+    useMutation<UpdateDeleteArticleMutation>(UPDATE_DELETE_ARTICLE);
+
+  // const deleteArticle = async () => {
+  //   delete_blog_user_by_pk({ variables: { id: articleId } });
+  // };
+
+  // const [delete_Article_by_pk] = useMutation(DELETE_ARTICLE, {
+  //   update(cache, { data: { delete_Article_by_pk } }) {
+  //     cache.modify({
+  //       fields: {
+  //         Article(existingArticle, { readField }) {
+  //           return existingArticle.filter((article: any) => {
+  //             articleId !== readField("id", article)
+  //           });
+  //         },
+  //       },
+  //     });
+  //   },
+  // });
+
+  /* 
+  const [delete_users_by_pk] = useMutation<DeleteUserMutation>(DELETE_USER, {
+    update(cache, { data: { delete_users_by_pk } }) {
+      cache.modify({
+        fields: {
+          users(existingUsers, { readField }) {
+            return existingUsers.filter((user) => {
+              delete_users_by_pk !== readField('id', user)
+            })
+          },
+        },
+      })
+    },
+  })
+  */
+
+  const handleChange = async () => {
+    if (articleId) {
+      try {
+        await update_Article_by_pk({
+          variables: { id: articleId, status: false },
+        });
+        //await setAdminBlogFlag(!adminBlogFlag);
+        alert("変更が保存されました");
+        // navigate(-1);
+      } catch (err: any) {
+        alert(err.message);
+      }
+    }
+  };
+
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <div>"エラーが発生しました。"</div>;
+  }
+
+  // useEffect(() => {
+  //   execute({ variables: { id: articleId } });
+  //   // console.log(id);
+  //   // console.log(blogArticlesData);
+  // }, [articleId, execute]);
+  // console.log(blogArticleData);
 
   /* console.log(loading);
   console.log(error); */
@@ -45,17 +130,17 @@ export const AdminBlogsIdArticlesId = () => {
   // console.log(data);
   // console.log(articleId);
   // console.log(articleId);
-  const targetArticle = data?.adminArticle.data.find(
-    (x: any) => x.id === articleId
-  );
-  const [articleEditValue, setArticleEditValue] = useRecoilState(
-    blogIdArticleEditState
-  );
+  // const targetArticle = data?.adminArticle.data.find(
+  //   (x: any) => x.id === articleId
+  // );
+  // const [articleEditValue, setArticleEditValue] = useRecoilState(
+  //   blogIdArticleEditState
+  // );
   // console.log(articleEditValue);
-  setArticleEditValue(targetArticle);
+  // setArticleEditValue(targetArticle);
 
-  const [deleteArticle, { loading: delloading, error: delerror }] =
-    useMutation(DELETE_ARTICLE);
+  // const [deleteArticle, { loading: delloading, error: delerror }] =
+  //   useMutation(DELETE_ARTICLE);
 
   // console.log(result);
 
@@ -78,7 +163,7 @@ export const AdminBlogsIdArticlesId = () => {
               <div className="flex justify-end my-10">
                 <div>
                   <Link
-                    to={`/admin/blogs/${blogId}/articles/${targetArticle?.id}/edit`}
+                    to={`/admin/blogs/${blogId}/articles/${articleId}/edit`}
                   >
                     <div className="flex flex-wrap items-stretch mr-2">
                       <div className="relative flex items-center ">
@@ -110,13 +195,15 @@ export const AdminBlogsIdArticlesId = () => {
                 </div>
                 <div>
                   <DeleteButton
-                    onClick={() => {
-                      deleteArticle({
-                        variables: {
-                          id: articleId,
-                        },
-                      });
-                      navigate(`/admin/blogs/${blogId}`);
+                    onClick={async () => {
+                      // deleteArticle({
+                      //   variables: {
+                      //     id: articleId,
+                      //   },
+                      // });
+                      await handleChange();
+                      window.location.href = `/admin/blogs/${blogId}`;
+                      //navigate(`/admin/blogs/${blogId}`);
                     }}
                   />
                 </div>
@@ -124,16 +211,18 @@ export const AdminBlogsIdArticlesId = () => {
 
               <div>
                 <div>
-                  <h2 className="text-2xl mt-8">{targetArticle?.title}</h2>
+                  <h2 className="text-2xl mt-8">{data?.Article[0].title}</h2>
                   <div className="flex justify-between mb-5">
-                    <h3 className="text-gray-500">{targetArticle?.user}</h3>
+                    <h3 className="text-gray-500">
+                      {data?.Article[0].User.name}
+                    </h3>
 
-                    <h3>{targetArticle?.createAt}</h3>
+                    <h3>{data?.Article[0].createdAt}</h3>
                   </div>
 
-                  <p className="mb-8">{targetArticle?.text}</p>
-                  <p className="mb-8">{targetArticle?.text}</p>
-                  <p className="mb-8">{targetArticle?.text}</p>
+                  <p className="mb-8">{data?.Article[0].all_text}</p>
+                  <p className="mb-8">{data?.Article[0].all_text}</p>
+                  <p className="mb-8">{data?.Article[0].all_text}</p>
                 </div>
               </div>
               <div className="flex justify-end text-gray-500">

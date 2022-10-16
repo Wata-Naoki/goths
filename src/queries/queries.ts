@@ -6,6 +6,7 @@ export const GET_ARTICLES = gql`
       id
       title
       text
+      status
       createdAt
       updatedAt
       Blog {
@@ -26,6 +27,7 @@ export const GET_BLOG_ARTICLES = gql`
         title
         createdAt
         all_text
+        status
         User {
           name
           id
@@ -48,6 +50,7 @@ export const GET_ARTICLE = gql`
       createdAt
       updatedAt
       all_text
+      status
       User {
         name
         id
@@ -93,7 +96,33 @@ export const GET_USER_BLOGS = gql`
   }
 `;
 
-
+export const GET_BLOG = gql`
+  query GetBlog($id: uuid!, $limit: Int) {
+    Blog(where: { id: { _eq: $id } }) {
+      id
+      title
+      updatedAt
+      blog_users {
+        User {
+          name
+          id
+        }
+      }
+      Articles(
+        order_by: { createdAt: desc }
+        limit: $limit
+        where: { status: { _eq: true } }
+      ) {
+        id
+        createdAt
+        title
+        text
+        all_text
+        status
+      }
+    }
+  }
+`;
 
 export const GET_USER = gql`
   query GetUser($email: String!) {
@@ -118,3 +147,23 @@ export const UPDATE_USER = gql`
     }
   }
 `;
+
+export const UPDATE_DELETE_ARTICLE = gql`
+  mutation UpdateDeleteArticle($id: uuid!, $status: Boolean!) {
+    update_Article_by_pk(pk_columns: { id: $id }, _set: { status: $status }) {
+      id
+      title
+      createdAt
+      status
+    }
+  }
+`;
+
+/* 
+mutation MyMutation($id: uuid) {
+  delete_Article_by_pk(id: $id) {
+    id
+  }
+}
+
+*/

@@ -40,6 +40,7 @@ const DeleteButton: React.FC<Props> = ({ onClick }) => {
           className="rounded-md bg-red-500   pr-4 pl-8 py-2 text-sm font-medium text-white hover:bg-red-400 focus:outline-none  focus-visible:ring-opacity-75"
         >
           削除
+          
         </button>
       </div>
 

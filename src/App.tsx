@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AdminBlogs } from "./components/8.adminBlogs/adminBlogs";
-import { AdminBlogsId } from "./components/9.adminBlogsId/adminBlogsId";
+import { AdminBlogsId } from "./pages/adminBlogsId/adminBlogsId";
 import { AdminBlogsIdArticlesCreate } from "./components/12.AdminBlogsIdArticlesCreate/AdminBlogsIdArticlesCreate";
 import { AdminBlogsIdArticlesId } from "./components/10.adminBlogsIdArticlesId/AdminBlogsIdArticlesId";
 import { AdminBlogsIdConfig } from "./components/13.adminBlogsIdConfig/AdminBlogsIdConfig";

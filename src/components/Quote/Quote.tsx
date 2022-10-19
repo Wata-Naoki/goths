@@ -23,12 +23,16 @@ export const Quote = () => {
         .catch((error) => setError(error.message));
   }, [isOpen]);
 
-
   return (
     <>
       <div className="flex flex-wrap items-stretch ">
         <div className="relative flex items-center">
-          <div className="bg-green-700 px-2  py-2  rounded-full">
+          <button
+            className="bg-green-700 px-2  py-2  rounded-full"
+            onClick={() => {
+              openModal();
+            }}
+          >
             <svg
               className="h-6 w-6 text-white"
               width="24"
@@ -39,10 +43,6 @@ export const Quote = () => {
               fill="none"
               stroke-linecap="round"
               stroke-linejoin="round"
-              onClick={() => {
-                openModal();
-                // callApi();
-              }}
             >
               {" "}
               <path stroke="none" d="M0 0h24v24H0z" />{" "}
@@ -50,7 +50,7 @@ export const Quote = () => {
               <path d="M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3" />{" "}
               <line x1="9.7" y1="17" x2="14.3" y2="17" />
             </svg>
-          </div>
+          </button>
         </div>
       </div>
 
@@ -110,9 +110,9 @@ export const Quote = () => {
                         Close
                       </button>
 
-                      <div className="relative flex items-center ">
+                      <div className="relative flex items-center hover:bg-green-600">
                         <svg
-                          className="h-5 w-5 text-white absolute ml-14 mb-0.5"
+                          className="h-5 w-5 text-white absolute ml-14 mb-0.5 hover:bg-green-600"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -130,7 +130,7 @@ export const Quote = () => {
                       >
                         <button
                           type="button"
-                          className="w-1/2 inline-flex justify-center rounded-md border border-inherit bg-green-700 pl-3 py-2 text-sm font-medium text-white hover:bg-green-600 focus:outline-none "
+                          className="w-1/2 justify-center rounded-md border border-inherit bg-green-700 pl-3 py-2 text-sm font-medium text-white hover:bg-green-600 focus:outline-none "
                           onClick={closeModal}
                         >
                           コピー

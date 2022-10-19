@@ -1,23 +1,38 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { blogIdState } from "../Atom/BlogChoiceAtom";
 
 export const Sidebar = () => {
+  const { id } = useParams();
   const blogIdStateValue = useRecoilValue(blogIdState);
   // console.log(blogIdStateValue);
   const redirectToGoogle = () => {
     window.location.href = "https://www.google.com/?hl=ja";
+  };
+
+  const articleList = () => {
+    window.location.href = `/admin/blogs/${id}`;
+  };
+  const createArticle = () => {
+    window.location.href = `/admin/blogs/${id}/articles/create`;
+  };
+
+  const handleEditors = () => {
+    window.location.href = `/admin/blogs/${id}/editors`;
+  };
+  const handleSetting = () => {
+    window.location.href = `/admin/blogs/${id}/config`;
   };
   return (
     <>
       {/*  <div>Sidebar</div> */}
       <br />
 
-      <div className="w-60 min-h-screen px-1 flex flex-col items-start justify-between sticky top-0">
+      <div className="w-60 h-5/6 px-1 flex flex-col items-start justify-between sticky top-0">
         <div>
           <div className="mb-2">
-            <Link
-              to={blogIdStateValue}
+            <button
+              onClick={articleList}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
                 window.location.pathname !==
                   `${blogIdStateValue}/articles/create` &&
@@ -43,11 +58,11 @@ export const Sidebar = () => {
               </div>
 
               <div className="ml-1">記事一覧</div>
-            </Link>
+            </button>
           </div>
           <div className="mb-2">
-            <Link
-              to={`${blogIdStateValue}/articles/create`}
+            <button
+              onClick={createArticle}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
                 window.location.pathname ===
                 `${blogIdStateValue}/articles/create`
@@ -72,11 +87,11 @@ export const Sidebar = () => {
               </div>
 
               <div className="ml-1">記事作成</div>
-            </Link>
+            </button>
           </div>
           <div className="">
-            <Link
-              to={`${blogIdStateValue}/editors`}
+            <button
+              onClick={handleEditors}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
                 window.location.pathname === `${blogIdStateValue}/editors`
                   ? "bg-teal-100 "
@@ -100,15 +115,15 @@ export const Sidebar = () => {
               </div>
 
               <div className="ml-1">編集者管理</div>
-            </Link>
+            </button>
           </div>
         </div>
 
-        <div className="">
-          <div className="">
+        <div className="mt-96">
+          <div className="mt-24">
             {/* flexかなんかで記事一覧からタイトルのかたまりと設定〜ヘルプのかたまりで分けた方がいいかも */}
-            <Link
-              to={`${blogIdStateValue}/config`}
+            <button
+              onClick={handleSetting}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
                 window.location.pathname === `${blogIdStateValue}/config`
                   ? "bg-teal-100 "
@@ -132,14 +147,11 @@ export const Sidebar = () => {
               </div>
 
               <div className="ml-1">設定</div>
-            </Link>
+            </button>
           </div>
 
           <div className="">
-            <Link
-              to=""
-              className="relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 hover:bg-teal-100"
-            >
+            <button className="relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 hover:bg-teal-100">
               <div>
                 <svg
                   className="h-5 w-5 text-gray-500"
@@ -158,7 +170,7 @@ export const Sidebar = () => {
               <div className="ml-1" onClick={redirectToGoogle}>
                 ヘルプ
               </div>
-            </Link>
+            </button>
           </div>
         </div>
       </div>

@@ -2,12 +2,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AdminBlogs } from "./components/8.adminBlogs/adminBlogs";
 import { AdminBlogsId } from "./pages/adminBlogsId/adminBlogsId";
 import { AdminBlogsIdArticlesCreate } from "./components/12.AdminBlogsIdArticlesCreate/AdminBlogsIdArticlesCreate";
-import { AdminBlogsIdArticlesId } from "./components/10.adminBlogsIdArticlesId/AdminBlogsIdArticlesId";
+import { AdminBlogsIdArticlesId } from "./pages/adminBlogsIdArticlesId/AdminBlogsIdArticlesId";
 import { AdminBlogsIdConfig } from "./components/13.adminBlogsIdConfig/AdminBlogsIdConfig";
-import { AdminBlogsIdEditors } from "./components/11.adminBlogsIdEditors/AdminBlogsIdEditors";
-
+import { AdminBlogsIdEditors } from "./pages/adminBlogsIdEditors/AdminBlogsIdEditors";
 import BlogArticle from "./pages/Articles/blogArticle";
-import BlogIdArticle from "./pages/BlogIdArticle/BlogIdArticle";
 import BlogIdArticleId from "./pages/blogIdArticles/BlogIdArticleId";
 import Favorites from "./pages/favorites/favorites";
 import { FormComponent } from "./pages/form/FormComponent";
@@ -20,6 +18,7 @@ import { Login } from "./components/Base/login";
 import { Register } from "./components/authentication/resister";
 import { Authentication } from "./components/authentication/authentication";
 import { RecoilRoot } from "recoil";
+import BlogIdArticle from "./pages/BlogIdArticle/BlogIdArticle";
 
 function App() {
   return (
@@ -49,7 +48,7 @@ function App() {
               element={<AdminBlogsIdArticlesId />}
             />
             <Route
-              path="/admin/blogs/:id/articles/:id/edit"
+              path="/admin/blogs/:id/articles/:articleId/edit"
               element={<AdminBlogsIdEditors />}
             />
             <Route

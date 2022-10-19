@@ -40,7 +40,7 @@ export const BlogHeader = () => {
             </div>
 
             <div className="mr-4">
-              <Link to={blogIdStateValue}>
+              <Link to={`/admin/blogs`}>
                 <Manage />
               </Link>
             </div>

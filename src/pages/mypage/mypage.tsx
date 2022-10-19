@@ -6,18 +6,7 @@ import { UpdateUserMutation } from "../../types/generated/graphql.tsx/graphql";
 import { Header } from "../../components/header/SearchHeader";
 import { Loading } from "../../components/Loading/Loading";
 
-const MYAPAGE_QUERY = gql`
-  query articleFavoritesCount {
-    articleFavoritesCount {
-      mockArticleStats {
-        numberOfArticles
-      }
-    }
-  }
-`;
-
 const Mypage = () => {
-  const { loading, error, data } = useQuery(MYAPAGE_QUERY);
   // console.log(data);
   const month = [
     "1月",
@@ -48,25 +37,49 @@ const Mypage = () => {
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
               <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                 <table className="min-w-full divide-y ">
-                  <tbody className="bg-white divide-y divide-gray-00 ">
-                    <th className="py-2 text-gray-400 bg-gray-100">1月</th>
-                    <th className="py-2 text-gray-400 bg-gray-100">2月</th>
-                    <th className="py-2 text-gray-400 bg-gray-100">3月</th>
-                    <th className="py-2 text-gray-400 bg-gray-100">4月</th>
-                    <th className="py-2 text-gray-400 bg-gray-100">5月</th>
-                    <th className="py-2 text-gray-400 bg-gray-100">6月</th>
-                    <th className="py-2 text-gray-400 bg-gray-100">7月</th>
-                    <th className="py-2 text-gray-400 bg-gray-100">8月</th>
-                    <th className="py-2 text-gray-400 bg-gray-100">9月</th>
-                    <th className="py-2 text-gray-400 bg-gray-100">10月</th>
-                    <th className="py-2 text-gray-400 bg-gray-100">11月</th>
-                    <th className="py-2 text-gray-400 bg-gray-100">12月</th>
+                  <tbody className="bg-white divide-y divide-gray-00 font-normal">
+                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                      1月
+                    </th>
+                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                      2月
+                    </th>
+                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                      3月
+                    </th>
+                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                      4月
+                    </th>
+                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                      5月
+                    </th>
+                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                      6月
+                    </th>
+                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                      7月
+                    </th>
+                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                      8月
+                    </th>
+                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                      9月
+                    </th>
+                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                      10月
+                    </th>
+                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                      11月
+                    </th>
+                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                      12月
+                    </th>
 
                     <tr>
-                      {data?.articleFavoritesCount.data[0].numberOfArticles.map(
-                        (x: any) => (
+                      {[0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1].map(
+                        (x: any, index) => (
                           <td className="px-6 py-4  ">
-                            <div key={x.id} className="flex justify-center">
+                            <div key={index} className="flex justify-center">
                               <h2>{x}</h2>
                             </div>
                           </td>
@@ -92,22 +105,22 @@ const Mypage = () => {
 
 export default Mypage;
 
-const USER_SETTING = gql`
-  mutation UserSetting($input: input!) {
-    UserSetting(input: $input) {
-      username
-      email
-      gitToken
-    }
-  }
-`;
+// const USER_SETTING = gql`
+//   mutation UserSetting($input: input!) {
+//     UserSetting(input: $input) {
+//       username
+//       email
+//       gitToken
+//     }
+//   }
+// `;
 
 export const UserForm = () => {
   const {
     data: userDate,
     loading: userLoading,
     error: userError,
-  } = useQuery(GET_USER, { variables: { email: "user1@gmail.com" } });
+  } = useQuery(GET_USER, { variables: { email: "user1-1@gmail.com" } });
 
   console.log(userDate);
   const [username, setUsername] = useState();
@@ -130,8 +143,8 @@ export const UserForm = () => {
         await updata_users_by_pk({
           variables: {
             id: "1bf773a5-9c62-43bc-b5ce-43633fdb3b14",
-            name: username,
-            email: email,
+            name: username ? username : userDate?.User[0].name,
+            email: email ? email : userDate?.User[0].email,
           },
         });
         alert("変更が保存されました");
@@ -141,7 +154,7 @@ export const UserForm = () => {
     }
   };
 
-  if (userLoading) {
+  if (userLoading ) {
     return <Loading />;
   }
 
@@ -154,7 +167,7 @@ export const UserForm = () => {
               <p className="mb-2 text-gray-500">ユーザー名</p>
               <input
                 defaultValue={userDate?.User[0].name}
-                value={username}
+                value={username ? username : userDate?.User[0].name}
                 onChange={(e: any) => setUsername(e.target.value)}
                 className="text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-96 "
               />
@@ -164,7 +177,7 @@ export const UserForm = () => {
               <p className="mb-2 text-gray-500">メールアドレス</p>
               <input
                 defaultValue={userDate?.User[0].email}
-                value={email}
+                value={email ? email : userDate?.User[0].email}
                 onChange={(e: any) => setEmail(e.target.value)}
                 className=" text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-96 "
               />

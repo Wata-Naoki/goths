@@ -71,7 +71,7 @@ export const Header = () => {
             </div>
 
             <div className="mr-3">
-              <Link to={blogIdStateValue}>
+              <Link to={`/admin/blogs`}>
                 <Manage />
               </Link>
             </div>

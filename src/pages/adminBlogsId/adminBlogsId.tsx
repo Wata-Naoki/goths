@@ -93,7 +93,7 @@ export const AdminBlogsId = () => {
           <Sidebar />
         </div>
 
-        <div className="w-2/5 flex justify-center mr-72 ">
+        <div className="w-2/5 flex justify-center mr-96 mt-4">
           {/* ゴリ押しだから改善の余地あり */}
 
           <div>
@@ -110,7 +110,7 @@ export const AdminBlogsId = () => {
                     <h2 className="text-2xl mt-8">{x.title}</h2>
                   </Link>
 
-                  <div className="flex justify-between">
+                  <div className="flex justify-between my-2">
                     <h3 className="text-gray-500">
                       {blogData.Blog[0].blog_users[0].User.name}
                     </h3>

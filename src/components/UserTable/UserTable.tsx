@@ -1,46 +1,49 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 import { useParams } from "react-router-dom";
+import { GET_BLOG_EDITORS } from "../../queries/queries";
+import { GetBlogEditorsQuery } from "../../types/generated/graphql.tsx/graphql";
 import DeleteTableUsers from "../deleteTableUsers/DeleteTableUsers";
 
-export const UserTable = () => {
-  return <div>UserTable</div>;
-};
 
-const ADMIN_TABLE_USERS_QUERY = gql`
-  query adminTableUsers {
-    adminTableUsers {
-      mockTableUsers {
-        mockMyBlogs {
-          id
-        }
-        id
-        name
-        email
-        delete
-      }
-    }
-  }
-`;
+// const ADMIN_TABLE_USERS_QUERY = gql`
+//   query adminTableUsers {
+//     adminTableUsers {
+//       mockTableUsers {
+//         mockMyBlogs {
+//           id
+//         }
+//         id
+//         name
+//         email
+//         delete
+//       }
+//     }
+//   }
+// `;
 
-const DELETE_EDITOR = gql`
-  mutation DeleteEditor($id: ID!) {
-    DeleteEditor(id: $id) {
-      mockTableUsers {
-        id
-      }
-    }
-  }
-`;
+// const DELETE_EDITOR = gql`
+//   mutation DeleteEditor($id: ID!) {
+//     DeleteEditor(id: $id) {
+//       mockTableUsers {
+//         id
+//       }
+//     }
+//   }
+// `;
 
 export const UserTable1 = () => {
-  const { loading, error, data } = useQuery(ADMIN_TABLE_USERS_QUERY);
+  // const { loading, error, data } = useQuery(ADMIN_TABLE_USERS_QUERY);
   // console.log(data);
 
   const { id } = useParams();
-
-  const [deleteEditor, { loading: deleteLoading, error: deleteError }] =
-    useMutation(DELETE_EDITOR);
+  const { data, loading, error } = useQuery<GetBlogEditorsQuery>(
+    GET_BLOG_EDITORS,
+    {
+      variables: { blog_id: id },
+    }
+  );
+  console.log(data);
 
   return (
     <div className="flex flex-col">
@@ -70,37 +73,23 @@ export const UserTable1 = () => {
               </thead>
 
               <tbody className="bg-white divide-y divide-gray-200">
-                {data?.adminTableUsers.data
-                .filter((x: any) => x.mockMyBlogs.id === id)
-                .map((x: any) => (
-                  <tr key={x.email}>
+                {data?.User.map((u: any) => (
+                  <tr key={u.id}>
                     <td className="pl-6 pr-14 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">
-                            {x.name}
+                            {u.name}
                           </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{x.email}</div>
+                      <div className="text-sm text-gray-500">{u.email}</div>
                     </td>
 
                     <td className="pr-6 py-4 whitespace-nowrap text-red-500">
-                      <div>
-                        {
-                          <DeleteTableUsers
-                            onClick={() => {
-                              deleteEditor({
-                                variables: {
-                                  id: x.id,
-                                },
-                              });
-                            }}
-                          />
-                        }
-                      </div>
+                      <div>{<DeleteTableUsers id={u.id} />}</div>
                     </td>
                   </tr>
                 ))}

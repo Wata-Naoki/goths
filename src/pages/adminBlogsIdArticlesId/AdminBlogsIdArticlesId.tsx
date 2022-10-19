@@ -4,13 +4,16 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { GET_ARTICLE, UPDATE_DELETE_ARTICLE } from "../../queries/queries";
 import { UpdateDeleteArticleMutation } from "../../types/generated/graphql.tsx/graphql";
-import { adminBlogState, blogIdArticleEditState } from "../Atom/BlogChoiceAtom";
-import DeleteButton from "../deletButton/atricleDeleteButton";
+import {
+  adminBlogState,
+  blogIdArticleEditState,
+} from "../../components/Atom/BlogChoiceAtom";
+import DeleteButton from "../../components/deletButton/atricleDeleteButton";
 
-import { BlogHeader } from "../header/BlogHeader";
-import { Header } from "../header/SearchHeader";
-import { Loading } from "../Loading/Loading";
-import { Sidebar } from "../sidebar/navbar";
+import { BlogHeader } from "../../components/header/BlogHeader";
+import { Header } from "../../components/header/SearchHeader";
+import { Loading } from "../../components/Loading/Loading";
+import { Sidebar } from "../../components/sidebar/navbar";
 
 const ADMINBLOGSIDARTICLESID_QUERY = gql`
   query adminArticle {
@@ -55,8 +58,6 @@ export const AdminBlogsIdArticlesId = () => {
     variables: { id: articleId },
   });
   console.log(data);
-
-
 
   const [update_Article_by_pk, { loading: deleteLoading, error: deleteError }] =
     useMutation<UpdateDeleteArticleMutation>(UPDATE_DELETE_ARTICLE);
@@ -196,11 +197,6 @@ export const AdminBlogsIdArticlesId = () => {
                 <div>
                   <DeleteButton
                     onClick={async () => {
-                      // deleteArticle({
-                      //   variables: {
-                      //     id: articleId,
-                      //   },
-                      // });
                       await handleChange();
                       window.location.href = `/admin/blogs/${blogId}`;
                       //navigate(`/admin/blogs/${blogId}`);

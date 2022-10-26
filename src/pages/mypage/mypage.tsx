@@ -133,7 +133,6 @@ export const UserForm = () => {
 
   /* useEffect(() => {
      setUsername(userDate?.User[0].name)
-
   },[username, email])
  */
   const handleSubmit = async (e: any) => {
@@ -154,7 +153,7 @@ export const UserForm = () => {
     }
   };
 
-  if (userLoading ) {
+  if (userLoading) {
     return <Loading />;
   }
 

@@ -34,10 +34,7 @@ export const Sidebar = () => {
             <button
               onClick={articleList}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
-                window.location.pathname !==
-                  `${blogIdStateValue}/articles/create` &&
-                window.location.pathname !== `${blogIdStateValue}/editors` &&
-                window.location.pathname !== `${blogIdStateValue}/config`
+                window.location.pathname === `/admin/blogs/${id}`
                   ? "bg-teal-100 "
                   : ""
               }`}
@@ -65,7 +62,7 @@ export const Sidebar = () => {
               onClick={createArticle}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
                 window.location.pathname ===
-                `${blogIdStateValue}/articles/create`
+                `/admin/blogs/${id}/articles/create`
                   ? "bg-teal-100 "
                   : ""
               }`}
@@ -93,7 +90,7 @@ export const Sidebar = () => {
             <button
               onClick={handleEditors}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
-                window.location.pathname === `${blogIdStateValue}/editors`
+                window.location.pathname === `/admin/blogs/${id}/editors`
                   ? "bg-teal-100 "
                   : ""
               }`}
@@ -125,7 +122,7 @@ export const Sidebar = () => {
             <button
               onClick={handleSetting}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
-                window.location.pathname === `${blogIdStateValue}/config`
+                window.location.pathname === `/admin/blogs/${id}/config`
                   ? "bg-teal-100 "
                   : ""
               }`}

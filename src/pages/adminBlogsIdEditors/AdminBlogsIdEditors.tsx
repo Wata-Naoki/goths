@@ -73,7 +73,7 @@ export const AdminBlogsIdEditors = () => {
     <>
       <div>
         <BlogHeader />
-      </div>
+      </div> 
 
       <div className="flex justify-start w-full  ">
         <div className="w-1/5">

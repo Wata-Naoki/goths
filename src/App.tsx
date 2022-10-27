@@ -19,10 +19,11 @@ import { Register } from "./components/authentication/resister";
 import { Authentication } from "./components/authentication/authentication";
 import { RecoilRoot } from "recoil";
 import BlogIdArticle from "./pages/BlogIdArticle/BlogIdArticle";
+import { AuthProvider } from "./AuthContext";
 
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <RecoilRoot>
         <Router>
           <Routes>
@@ -66,7 +67,7 @@ function App() {
           </Routes>
         </Router>
       </RecoilRoot>
-    </div>
+    </AuthProvider>
   );
 }
 

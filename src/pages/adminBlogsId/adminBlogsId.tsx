@@ -85,7 +85,7 @@ export const AdminBlogsId = () => {
   return (
     <>
       <div>
-        <BlogHeader />
+        <BlogHeader blogTitle={blogData?.Blog[0].title} />
       </div>
 
       <div className="flex justify-between flex-wrap ">
@@ -95,7 +95,6 @@ export const AdminBlogsId = () => {
 
         <div className="w-2/5 flex justify-center mr-96 mt-4">
           {/* ゴリ押しだから改善の余地あり */}
-
           <div>
             <div>
               {blogData?.Blog[0].Articles.map((x: any) => (

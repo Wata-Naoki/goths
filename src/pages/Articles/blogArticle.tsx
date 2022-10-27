@@ -1,9 +1,10 @@
 import { useQuery, gql, useLazyQuery } from "@apollo/client";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components/header/SearchHeader";
 import { GET_ARTICLES, GET_BLOGS } from "../../queries/queries";
 import { Loading } from "../../components/Loading/Loading";
+import { useAuthContext } from "../../AuthContext";
 
 export const BLOGS_QUERY = gql`
   query blogs {
@@ -43,6 +44,7 @@ function BlogArticle() {
     error: blogrror,
     data: blogdata,
   } = useQuery(BLOGS_QUERY);
+  const { user } = useAuthContext();
 
   // console.log(data);
   const [page, setPage] = useState<"新着記事" | "新着ブログ">("新着記事");
@@ -54,6 +56,7 @@ function BlogArticle() {
       },
     });
   };
+  const navigate = useNavigate();
 
   // let num = 1
 
@@ -102,122 +105,134 @@ function BlogArticle() {
     return <Loading />;
   }
 
-  return (
-    <div className="">
-      <div>
-        <Header />
-      </div>
+  if (!user) {
+    navigate("/authentication");
+    return (
+      <>
+        <Link to={"/login"} className="text-blue-900 underline">
+          ログイン
+        </Link>
+        してください
+      </>
+    );
+  } else {
+    return (
+      <div className="">
+        <div>
+          <Header />
+        </div>
 
-      <div className="flex justify-center w-full">
-        <div className="w-2/5">
-          <div className="flex justify-center mb-2">
-            <button
-              className={`mr-8 ${
-                page === "新着記事"
-                  ? "text-green-700 underline underline-offset-8 decoration-1 "
-                  : "text-black"
-              }`}
-              onClick={() => {
-                setPage("新着記事");
-              }}
-            >
-              新着記事
-            </button>
+        <div className="flex justify-center w-full">
+          <div className="w-2/5">
+            <div className="flex justify-center mb-2">
+              <button
+                className={`mr-8 ${
+                  page === "新着記事"
+                    ? "text-green-700 underline underline-offset-8 decoration-1 "
+                    : "text-black"
+                }`}
+                onClick={() => {
+                  setPage("新着記事");
+                }}
+              >
+                新着記事
+              </button>
 
-            <button
-              className={`mr-8 ${
-                page == "新着ブログ"
-                  ? "text-green-700 underline underline-offset-8 decoration-1 "
-                  : "text-black"
-              }`}
-              onClick={() => {
-                setPage("新着ブログ");
-              }}
-            >
-              新着ブログ
-            </button>
-          </div>
+              <button
+                className={`mr-8 ${
+                  page == "新着ブログ"
+                    ? "text-green-700 underline underline-offset-8 decoration-1 "
+                    : "text-black"
+                }`}
+                onClick={() => {
+                  setPage("新着ブログ");
+                }}
+              >
+                新着ブログ
+              </button>
+            </div>
 
-          {page === "新着記事" ? (
-            <div>
-              {articeData?.Article.map((x: any) => (
-                <div key={x.id} className="my-8">
-                  <Link
-                    to={`/blogs/articles/${x.id}`}
-                    className="hover:text-gray-500"
+            {page === "新着記事" ? (
+              <div>
+                {articeData?.Article.map((x: any) => (
+                  <div key={x.id} className="my-8">
+                    <Link
+                      to={`/blogs/articles/${x.id}`}
+                      className="hover:text-gray-500"
+                    >
+                      <h2 className="text-2xl">{x.title}</h2>
+                    </Link>
+
+                    <div className="flex justify-between my-2 text-gray-500">
+                      <h3>{x.Blog.title}</h3>
+                      <h3>{x.createdAt}</h3>
+                    </div>
+
+                    <p>{x.text}</p>
+                  </div>
+                ))}
+                <div className="flex justify-center mb-10">
+                  <button
+                    onClick={onClickFetch}
+                    type="submit"
+                    className="bg-emerald-700 text-white text-sm py-2  px-4  font-medium rounded"
                   >
-                    <h2 className="text-2xl">{x.title}</h2>
-                  </Link>
-
-                  <div className="flex justify-between my-2 text-gray-500">
-                    <h3>{x.Blog.title}</h3>
-                    <h3>{x.createdAt}</h3>
-                  </div>
-
-                  <p>{x.text}</p>
+                    さらに読み込む
+                  </button>
                 </div>
-              ))}
-              <div className="flex justify-center mb-10">
-                <button
-                  onClick={onClickFetch}
-                  type="submit"
-                  className="bg-emerald-700 text-white text-sm py-2  px-4  font-medium rounded"
-                >
-                  さらに読み込む
-                </button>
               </div>
-            </div>
-          ) : (
-            <div>
-              {blogData?.Blog.map((x: any) => (
-                <div
-                  key={x.id}
-                  className="flex justify-between items-center my-8 "
-                >
-                  <div>
-                    <h2 className="text-2xl">{x.title}</h2>
-                    <h3 className="my-2 text-gray-500">
-                      {x.blog_users[0].User.name}
-                    </h3>
+            ) : (
+              <div>
+                {blogData?.Blog.map((x: any) => (
+                  <div
+                    key={x.id}
+                    className="flex justify-between items-center my-8 "
+                  >
+                    <div>
+                      <h2 className="text-2xl">{x.title}</h2>
+                      <h3 className="my-2 text-gray-500">
+                        {x.blog_users[0].User.name}
+                      </h3>
+                    </div>
+                    <Link to={`/blogs/${x.id}/articles`}>
+                      <div className="flex justify-center items-center">
+                        <div className="text-green-600">ブログ記事を見る </div>
+                        <svg
+                          className="h-5 w-5 text-green-500"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          stroke-width="2"
+                          stroke="currentColor"
+                          fill="none"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          {" "}
+                          <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                          <polyline points="9 6 15 12 9 18" />
+                        </svg>
+                      </div>{" "}
+                    </Link>
                   </div>
-                  <Link to={`/blogs/${x.id}/articles`}>
-                    <div className="flex justify-center items-center">
-                      <div className="text-green-600">ブログ記事を見る </div>
-                      <svg
-                        className="h-5 w-5 text-green-500"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        stroke-width="2"
-                        stroke="currentColor"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        {" "}
-                        <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                        <polyline points="9 6 15 12 9 18" />
-                      </svg>
-                    </div>{" "}
-                  </Link>
-                </div>
-              ))}
+                ))}
 
-              <div className="flex justify-center mb-10">
-                <button
-                  onClick={onClickFetchBlog}
-                  type="submit"
-                  className="bg-emerald-700 text-white text-sm py-2  px-4  font-medium rounded"
-                >
-                  さらに読み込む
-                </button>
+                <div className="flex justify-center mb-10">
+                  <button
+                    onClick={onClickFetchBlog}
+                    type="submit"
+                    className="bg-emerald-700 text-white text-sm py-2  px-4  font-medium rounded"
+                  >
+                    さらに読み込む
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export const Manage = () => {

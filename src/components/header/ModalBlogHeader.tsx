@@ -3,7 +3,9 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { useAuthContext } from "../../AuthContext";
 import { GET_BLOGS_MODAL } from "../../queries/queries";
+
 import { blogChoiceState, blogIdState } from "../Atom/BlogChoiceAtom";
 
 // const BLOG_CHOICE_QUERY = gql`
@@ -19,11 +21,14 @@ import { blogChoiceState, blogIdState } from "../Atom/BlogChoiceAtom";
 //   }
 // `;
 
-export const ModalBlogHeader = () => {
+export const ModalBlogHeader = ({ blogTitle }: any) => {
+  console.log(blogTitle);
+  const { user } = useAuthContext();
+
   const { loading, error, data } = useQuery(GET_BLOGS_MODAL, {
-    variables: { id: "1bf773a5-9c62-43bc-b5ce-43633fdb3b14" },
+    variables: { email: user?.email },
   });
-  // console.log(data);
+  console.log(data);
 
   const { id } = useParams();
 
@@ -52,7 +57,7 @@ export const ModalBlogHeader = () => {
   return (
     <>
       <div className="flex juestify-center items-center mt-2 ">
-        <div>{data?.Blog[0].title}</div>
+        <div>{blogTitle}</div>
 
         <div className="mx-2">
           <svg
@@ -96,7 +101,7 @@ export const ModalBlogHeader = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl transition-all focus:outline-none">
                   <Dialog.Title
                     as="h3"
                     className="text font-medium leading-6 text-gray-900"
@@ -118,10 +123,11 @@ export const ModalBlogHeader = () => {
                                       <td className=" py-4 pl-2 hover:bg-gray-100 ">
                                         <div className="flex justify-start">
                                           <div
-                                          // className={`relative flex items-center pr-4 ml-4  ${
-                                          //   blogState === x.blogName
-                                          //     ? "visible "ï
-                                          //     : "invisible"}`}
+                                            className={`relative flex items-center pr-4 ml-4  ${
+                                              id === x.id
+                                                ? "visible "
+                                                : "invisible"
+                                            }`}
                                           >
                                             <svg
                                               className="h-6 w-6 text-green-700 "
@@ -136,8 +142,9 @@ export const ModalBlogHeader = () => {
                                               <polyline points="20 6 9 17 4 12" />
                                             </svg>
                                           </div>
-                                          <div className="ml-6 focus:outline-none">
+                                          <div className="ml-6 ">
                                             <button
+                                              className="focus:outline-none"
                                               onClick={() => {
                                                 handleLink(x.id);
                                               }}

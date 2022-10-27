@@ -6,9 +6,10 @@ import { blogIdState } from "../Atom/BlogChoiceAtom";
 import { ModalBlogHeader } from "./ModalBlogHeader";
 import UserIcon from "./UserIcon";
 
-export const BlogHeader = () => {
+export const BlogHeader = ({ blogTitle }: any) => {
   const blogIdStateValue = useRecoilValue(blogIdState);
   // console.log(blogIdStateValue)
+  console.log(blogTitle);
   return (
     <>
       <div className="flex justify-between my-2 mx-5">
@@ -26,7 +27,7 @@ export const BlogHeader = () => {
           {/* 2 */}
 
           <div>
-            <ModalBlogHeader />
+            <ModalBlogHeader blogTitle={blogTitle} />
           </div>
         </div>
         {/* 2 */}

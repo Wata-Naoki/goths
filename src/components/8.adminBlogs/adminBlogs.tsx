@@ -2,7 +2,8 @@ import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { GET_USER_BLOGS, GET_BLOGS } from "../../queries/queries";
+import { useAuthContext } from "../../AuthContext";
+import { GET_BLOGS, GET_USER_BLOGS } from "../../queries/queries";
 
 import { blogChoiceState } from "../Atom/BlogChoiceAtom";
 import { Header } from "../header/SearchHeader";
@@ -79,11 +80,13 @@ export const AdminBlogs = () => {
     setNumBlog(numblog + 1);
     //console.log(num);
   };
+  const { user } = useAuthContext();
 
   useEffect(() => {
     // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
+    console.log(user.email);
     executeBlog({
-      variables: { id: "1bf773a5-9c62-43bc-b5ce-43633fdb3b14", limit: numblog },
+      variables: { email: user?.email, limit: numblog },
     });
     // }
   }, [executeBlog, numblog]);

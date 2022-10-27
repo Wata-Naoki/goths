@@ -79,9 +79,9 @@ export const GET_BLOGS = gql`
 `;
 
 export const GET_USER_BLOGS = gql`
-  query GetUserBlogs($id: uuid, $limit: Int) {
+  query GetUserBlogs($email: String, $limit: Int) {
     Blog(
-      where: { blog_users: { User: { id: { _eq: $id } } } }
+      where: { blog_users: { User: { email: { _eq: $email } } } }
       order_by: { createdAt: desc }
       limit: $limit
     ) {
@@ -275,8 +275,8 @@ export const DELETE_USER_ONE = gql`
 `;
 
 export const GET_BLOGS_MODAL = gql`
-  query GetBlogsModal($id: uuid) {
-    Blog(where: { blog_users: { User: { id: { _eq: $id } } } }) {
+  query GetBlogsModal($email: String) {
+    Blog(where: { blog_users: { User: { email: { _eq: $email } } } }) {
       id
       title
     }

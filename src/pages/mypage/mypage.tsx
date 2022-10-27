@@ -5,6 +5,7 @@ import { GET_USER, UPDATE_USER } from "../../queries/queries";
 import { UpdateUserMutation } from "../../types/generated/graphql.tsx/graphql";
 import { Header } from "../../components/header/SearchHeader";
 import { Loading } from "../../components/Loading/Loading";
+import { useAuthContext } from "../../AuthContext";
 
 const Mypage = () => {
   // console.log(data);
@@ -116,11 +117,13 @@ export default Mypage;
 // `;
 
 export const UserForm = () => {
+  const { user } = useAuthContext();
+
   const {
     data: userDate,
     loading: userLoading,
     error: userError,
-  } = useQuery(GET_USER, { variables: { email: "user1-1@gmail.com" } });
+  } = useQuery(GET_USER, { variables: { email: user?.email } });
 
   console.log(userDate);
   const [username, setUsername] = useState();
@@ -133,7 +136,6 @@ export const UserForm = () => {
 
   /* useEffect(() => {
      setUsername(userDate?.User[0].name)
-
   },[username, email])
  */
   const handleSubmit = async (e: any) => {
@@ -142,7 +144,7 @@ export const UserForm = () => {
       try {
         await updata_users_by_pk({
           variables: {
-            id: "1bf773a5-9c62-43bc-b5ce-43633fdb3b14",
+            id: userDate?.User[0].id,
             name: username ? username : userDate?.User[0].name,
             email: email ? email : userDate?.User[0].email,
           },
@@ -154,7 +156,7 @@ export const UserForm = () => {
     }
   };
 
-  if (userLoading ) {
+  if (userLoading) {
     return <Loading />;
   }
 

@@ -13,21 +13,8 @@ import { Header } from "../../components/header/SearchHeader";
 import { Loading } from "../../components/Loading/Loading";
 import { Sidebar } from "../../components/sidebar/navbar";
 
-// const EDIT_ARTICLE = gql`
-//   mutation EditArticle($input: input!) {
-//     EditArticle(input: $input) {
-//       title
-//       text
-//     }
-//   }
-// `;
-
 export const AdminBlogsIdEditors = () => {
   const articleEditValue = useRecoilValue(blogIdArticleEditState);
-  // console.log(articleEditValue);
-  // console.log(articleEditValue.title);
-  // console.log(articleEditValue.text);
-  //console.log(articleEditValue)
 
   const { id: blogId, articleId } = useParams();
 
@@ -78,7 +65,7 @@ export const AdminBlogsIdEditors = () => {
     }
   };
 
-  if (articleLoading ) {
+  if (articleLoading) {
     return <Loading />;
   }
 
@@ -86,7 +73,7 @@ export const AdminBlogsIdEditors = () => {
     <>
       <div>
         <BlogHeader />
-      </div>
+      </div> 
 
       <div className="flex justify-start w-full  ">
         <div className="w-1/5">

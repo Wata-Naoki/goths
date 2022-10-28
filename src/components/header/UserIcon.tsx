@@ -1,14 +1,14 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { auth } from "../../firebase";
+import auth from "../../firebase";
 
 export default function UserIcon() {
   const navigate = useNavigate();
   const handleLogout = () => {
     auth.signOut();
     navigate("/authentication");
-  };
+  }; 
   return (
     <div className="  text-right">
       <Menu as="div" className="relative inline-block text-left">

@@ -1,7 +1,5 @@
 import firebase from "firebase/compat/app";
-
 import "firebase/compat/auth";
-
 import "firebase/compat/firestore";
 
 const firebaseConfig = {
@@ -15,5 +13,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 export const provider = new firebase.auth.GoogleAuthProvider();
-export const auth = firebase.auth();
+
+const auth = firebase.auth();
 export default auth;

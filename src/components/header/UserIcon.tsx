@@ -8,7 +8,7 @@ export default function UserIcon() {
   const handleLogout = () => {
     auth.signOut();
     navigate("/authentication");
-  };
+  }; 
   return (
     <div className="  text-right">
       <Menu as="div" className="relative inline-block text-left">

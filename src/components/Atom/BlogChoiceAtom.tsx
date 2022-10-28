@@ -14,3 +14,7 @@ export const blogIdArticleEditState = atom<any>({
   default: {},
 });
 
+export const adminBlogState = atom<any>({
+  key: "blogIdArticleEditState1",
+  default: true,
+});

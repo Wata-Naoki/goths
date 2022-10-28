@@ -1,27 +1,38 @@
 import { gql, useMutation } from "@apollo/client";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
+import { useParams } from "react-router-dom";
+import { CREATE_USER_ONE } from "../../queries/queries";
 
-const USER_ADD = gql`
-  mutation UserAdd($input: input!) {
-    UserAdd(input: $input) {
-      email
-    }
-  }
-`;
+// const USER_ADD = gql`
+//   mutation UserAdd($input: input!) {
+//     UserAdd(input: $input) {
+//       email
+//     }
+//   }
+// `;
 
 export const AddButton = () => {
-  const [email, setEmail] = useState("");
-  const [userAdd, { loading, error }] = useMutation(USER_ADD);
+  const { id } = useParams();
+  const [name, setName] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [insert_User_one, { loading, error }] = useMutation(CREATE_USER_ONE);
 
-  const handleSubmit = () => {
-    userAdd({
-      variables: {
-        input: {
-          email: email,
-        },
-      },
-    });
+  const handleSubmit = async () => {
+    if (id) {
+      try {
+        await insert_User_one({
+          variables: {
+            blog_id: id,
+            name: name,
+            email: email,
+          },
+        });
+        alert("変更が保存されました");
+      } catch (err: any) {
+        alert(err.message);
+      }
+    }
   };
 
   let [isOpen, setIsOpen] = useState(false);
@@ -78,10 +89,11 @@ export const AddButton = () => {
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
                     <form
-                      onSubmit={(e) => {
+                      onSubmit={async (e) => {
                         closeModal();
                         e.preventDefault();
-                        handleSubmit();
+                        await handleSubmit();
+                        window.location.href = `/admin/blogs/${id}/editors`;
                       }}
                     >
                       <div className="flex justify-center text-center">
@@ -89,17 +101,26 @@ export const AddButton = () => {
                           <div className="">編集者追加</div>
 
                           <div className="mt-4 text-sm text-gray-500 px-10">
-                            <p>
-                              追加したいユーザーのEメールアドレスを入力してください。
-                            </p>
+                            <p>名前を入力してください。</p>
+                            <input
+                              value={name}
+                              type="name"
+                              onChange={(e: any) => setName(e.target.value)}
+                              id="name"
+                              required
+                              name="name"
+                              className="mb-4 text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-80 "
+                            />
+                            <p>Eメールアドレスを入力してください。</p>
                             <input
                               value={email}
                               type="email"
                               onChange={(e: any) => setEmail(e.target.value)}
                               id="email"
+                              required
                               name="email"
                               className="my-2 text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-80 "
-                            ></input>
+                            />
                           </div>
                         </div>
                       </div>
@@ -116,7 +137,6 @@ export const AddButton = () => {
                         <button
                           type="submit"
                           className="w-1/2 inline-flex justify-center rounded-md border border-inherit bg-green-700 pl-3 py-2 text-sm font-medium text-white hover:bg-green-600 focus:outline-none "
-                          
                         >
                           追加
                         </button>

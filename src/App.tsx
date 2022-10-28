@@ -1,17 +1,15 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AdminBlogs } from "./components/8.adminBlogs/adminBlogs";
-import { AdminBlogsId } from "./components/9.adminBlogsId/adminBlogsId";
+import { AdminBlogsId } from "./pages/adminBlogsId/adminBlogsId";
 import { AdminBlogsIdArticlesCreate } from "./components/12.AdminBlogsIdArticlesCreate/AdminBlogsIdArticlesCreate";
-import { AdminBlogsIdArticlesId } from "./components/10.adminBlogsIdArticlesId/AdminBlogsIdArticlesId";
+import { AdminBlogsIdArticlesId } from "./pages/adminBlogsIdArticlesId/AdminBlogsIdArticlesId";
 import { AdminBlogsIdConfig } from "./components/13.adminBlogsIdConfig/AdminBlogsIdConfig";
-import { AdminBlogsIdEditors } from "./components/11.adminBlogsIdEditors/AdminBlogsIdEditors";
-
-import BlogArticle from "./components/2.articles/blogArticle";
-import BlogIdArticle from "./components/3.blogIdArticleId/BlogIdArticle";
-import BlogIdArticleId from "./components/4.blogIdArticles/BlogIdArticleId";
-import Favorites from "./components/5.favorites/favorites";
-import { FormComponent } from "./components/1.form/FormComponent";
-import Mypage from "./components/7.mypage/mypage";
+import { AdminBlogsIdEditors } from "./pages/adminBlogsIdEditors/AdminBlogsIdEditors";
+import BlogArticle from "./pages/Articles/blogArticle";
+import BlogIdArticleId from "./pages/blogIdArticles/BlogIdArticleId";
+import Favorites from "./pages/favorites/favorites";
+import { FormComponent } from "./pages/form/FormComponent";
+import Mypage from "./pages/mypage/mypage";
 import Searches from "./components/6.search/serches";
 import { AdminBlogIdArticlesIdEdit } from "./components/14.AdminBlogsIdArticlesIdEdit/AdminBlogIdArticlesIdEdit";
 import { ResultSearch } from "./components/6.search/ResultSearch";
@@ -20,10 +18,12 @@ import { Login } from "./components/Base/login";
 import { Register } from "./components/authentication/resister";
 import { Authentication } from "./components/authentication/authentication";
 import { RecoilRoot } from "recoil";
+import BlogIdArticle from "./pages/BlogIdArticle/BlogIdArticle";
+import { AuthProvider } from "./AuthContext";
 
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <RecoilRoot>
         <Router>
           <Routes>
@@ -35,12 +35,12 @@ function App() {
             <Route path="/" element={<BlogArticle />} />
             <Route path="/blogs/:id/articles" element={<BlogIdArticle />} />
             <Route
-              path="/blogs/:id/articles/:articleId"
+              path="/blogs/articles/:articleId"
               element={<BlogIdArticleId />}
             />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/search/:text" element={<Searches />} />
-            <Route path="/search" element={<ResultSearch />} />
+            <Route path="/search" element={<Searches />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/admin/blogs" element={<AdminBlogs />} />
             <Route path="/admin/blogs/:id" element={<AdminBlogsId />} />
@@ -49,7 +49,7 @@ function App() {
               element={<AdminBlogsIdArticlesId />}
             />
             <Route
-              path="/admin/blogs/:id/articles/:id/edit"
+              path="/admin/blogs/:id/articles/:articleId/edit"
               element={<AdminBlogsIdEditors />}
             />
             <Route
@@ -67,7 +67,7 @@ function App() {
           </Routes>
         </Router>
       </RecoilRoot>
-    </div>
+    </AuthProvider>
   );
 }
 

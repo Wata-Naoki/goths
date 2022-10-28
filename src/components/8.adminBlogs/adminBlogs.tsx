@@ -1,10 +1,13 @@
-import { gql, useQuery } from "@apollo/client";
-import React, { useState } from "react";
+import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { Form } from "../2.articles/blogArticle";
+import { useAuthContext } from "../../AuthContext";
+import { GET_BLOGS, GET_USER_BLOGS } from "../../queries/queries";
+
 import { blogChoiceState } from "../Atom/BlogChoiceAtom";
 import { Header } from "../header/SearchHeader";
+import { Loading } from "../Loading/Loading";
 
 const ARTICLESBYMYBLOG_QUERY = gql`
   query myBlogsByUser {
@@ -56,14 +59,44 @@ export const AdminBlogs = () => {
 
   const pageColor = "text-green-700 underline underline-offset-8 decoration-1";
 
-  const {
+  /* const {
     loading: blogLoading,
     error: blogError,
     data: blogData,
-  } = useQuery(BLOG_CHOICE_QUERY);
+  } = useQuery(BLOG_CHOICE_QUERY); */
 
   const [blogState, setBlogState] = useRecoilState(blogChoiceState);
   // console.log(blogState)
+
+  const [numblog, setNumBlog] = useState<number>(2);
+
+  const [
+    executeBlog,
+    { data: blogData, error: blogError, loading: blogLoading },
+  ] = useLazyQuery(GET_USER_BLOGS);
+  console.log(blogData);
+
+  const onClickFetchBlog = () => {
+    setNumBlog(numblog + 1);
+    //console.log(num);
+  };
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
+    console.log(user.email);
+    executeBlog({
+      variables: { email: user?.email, limit: numblog },
+    });
+    // }
+  }, [executeBlog, numblog]);
+  // console.log(blogData);
+
+  // console.log(articeData.Article[0]);
+
+  if (blogLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -72,7 +105,6 @@ export const AdminBlogs = () => {
       <div className=" flex justify-center w-full">
         <div className="w-1/3">
           <div>
-
             <div className="flex justify-between">
               <div>ブログ管理</div>
               <div>
@@ -80,15 +112,13 @@ export const AdminBlogs = () => {
               </div>
             </div>
           </div>
-
           <div></div>
           <div className="flex justify-center my-5">
-
             <button
               onClick={() => {
                 setPage("Myブログ");
               }}
-              className={`mr-8 ${page == "Myブログ" ? `${pageColor}` : ""}`}
+              className={`mr-8 ${page === "Myブログ" ? `${pageColor}` : ""}`}
             >
               Myブログ
             </button>
@@ -97,19 +127,20 @@ export const AdminBlogs = () => {
               onClick={() => {
                 setPage("編集者ブログ");
               }}
-              className={`mr-8 ${page == "編集者ブログ" ? `${pageColor}` : ""}`}
+              className={`mr-8 ${
+                page === "編集者ブログ" ? `${pageColor}` : ""
+              }`}
             >
               編集者ブログ
             </button>
           </div>
-
           {page === "Myブログ" ? (
             <div>
-              {myblogdata?.myBlogsByUser.data.map((x: any) => (
+              {blogData?.Blog.map((x: any) => (
                 <div key={x.id} className="flex justify-between mt-10">
                   <div>
                     <h2>{x.title}</h2>
-                    <h3>{x.user}</h3>
+                    <h3>{x.blog_users[0].User.name}</h3>
                   </div>
                   <Link
                     to={`/admin/blogs/${x.id}`}
@@ -118,7 +149,7 @@ export const AdminBlogs = () => {
                         (y: any) => y.mockMyBlogs.id === x.id
                       );
                       setBlogState(targetArticle?.blogName);
-                      console.log(blogState);
+                      // console.log(blogState);
                     }}
                   >
                     <div className="flex justify-center items-center">
@@ -158,7 +189,7 @@ export const AdminBlogs = () => {
                         (y: any) => y.mockMyBlogs.id === x.id
                       );
                       setBlogState(targetArticle?.blogName);
-                      console.log(blogState);
+                      //console.log(blogState);
                     }}
                   >
                     <div className="flex justify-center items-center">
@@ -184,9 +215,14 @@ export const AdminBlogs = () => {
               ))}
             </div>
           )}
-
-          <div className="mt-8 flex justify-center">
-            <Form />
+          <div className="flex justify-center my-10">
+            <button
+              onClick={onClickFetchBlog}
+              type="submit"
+              className="bg-emerald-700 text-white text-sm py-2  px-4  font-medium rounded"
+            >
+              さらに読み込む
+            </button>
           </div>
         </div>
       </div>
@@ -197,7 +233,7 @@ export const AdminBlogs = () => {
 export const CreateNewBlog = () => {
   function handleSubmit(e: any) {
     e.preventDefault();
-    console.log("You clicked submit.");
+    //console.log("You clicked submit.");
   }
   return (
     <>

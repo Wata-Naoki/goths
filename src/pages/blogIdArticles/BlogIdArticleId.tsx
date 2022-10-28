@@ -1,7 +1,9 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { Header } from "../header/SearchHeader";
+import { Header } from "../../components/header/SearchHeader";
+import { GET_ARTICLE } from "../../queries/queries";
+import { Loading } from "../../components/Loading/Loading";
 
 const BLOGIDARTICLESID_QUERY = gql`
   query article {
@@ -23,10 +25,20 @@ const BlogIdArticleId = () => {
   const { loading, error, data } = useQuery(BLOGIDARTICLESID_QUERY);
   const { id, articleId } = useParams();
 
-  
-  const targetArticle = data?.article.data.find(
+  const {
+    data: articleData,
+    loading: articeDataLoading,
+    error: articeDataError,
+  } = useQuery(GET_ARTICLE, { variables: { id: articleId } });
+  /* const targetArticle = data?.article.data.find(
     (x: any) => x.articleId === articleId
-  );
+  ); */
+
+  console.log(articleData?.Article[0].Blog.title);
+
+  if (articeDataLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -34,20 +46,20 @@ const BlogIdArticleId = () => {
         <Header />
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center mb-10">
         <div className="w-2/5">
           <div>
-            <div className="flex justify-center mb-5 text-xl">
-              <div>{targetArticle?.blog}</div>
+            <div className="flex justify-center mb-6 text-xl">
+              <div>{articleData?.Article[0].Blog.title}</div>
             </div>
-            <div className="text-2xl">{targetArticle?.title}</div>
-            <div className="flex justify-between mt-1 mb-4 text-gray-500">
-              <div className="text-gray-500">{targetArticle?.user}</div>
-              <div>{targetArticle?.createdAt}</div>
+            <div className="text-2xl">{articleData?.Article[0].title}</div>
+            <div className="flex justify-between mt-6 mb-8 text-gray-500">
+              <div className="text-gray-500">
+                {articleData?.Article[0].User.name}
+              </div>
+              <div>{articleData?.Article[0].createdAt}</div>
             </div>
-            <p className="mb-5">{targetArticle?.text}</p>
-            <p className="mb-5">{targetArticle?.text}</p>
-            <p className="">{targetArticle?.text}</p>
+            <p className="mb-5">{articleData?.Article[0].all_text}</p>
 
             <div className="flex justify-end text-gray-500 mt-5">
               <div>
@@ -71,7 +83,8 @@ const BlogIdArticleId = () => {
                   />
                 </svg>
               </div>
-              <div>{targetArticle?.tags}</div>
+              <div>88</div>
+              {/* <div>{targetArticle?.tags}</div> */}
             </div>
           </div>
         </div>

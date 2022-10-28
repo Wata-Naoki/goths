@@ -1,11 +1,33 @@
+import { useMutation } from "@apollo/client";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import { useParams } from "react-router-dom";
+import { DELETE_USER_ONE } from "../../queries/queries";
+import { DeleteUserOneMutation } from "../../types/generated/graphql.tsx/graphql";
+import { Loading } from "../Loading/Loading";
 
 type Props = {
-  onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  //onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  id: string;
 };
-const DeleteTableUsers: React.FC<Props> = ({ onClick }) => {
+const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
+  const { id } = useParams();
   let [isOpen, setIsOpen] = useState(false);
+
+  const [delete_User_by_pk, { loading: deleteLoading, error: deleteError }] =
+    useMutation<DeleteUserOneMutation>(DELETE_USER_ONE);
+  const handleDelete = async () => {
+    if (userId) {
+      try {
+        await delete_User_by_pk({ variables: { id: userId } });
+        alert("変更が保存されました");
+        // navigate(-1);
+        window.location.href = `/admin/blogs/${id}/editors`;
+      } catch (err: any) {
+        alert(err.message);
+      }
+    }
+  };
 
   function closeModal() {
     setIsOpen(false);
@@ -15,18 +37,22 @@ const DeleteTableUsers: React.FC<Props> = ({ onClick }) => {
     setIsOpen(true);
   }
 
+  /* if (deleteLoading) {
+    return <Loading />;
+  } */
+  if (deleteError) {
+    return <div>"エラーが発生しました。"</div>;
+  }
+
   return (
     <>
-
-
-        <button
-          type="button"
-          onClick={openModal}
-          className="  text-sm font-medium   "
-        >
-          削除
-        </button>
-
+      <button
+        type="button"
+        onClick={openModal}
+        className="  text-sm font-medium   "
+      >
+        削除
+      </button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -82,7 +108,9 @@ const DeleteTableUsers: React.FC<Props> = ({ onClick }) => {
                         <div>編集者削除</div>
 
                         <div className="mt-2 text-sm text-gray-500  ">
-                          <p>削除された編集者はブログ記事の編集ができなくなります。</p>
+                          <p>
+                            削除された編集者はブログ記事の編集ができなくなります。
+                          </p>
                           <p>よろしいですか？</p>
                         </div>
                       </div>
@@ -98,11 +126,9 @@ const DeleteTableUsers: React.FC<Props> = ({ onClick }) => {
                       <button
                         type="button"
                         className="inline-flex justify-center rounded-md border border-inherit bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
-                        onClick={(e) => {
+                        onClick={async () => {
                           closeModal();
-                          if (onClick) {
-                            onClick(e);
-                          }
+                          await handleDelete();
                         }}
                       >
                         削除
@@ -117,5 +143,5 @@ const DeleteTableUsers: React.FC<Props> = ({ onClick }) => {
       </Transition>
     </>
   );
-}
-export default DeleteTableUsers
+};
+export default DeleteTableUsers;

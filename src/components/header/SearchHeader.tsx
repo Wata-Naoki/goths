@@ -2,7 +2,10 @@ import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import App from "../../App";
-import { Manage } from "../2.articles/blogArticle";
+import { Manage } from "../../pages/Articles/blogArticle";
+
+/* import { Manage } from "../../pages/Articles/blogArticle";
+ */
 import { ResultSearch } from "../6.search/ResultSearch";
 import Searches from "../6.search/serches";
 import { blogIdState } from "../Atom/BlogChoiceAtom";
@@ -11,23 +14,23 @@ import UserIcon from "./UserIcon";
 export const Header = () => {
   const [text, setText] = useState("");
   const navigate = useNavigate();
-  
+
   // console.log(`text:${text}`);
   const blogIdStateValue = useRecoilValue(blogIdState);
   // console.log(blogIdStateValue)
 
   return (
     <>
-      <div className="flex justify-between my-4 mx-3">
+      <div className="flex justify-between my-6 mx-3">
         <div>
           <Link to={"/admin/blogs"}>
-          <div className="text-black w-28 h-10 text-3xl  font-medium not-italic flex-none order-none grow-0">
-            Goths
-          </div></Link>
+            <div className="text-black w-28 h-10 text-3xl  font-medium not-italic flex-none order-none grow-0">
+              Goths
+            </div>
+          </Link>
         </div>
 
         <div>
-
           <div className="flex w-40 flex-wrap items-stretch mb-2">
             <div className="relative flex items-center">
               <svg
@@ -68,7 +71,7 @@ export const Header = () => {
             </div>
 
             <div className="mr-3">
-              <Link to={blogIdStateValue}>
+              <Link to={`/admin/blogs`}>
                 <Manage />
               </Link>
             </div>

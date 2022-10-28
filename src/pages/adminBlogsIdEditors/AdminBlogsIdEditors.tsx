@@ -1,31 +1,35 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { CREATE_ARTICLE, GET_BLOG_USER } from "../../queries/queries";
-
+import { useRecoilValue } from "recoil";
+import { GET_ARTICLE, UPDATE_ARTICLE } from "../../queries/queries";
 import {
-  BlogUserQuery,
-  CreateArticleOneMutation,
+  GetArticleQuery,
+  UpdateArticleMutation,
 } from "../../types/generated/graphql.tsx/graphql";
-import { BlogHeader } from "../header/BlogHeader";
-import { Header } from "../header/SearchHeader";
-import { Loading } from "../Loading/Loading";
-import { Quote } from "../Quote/Quote";
-import { Sidebar } from "../sidebar/navbar";
+import { blogIdArticleEditState } from "../../components/Atom/BlogChoiceAtom";
+import { BlogHeader } from "../../components/header/BlogHeader";
+import { Header } from "../../components/header/SearchHeader";
+import { Loading } from "../../components/Loading/Loading";
+import { Sidebar } from "../../components/sidebar/navbar";
 
-export const AdminBlogsIdArticlesCreate = () => {
-  const { id } = useParams();
+export const AdminBlogsIdEditors = () => {
+  const articleEditValue = useRecoilValue(blogIdArticleEditState);
+
+  const { id: blogId, articleId } = useParams();
+
+  const {
+    data,
+    loading: articleLoading,
+    error: articleError,
+  } = useQuery<GetArticleQuery>(GET_ARTICLE, {
+    variables: { id: articleId },
+  });
+  //console.log(data);
+
   const [title, setTitle] = useState();
   const [text, setText] = useState();
   const [allText, setAllText] = useState();
-
-  const { data, loading } = useQuery<BlogUserQuery>(GET_BLOG_USER, {
-    variables: { id: id },
-  });
-  //console.log(data?.blog_user[0].user_id);
-
-  const [insert_Article_one, { loading: articleLoading, error }] =
-    useMutation<CreateArticleOneMutation>(CREATE_ARTICLE);
 
   const handleTitleChange = (e: any) => {
     setTitle(e.target.value);
@@ -36,40 +40,40 @@ export const AdminBlogsIdArticlesCreate = () => {
 
   const handleAllTextChange = (e: any) => {
     setAllText(e.target.value);
-    //console.log(allText);
   };
+
+  // const [editArticle, { loading, error }] = useMutation(EDIT_ARTICLE);
+  const [update_Article_by_pk, { loading, error }] =
+    useMutation<UpdateArticleMutation>(UPDATE_ARTICLE);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (id) {
+    if (articleId) {
       try {
-        await insert_Article_one({
+        await update_Article_by_pk({
           variables: {
+            id: articleId,
             title: title,
             text: text,
-            user_id: data?.blog_user[0].user_id,
-            blog_id: id,
             all_text: allText,
           },
         });
-        alert("記事が作成されました");
+        alert("変更が保存されました");
       } catch (err: any) {
         alert(err.message);
       }
     }
   };
 
-  if (loading || articleLoading) {
+  if (articleLoading) {
     return <Loading />;
   }
 
   return (
     <>
-      {/* <div>AdminBlogsIdArticlesCreate</div> */}
-
       <div>
         <BlogHeader />
-      </div>
+      </div> 
 
       <div className="flex justify-start w-full  ">
         <div className="w-1/5">
@@ -86,6 +90,7 @@ export const AdminBlogsIdArticlesCreate = () => {
                     <input
                       type="text"
                       id=""
+                      defaultValue={data?.Article[0].title}
                       value={title}
                       onChange={handleTitleChange}
                       name="title"
@@ -101,6 +106,7 @@ export const AdminBlogsIdArticlesCreate = () => {
                       rows={1}
                       id=""
                       name="content"
+                      defaultValue={data?.Article[0].text}
                       value={text}
                       onChange={handleTextChange}
                       className="text-sm whitespace-normal text-left border border-slate-300 rounded focus:outline-0 pl-4 pt-2 pr-4 pb-24 w-full "
@@ -115,6 +121,11 @@ export const AdminBlogsIdArticlesCreate = () => {
                       rows={4}
                       id=""
                       name="content"
+                      defaultValue={
+                        data?.Article[0].all_text
+                          ? data?.Article[0].all_text
+                          : undefined
+                      }
                       value={allText}
                       onChange={handleAllTextChange}
                       className="text-sm whitespace-normal text-left border border-slate-300 rounded focus:outline-0 pl-4 pt-2 pr-4 pb-24 w-full "
@@ -127,17 +138,18 @@ export const AdminBlogsIdArticlesCreate = () => {
                     <div className="flex flex-wrap items-stretch ">
                       <div className="relative flex items-center ">
                         <svg
-                          className="h-4 w-4 text-white absolute ml-2.5"
-                          fill="none"
+                          className="h-4 w-4 text-white absolute ml-2.5 "
                           viewBox="0 0 24 24"
+                          fill="none"
                           stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                         >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                          />
+                          {" "}
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />{" "}
+                          <polyline points="7 10 12 15 17 10" />{" "}
+                          <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
                       </div>
 
@@ -145,7 +157,7 @@ export const AdminBlogsIdArticlesCreate = () => {
                         type="submit"
                         className=" bg-emerald-700 text-white text-sm py-1.5  pr-4 pl-8  font-medium rounded"
                       >
-                        作成
+                        保存
                       </button>
                     </div>
                   </div>
@@ -153,12 +165,6 @@ export const AdminBlogsIdArticlesCreate = () => {
               </div>
             </div>
           </form>
-        </div>
-
-        <div className="flex justify-end mr-12 mt-96">
-          <div className="mt-64">
-            <Quote />
-          </div>
         </div>
       </div>
     </>

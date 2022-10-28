@@ -1,26 +1,40 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { blogIdState } from "../Atom/BlogChoiceAtom";
 
 export const Sidebar = () => {
+  const { id } = useParams();
   const blogIdStateValue = useRecoilValue(blogIdState);
   // console.log(blogIdStateValue);
+  const redirectToGoogle = () => {
+    window.location.href = "https://www.google.com/?hl=ja";
+  };
+
+  const articleList = () => {
+    window.location.href = `/admin/blogs/${id}`;
+  };
+  const createArticle = () => {
+    window.location.href = `/admin/blogs/${id}/articles/create`;
+  };
+
+  const handleEditors = () => {
+    window.location.href = `/admin/blogs/${id}/editors`;
+  };
+  const handleSetting = () => {
+    window.location.href = `/admin/blogs/${id}/config`;
+  };
   return (
     <>
       {/*  <div>Sidebar</div> */}
       <br />
 
-      <div className="w-60 h-5/6 px-1 absolute flex flex-col items-start justify-between ">
-
+      <div className="w-60 h-5/6 px-1 flex flex-col items-start justify-between sticky top-0">
         <div>
           <div className="mb-2">
-            <Link
-              to={blogIdStateValue}
+            <button
+              onClick={articleList}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
-                window.location.pathname !==
-                  `${blogIdStateValue}/articles/create` &&
-                window.location.pathname !== `${blogIdStateValue}/editors` &&
-                window.location.pathname !== `${blogIdStateValue}/config`
+                window.location.pathname === `/admin/blogs/${id}`
                   ? "bg-teal-100 "
                   : ""
               }`}
@@ -41,14 +55,14 @@ export const Sidebar = () => {
               </div>
 
               <div className="ml-1">記事一覧</div>
-            </Link>
+            </button>
           </div>
           <div className="mb-2">
-            <Link
-              to={`${blogIdStateValue}/articles/create`}
+            <button
+              onClick={createArticle}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
                 window.location.pathname ===
-                `${blogIdStateValue}/articles/create`
+                `/admin/blogs/${id}/articles/create`
                   ? "bg-teal-100 "
                   : ""
               }`}
@@ -70,13 +84,13 @@ export const Sidebar = () => {
               </div>
 
               <div className="ml-1">記事作成</div>
-            </Link>
+            </button>
           </div>
-          <div className="mb-60">
-            <Link
-              to={`${blogIdStateValue}/editors`}
+          <div className="">
+            <button
+              onClick={handleEditors}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
-                window.location.pathname === `${blogIdStateValue}/editors`
+                window.location.pathname === `/admin/blogs/${id}/editors`
                   ? "bg-teal-100 "
                   : ""
               }`}
@@ -98,17 +112,17 @@ export const Sidebar = () => {
               </div>
 
               <div className="ml-1">編集者管理</div>
-            </Link>
+            </button>
           </div>
         </div>
 
-        <div className="">
-          <div className="">
+        <div className="mt-96">
+          <div className="mt-24">
             {/* flexかなんかで記事一覧からタイトルのかたまりと設定〜ヘルプのかたまりで分けた方がいいかも */}
-            <Link
-              to={`${blogIdStateValue}/config`}
+            <button
+              onClick={handleSetting}
               className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
-                window.location.pathname === `${blogIdStateValue}/config`
+                window.location.pathname === `/admin/blogs/${id}/config`
                   ? "bg-teal-100 "
                   : ""
               }`}
@@ -130,14 +144,11 @@ export const Sidebar = () => {
               </div>
 
               <div className="ml-1">設定</div>
-            </Link>
+            </button>
           </div>
 
           <div className="">
-            <Link
-              to=""
-              className="relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 hover:bg-teal-100"
-            >
+            <button className="relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 hover:bg-teal-100">
               <div>
                 <svg
                   className="h-5 w-5 text-gray-500"
@@ -153,8 +164,10 @@ export const Sidebar = () => {
                   />
                 </svg>
               </div>
-              <div className="ml-1">ヘルプ</div>
-            </Link>
+              <div className="ml-1" onClick={redirectToGoogle}>
+                ヘルプ
+              </div>
+            </button>
           </div>
         </div>
       </div>

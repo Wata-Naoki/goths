@@ -1,8 +1,14 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import auth from "../../firebase";
 
 export default function UserIcon() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    auth.signOut();
+    navigate("/authentication");
+  }; 
   return (
     <div className="  text-right">
       <Menu as="div" className="relative inline-block text-left">
@@ -71,9 +77,10 @@ export default function UserIcon() {
                 <Menu.Item>
                   {({ active }) => (
                     <button
-                    className={`${
-                      active ? "bg-green-700 text-white" : "text-gray-900"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                      className={`${
+                        active ? "bg-green-700 text-white" : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                      onClick={handleLogout}
                     >
                       ログアウト
                     </button>

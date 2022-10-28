@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { Manage } from "../2.articles/blogArticle";
+import { Manage } from "../../pages/Articles/blogArticle";
 import { blogIdState } from "../Atom/BlogChoiceAtom";
 import { ModalBlogHeader } from "./ModalBlogHeader";
 import UserIcon from "./UserIcon";
 
-export const BlogHeader = () => {
+export const BlogHeader = ({ blogTitle }: any) => {
   const blogIdStateValue = useRecoilValue(blogIdState);
   // console.log(blogIdStateValue)
+  console.log(blogTitle);
   return (
     <>
       <div className="flex justify-between my-2 mx-5">
@@ -26,7 +27,7 @@ export const BlogHeader = () => {
           {/* 2 */}
 
           <div>
-            <ModalBlogHeader />
+            <ModalBlogHeader blogTitle={blogTitle} />
           </div>
         </div>
         {/* 2 */}
@@ -40,7 +41,7 @@ export const BlogHeader = () => {
             </div>
 
             <div className="mr-4">
-              <Link to={blogIdStateValue}>
+              <Link to={`/admin/blogs`}>
                 <Manage />
               </Link>
             </div>

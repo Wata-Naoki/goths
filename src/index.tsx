@@ -3,6 +3,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import "./index.css";
 
 import App from "./App";
+import { initializeApollo } from "./lib/apolloClient";
 
 const client = new ApolloClient({
   uri: "https://graphqlzero.almansi.me/api",
@@ -14,8 +15,10 @@ if (process.env.NODE_ENV === "development") {
   worker.start();
 }
 
+const apolloClients = initializeApollo();
+
 render(
-  <ApolloProvider client={client}>
+  <ApolloProvider client={apolloClients}>
     <App />
   </ApolloProvider>,
   document.getElementById("root")

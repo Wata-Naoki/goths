@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../AuthContext";
-import { auth, provider } from "../../firebase";
+import { auth, provider } from "../../firebaseConfig";
 
 export const Authentication = () => {
   const navigate = useNavigate();

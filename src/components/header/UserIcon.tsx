@@ -3,7 +3,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../AuthContext";
-import { auth } from "../../firebase";
+import { auth } from "../../firebaseConfig";
 import { GET_USER, GET_USER_BLOGS } from "../../queries/queries";
 
 export default function UserIcon() {

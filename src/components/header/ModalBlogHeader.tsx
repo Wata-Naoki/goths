@@ -31,6 +31,8 @@ export const ModalBlogHeader = ({ blogTitle }: any) => {
   console.log(data);
 
   const { id } = useParams();
+  const titleState = data?.Blog.find((blog: any) => blog.id === id);
+  console.log(titleState);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -57,7 +59,7 @@ export const ModalBlogHeader = ({ blogTitle }: any) => {
   return (
     <>
       <div className="flex juestify-center items-center mt-2 ">
-        <div>{blogTitle}</div>
+        <div>{titleState?.title}</div>
 
         <div className="mx-2">
           <svg

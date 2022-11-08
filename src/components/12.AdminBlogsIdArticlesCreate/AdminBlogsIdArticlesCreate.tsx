@@ -10,6 +10,7 @@ import {
 import { BlogHeader } from "../header/BlogHeader";
 import { Header } from "../header/SearchHeader";
 import { Loading } from "../Loading/Loading";
+import { useToast } from "../Loading/useToast";
 import { Quote } from "../Quote/Quote";
 import { Sidebar } from "../sidebar/navbar";
 
@@ -18,6 +19,7 @@ export const AdminBlogsIdArticlesCreate = () => {
   const [title, setTitle] = useState();
   const [text, setText] = useState();
   const [allText, setAllText] = useState();
+  const { toastLoading, toastSucceeded, toastFailed } = useToast();
 
   const { data, loading } = useQuery<BlogUserQuery>(GET_BLOG_USER, {
     variables: { id: id },
@@ -25,7 +27,14 @@ export const AdminBlogsIdArticlesCreate = () => {
   //console.log(data?.blog_user[0].user_id);
 
   const [insert_Article_one, { loading: articleLoading, error }] =
-    useMutation<CreateArticleOneMutation>(CREATE_ARTICLE);
+    useMutation<CreateArticleOneMutation>(CREATE_ARTICLE, {
+      onCompleted: () => {
+        toastSucceeded();
+      },
+      onError: () => {
+        toastFailed();
+      },
+    });
 
   const handleTitleChange = (e: any) => {
     setTitle(e.target.value);
@@ -41,6 +50,7 @@ export const AdminBlogsIdArticlesCreate = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    toastLoading();
     if (id) {
       try {
         await insert_Article_one({
@@ -52,16 +62,14 @@ export const AdminBlogsIdArticlesCreate = () => {
             all_text: allText,
           },
         });
-        alert("記事が作成されました");
+        toastSucceeded();
+        //alert("記事が作成されました");
       } catch (err: any) {
-        alert(err.message);
+        toastFailed();
+        //alert(err.message);
       }
     }
   };
-
-  if (loading || articleLoading) {
-    return <Loading />;
-  }
 
   return (
     <>

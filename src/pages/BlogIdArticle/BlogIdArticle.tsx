@@ -7,6 +7,7 @@ import { blogChoiceState } from "../../components/Atom/BlogChoiceAtom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { GET_ARTICLE, GET_BLOG_ARTICLES } from "../../queries/queries";
 import { Loading } from "../../components/Loading/Loading";
+import { formatJst } from "../../components/FormatJst/FormatJst";
 
 const BLOGIDARTICLES_QUERY = gql`
   query articlesByBlog($blogId: String!) {
@@ -93,7 +94,9 @@ const BlogIdArticle = () => {
 
                 <div className="flex justify-between my-2 text-gray-500">
                   <h3>{x.User.name}</h3>
-                  <h3>{x.createdAt}</h3>
+                  <h3 className="mr-4 text-gray-500">
+                    {formatJst(x.createdAt)}
+                  </h3>
                 </div>
                 <p>{x.text}</p>
               </div>

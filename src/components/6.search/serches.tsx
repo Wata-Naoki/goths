@@ -5,6 +5,7 @@ import { Header } from "../header/SearchHeader";
 
 import { Link, useParams } from "react-router-dom";
 import { GET_ARTICLES, GET_USER } from "../../queries/queries";
+import { formatJst } from "../FormatJst/FormatJst";
 
 const SEARCHE_QUERY = gql`
   query search {
@@ -48,7 +49,9 @@ const Searches = () => {
 
                   <div className="flex justify-between text-gray-500 my-2">
                     <h3>{x.users}</h3>
-                    <h3>{x.createdAt}</h3>
+                    <h3 className="mr-4 text-gray-500">
+                      {formatJst(x.createdAt)}
+                    </h3>
                   </div>
                   <p>{x.text}</p>
                 </div>

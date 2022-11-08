@@ -20,6 +20,7 @@ import { Authentication } from "./components/authentication/authentication";
 import { RecoilRoot } from "recoil";
 import BlogIdArticle from "./pages/BlogIdArticle/BlogIdArticle";
 import { AuthProvider } from "./AuthContext";
+import { ToastContainerWrapper } from "./components/Loading/ToastContainerWrapper";
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
             />
           </Routes>
         </Router>
+        <ToastContainerWrapper />
       </RecoilRoot>
     </AuthProvider>
   );

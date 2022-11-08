@@ -6,6 +6,7 @@ import { UpdateUserMutation } from "../../types/generated/graphql.tsx/graphql";
 import { Header } from "../../components/header/SearchHeader";
 import { Loading } from "../../components/Loading/Loading";
 import { useAuthContext } from "../../AuthContext";
+import { useToast } from "../../components/Loading/useToast";
 
 const Mypage = () => {
   // console.log(data);
@@ -129,10 +130,18 @@ export const UserForm = () => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [gitToken, setGitToken] = useState("");
+  const { toastLoading, toastSucceeded, toastFailed } = useToast();
 
   // const [userSetting, { loading, error }] = useMutation(USER_SETTING);
   const [updata_users_by_pk, { loading, error }] =
-    useMutation<UpdateUserMutation>(UPDATE_USER);
+    useMutation<UpdateUserMutation>(UPDATE_USER, {
+      onCompleted: () => {
+        toastSucceeded();
+      },
+      onError: () => {
+        toastFailed();
+      },
+    });
 
   /* useEffect(() => {
      setUsername(userDate?.User[0].name)
@@ -140,6 +149,7 @@ export const UserForm = () => {
  */
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    toastLoading();
     if (username) {
       try {
         await updata_users_by_pk({
@@ -149,9 +159,11 @@ export const UserForm = () => {
             email: email ? email : userDate?.User[0].email,
           },
         });
-        alert("変更が保存されました");
+        toastSucceeded();
+        // alert("変更が保存されました");
       } catch (err: any) {
-        alert(err.message);
+        toastFailed();
+        // alert(err.message);
       }
     }
   };

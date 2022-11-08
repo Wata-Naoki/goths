@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Header } from "../../components/header/SearchHeader";
 import { GET_ARTICLE } from "../../queries/queries";
 import { Loading } from "../../components/Loading/Loading";
+import { formatJst } from "../../components/FormatJst/FormatJst";
 
 const BLOGIDARTICLESID_QUERY = gql`
   query article {
@@ -57,7 +58,9 @@ const BlogIdArticleId = () => {
               <div className="text-gray-500">
                 {articleData?.Article[0].User.name}
               </div>
-              <div>{articleData?.Article[0].createdAt}</div>
+              <div className="mr-4 text-gray-500">
+                {formatJst(articleData?.Article[0].createdAt)}
+              </div>
             </div>
             <p className="mb-5">{articleData?.Article[0].all_text}</p>
 

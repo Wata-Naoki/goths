@@ -1,6 +1,6 @@
 import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Form } from "../Articles/blogArticle";
 import { GET_BLOG } from "../../queries/queries";
@@ -13,6 +13,7 @@ import { BlogHeader } from "../../components/header/BlogHeader";
 import { Header } from "../../components/header/SearchHeader";
 import { Loading } from "../../components/Loading/Loading";
 import { Sidebar } from "../../components/sidebar/navbar";
+import { formatJst } from "../../components/FormatJst/FormatJst";
 
 const ADMINARTICLESBYBLOG_QUERY = gql`
   query adminArticlesByBlog {
@@ -35,6 +36,7 @@ const ADMINARTICLESBYBLOG_QUERY = gql`
 export const AdminBlogsId = () => {
   // const { loading, error, data } = useQuery(ADMINARTICLESBYBLOG_QUERY);
   const { id } = useParams();
+  const navigate = useNavigate();
   //const [adminBlogFlag, setAdminBlogFlag] = useRecoilState(adminBlogState);
 
   // const adminBlogFlag = useRecoilValue(adminBlogState);
@@ -72,16 +74,22 @@ export const AdminBlogsId = () => {
       variables: { id: id, limit: numblog },
     }); */
 
+    if (id === "undefined") {
+      navigate("/authentication");
+    }
+
     executeBlog({
       variables: { id: id, limit: numblog },
     });
 
     // }
   }, [executeBlog, numblog, id]);
+  console.log(id);
 
   if (blogLoading) {
     return <Loading />;
   }
+
   return (
     <>
       <div>
@@ -113,7 +121,9 @@ export const AdminBlogsId = () => {
                     <h3 className="text-gray-500">
                       {blogData.Blog[0].blog_users[0].User.name}
                     </h3>
-                    <h3 className="text-gray-500">{x.createdAt}</h3>
+                    <h3 className="text-gray-500 mr-5">
+                      {formatJst(x.createdAt)}
+                    </h3>
                   </div>
 
                   <p>{x.text}</p>

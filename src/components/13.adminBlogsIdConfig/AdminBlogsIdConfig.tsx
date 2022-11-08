@@ -16,6 +16,7 @@ import BlogDeleteButton from "../deletButton/BlogDeleteButton";
 import { BlogHeader } from "../header/BlogHeader";
 import { Header } from "../header/SearchHeader";
 import { Loading } from "../Loading/Loading";
+import { useToast } from "../Loading/useToast";
 import { Sidebar } from "../sidebar/navbar";
 
 // const DELETE_BLOG = gql`
@@ -37,15 +38,30 @@ export const AdminBlogsIdConfig = () => {
     variables: { id: blogId },
   });
   console.log(data);
+  const { toastLoading, toastSucceeded, toastFailed } = useToast();
 
   const [
     update_Blog_by_pk,
     { loading: updateBlogLoading, error: updateBlogError },
-  ] = useMutation<UpdateBlogOneMutation>(UPDATE_BLOG_ONE);
+  ] = useMutation<UpdateBlogOneMutation>(UPDATE_BLOG_ONE, {
+    onCompleted: () => {
+      toastSucceeded();
+    },
+    onError: () => {
+      toastFailed();
+    },
+  });
   const [
     delete_Blog_by_pk,
     { loading: deleteBlogLoading, error: deleteBlogError },
-  ] = useMutation<DeleteBlogOneMutation>(DELETE_BLOG_ONE);
+  ] = useMutation<DeleteBlogOneMutation>(DELETE_BLOG_ONE, {
+    onCompleted: () => {
+      toastSucceeded();
+    },
+    onError: () => {
+      toastFailed();
+    },
+  });
 
   const handleTitleChange = (e: any) => {
     setTitle(e.target.value);
@@ -55,26 +71,36 @@ export const AdminBlogsIdConfig = () => {
   //   useMutation(DELETE_BLOG);
 
   const handleUpdate = async () => {
+    toastLoading();
+
     if (blogId) {
       try {
         await update_Blog_by_pk({
           variables: { id: blogId, title: title ? title : data?.Blog[0].title },
         });
-        alert("変更が保存されました");
+        toastSucceeded();
+        //alert("変更が保存されました");
       } catch (err: any) {
-        alert(err.message);
+        toastFailed();
+        //alert(err.message);
       }
     }
   };
 
   const handleDelete = async () => {
+    toastLoading();
+
     if (blogId) {
       try {
         await delete_Blog_by_pk({ variables: { id: blogId } });
-        alert("変更が保存されました");
+        toastSucceeded();
+
+        // alert("変更が保存されました");
         // navigate(-1);
       } catch (err: any) {
-        alert(err.message);
+        toastFailed();
+
+        // alert(err.message);
       }
     }
   };
@@ -147,7 +173,7 @@ export const AdminBlogsIdConfig = () => {
             </div>
 
             <div>
-              <div className="text-sm text-gray-500 mt-8">危険領域</div>
+              <div className="text-sm text-gray-500 mt-16"></div>
               <div className="my-1 w-full">
                 <div className="flex justify-center items-center whitespace-normal text-left border border-dashed border-red-500 rounded-xl focus:outline-0 pl-4  pr-6  w-full ">
                   <div className="my-6">

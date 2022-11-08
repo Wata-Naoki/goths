@@ -14,6 +14,7 @@ import { BlogHeader } from "../../components/header/BlogHeader";
 import { Header } from "../../components/header/SearchHeader";
 import { Loading } from "../../components/Loading/Loading";
 import { Sidebar } from "../../components/sidebar/navbar";
+import { formatJst } from "../../components/FormatJst/FormatJst";
 
 const ADMINBLOGSIDARTICLESID_QUERY = gql`
   query adminArticle {
@@ -213,7 +214,9 @@ export const AdminBlogsIdArticlesId = () => {
                       {data?.Article[0].User.name}
                     </h3>
 
-                    <h3>{data?.Article[0].createdAt}</h3>
+                    <h3 className="mr-4 text-gray-500">
+                      {formatJst(data?.Article[0].createdAt)}
+                    </h3>
                   </div>
 
                   <p className="mb-8">{data?.Article[0].all_text}</p>

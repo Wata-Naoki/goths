@@ -5,6 +5,7 @@ import { Header } from "../../components/header/SearchHeader";
 import { GET_ARTICLES, GET_BLOGS } from "../../queries/queries";
 import { Loading } from "../../components/Loading/Loading";
 import { useAuthContext } from "../../AuthContext";
+import { formatJst } from "../../components/FormatJst/FormatJst";
 
 export const BLOGS_QUERY = gql`
   query blogs {
@@ -165,7 +166,9 @@ function BlogArticle() {
 
                     <div className="flex justify-between my-2 text-gray-500">
                       <h3>{x.Blog.title}</h3>
-                      <h3>{x.createdAt}</h3>
+                      <h3 className="mr-4 text-gray-500">
+                        {formatJst(x.createdAt)}
+                      </h3>
                     </div>
 
                     <p>{x.text}</p>

@@ -12,9 +12,11 @@ import { BlogHeader } from "../../components/header/BlogHeader";
 import { Header } from "../../components/header/SearchHeader";
 import { Loading } from "../../components/Loading/Loading";
 import { Sidebar } from "../../components/sidebar/navbar";
+import { useToast } from "../../components/Loading/useToast";
 
 export const AdminBlogsIdEditors = () => {
   const articleEditValue = useRecoilValue(blogIdArticleEditState);
+  const { toastLoading, toastSucceeded, toastFailed } = useToast();
 
   const { id: blogId, articleId } = useParams();
 
@@ -44,23 +46,33 @@ export const AdminBlogsIdEditors = () => {
 
   // const [editArticle, { loading, error }] = useMutation(EDIT_ARTICLE);
   const [update_Article_by_pk, { loading, error }] =
-    useMutation<UpdateArticleMutation>(UPDATE_ARTICLE);
+    useMutation<UpdateArticleMutation>(UPDATE_ARTICLE, {
+      onCompleted: () => {
+        toastSucceeded();
+      },
+      onError: () => {
+        toastFailed();
+      },
+    });
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    toastLoading();
     if (articleId) {
       try {
         await update_Article_by_pk({
           variables: {
-            id: articleId,
-            title: title,
-            text: text,
-            all_text: allText,
+            id: articleId ? articleId : data?.Article[0].title,
+            title: title ? title : data?.Article[0].title,
+            text: text ? text : data?.Article[0].text,
+            all_text: allText ? allText : data?.Article[0].all_text,
           },
         });
-        alert("変更が保存されました");
+        toastSucceeded();
+        //alert("変更が保存されました");
       } catch (err: any) {
-        alert(err.message);
+        toastFailed();
+        // alert(err.message);
       }
     }
   };
@@ -73,7 +85,7 @@ export const AdminBlogsIdEditors = () => {
     <>
       <div>
         <BlogHeader />
-      </div> 
+      </div>
 
       <div className="flex justify-start w-full  ">
         <div className="w-1/5">

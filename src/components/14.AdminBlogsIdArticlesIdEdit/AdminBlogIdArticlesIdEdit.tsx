@@ -2,7 +2,7 @@ import React from "react";
 import { AddButton } from "../AddButton/AddButton";
 import { BlogHeader } from "../header/BlogHeader";
 import { Sidebar } from "../sidebar/navbar";
-import {  UserTable1 } from "../UserTable/UserTable";
+import { UserTable1 } from "../UserTable/UserTable";
 
 export const AdminBlogIdArticlesIdEdit = () => {
   return (

@@ -1,21 +1,36 @@
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import auth from "../../firebase";
+import { useAuthContext } from "../../AuthContext";
+import { auth } from "../../firebaseConfig";
+import { GET_USER, GET_USER_BLOGS } from "../../queries/queries";
 
 export default function UserIcon() {
+  const { user } = useAuthContext();
+
+  const [excute, { data: userDate, loading: userLoading, error: userError }] =
+    useLazyQuery(GET_USER, { variables: { email: user?.email } });
+  useEffect(() => {
+    excute();
+  }, [excute, user]);
+  const {
+    data: blogData,
+    error: blogError,
+    loading: blogLoading,
+  } = useQuery(GET_USER_BLOGS, { variables: { email: user?.email } });
   const navigate = useNavigate();
   const handleLogout = () => {
     auth.signOut();
     navigate("/authentication");
-  }; 
+  };
   return (
-    <div className="  text-right">
+    <div className="text-right ">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20  text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none   ">
+          <Menu.Button className="inline-flex justify-center w-full text-sm font-medium text-white rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none ">
             <svg
-              className="h-5 w-5 text-gray-500"
+              className="w-5 h-5 text-gray-500"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -38,26 +53,28 @@ export default function UserIcon() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1 ">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? "bg-green-700 text-white" : "text-gray-900"
-                    } group flex flex-col w-full   rounded-md px-2 py-2 text-sm`}
-                  >
-                    <p
+              <Link to={`/admin/blogs/${blogData?.Blog[0]?.id}`}>
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
                       className={`${
-                        active ? "bg-green-700 text-white" : "text-gray-500"
-                      }`}
+                        active ? "bg-green-700 text-white" : "text-gray-900"
+                      } group flex flex-col w-full   rounded-md px-2 py-2 text-sm`}
                     >
-                      ユーザー名
-                    </p>
-                    <p>神戸太郎</p>
-                  </button>
-                )}
-              </Menu.Item>
+                      <p
+                        className={`${
+                          active ? "bg-green-700 text-white" : "text-gray-500"
+                        }`}
+                      >
+                        ユーザー名
+                      </p>
+                      <p>{userDate?.User[0]?.name}</p>
+                    </button>
+                  )}
+                </Menu.Item>
+              </Link>
               <Link to="/mypage">
                 <Menu.Item>
                   {({ active }) => (

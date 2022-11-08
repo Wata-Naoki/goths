@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CREATE_USER_ONE } from "../../queries/queries";
+import { useToast } from "../Loading/useToast";
 
 // const USER_ADD = gql`
 //   mutation UserAdd($input: input!) {
@@ -16,9 +17,18 @@ export const AddButton = () => {
   const { id } = useParams();
   const [name, setName] = useState<string>();
   const [email, setEmail] = useState<string>();
-  const [insert_User_one, { loading, error }] = useMutation(CREATE_USER_ONE);
+  const [insert_User_one, { loading, error }] = useMutation(CREATE_USER_ONE, {
+    onCompleted: () => {
+      toastSucceeded();
+    },
+    onError: () => {
+      toastFailed();
+    },
+  });
+  const { toastLoading, toastSucceeded, toastFailed } = useToast();
 
   const handleSubmit = async () => {
+    toastLoading();
     if (id) {
       try {
         await insert_User_one({
@@ -28,9 +38,11 @@ export const AddButton = () => {
             email: email,
           },
         });
-        alert("変更が保存されました");
+        toastSucceeded();
+        //alert("変更が保存されました");
       } catch (err: any) {
-        alert(err.message);
+        toastSucceeded();
+        //alert(err.message);
       }
     }
   };

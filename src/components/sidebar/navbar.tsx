@@ -26,14 +26,13 @@ export const Sidebar = () => {
   return (
     <>
       {/*  <div>Sidebar</div> */}
-      <br />
 
-      <div className="w-60 h-5/6 px-1 flex flex-col items-start justify-between sticky top-0">
+      <div className="w-60  pr-1 flex flex-col items-start justify-between sticky top-0">
         <div>
-          <div className="mb-2">
+          <div className="">
             <button
               onClick={articleList}
-              className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
+              className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-3 px-4 text-gray-600 ${
                 window.location.pathname === `/admin/blogs/${id}`
                   ? "bg-teal-100 "
                   : ""
@@ -54,13 +53,13 @@ export const Sidebar = () => {
                 </svg>
               </div>
 
-              <div className="ml-1">記事一覧</div>
+              <div className="">記事一覧</div>
             </button>
           </div>
-          <div className="mb-2">
+          <div className="">
             <button
               onClick={createArticle}
-              className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
+              className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-3 px-4 text-gray-600 ${
                 window.location.pathname ===
                 `/admin/blogs/${id}/articles/create`
                   ? "bg-teal-100 "
@@ -83,13 +82,13 @@ export const Sidebar = () => {
                 </svg>
               </div>
 
-              <div className="ml-1">記事作成</div>
+              <div className="">記事作成</div>
             </button>
           </div>
           <div className="">
             <button
               onClick={handleEditors}
-              className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
+              className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-3 px-4 text-gray-600 ${
                 window.location.pathname === `/admin/blogs/${id}/editors`
                   ? "bg-teal-100 "
                   : ""
@@ -111,7 +110,7 @@ export const Sidebar = () => {
                 </svg>
               </div>
 
-              <div className="ml-1">編集者管理</div>
+              <div className="">編集者管理</div>
             </button>
           </div>
         </div>
@@ -121,7 +120,7 @@ export const Sidebar = () => {
             {/* flexかなんかで記事一覧からタイトルのかたまりと設定〜ヘルプのかたまりで分けた方がいいかも */}
             <button
               onClick={handleSetting}
-              className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 ${
+              className={`hover:bg-teal-100 relative w-56 flex items-center text-sm py-3 px-4 text-gray-600 ${
                 window.location.pathname === `/admin/blogs/${id}/config`
                   ? "bg-teal-100 "
                   : ""
@@ -143,12 +142,12 @@ export const Sidebar = () => {
                 </svg>
               </div>
 
-              <div className="ml-1">設定</div>
+              <div className="">設定</div>
             </button>
           </div>
 
           <div className="">
-            <button className="relative w-56 flex items-center text-sm py-2 px-4 text-gray-600 hover:bg-teal-100">
+            <button className="relative w-56 flex items-center text-sm py-3 px-4 text-gray-600 hover:bg-teal-100">
               <div>
                 <svg
                   className="h-5 w-5 text-gray-500"
@@ -164,7 +163,7 @@ export const Sidebar = () => {
                   />
                 </svg>
               </div>
-              <div className="ml-1" onClick={redirectToGoogle}>
+              <div className="" onClick={redirectToGoogle}>
                 ヘルプ
               </div>
             </button>

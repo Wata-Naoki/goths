@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../AuthContext";
-import auth, { provider } from "../../firebase";
+import { auth, provider } from "../../firebaseConfig";
 
 export const Authentication = () => {
   const navigate = useNavigate();
@@ -47,11 +47,11 @@ export const Authentication = () => {
   };
   return (
     <>
-      <div className="h-screen w-screen flex justify-center items-center">
+      <div className="flex items-center justify-center w-screen h-screen">
         <div>
-          <div className="flex justify-center text-center mb-4">
+          <div className="flex justify-center mb-4 text-center">
             <div>
-              <div className=" text-black w-28 h-10 text-3xl  font-medium not-italic flex-none order-none grow-0">
+              <div className="flex-none order-none h-10 text-3xl not-italic font-medium text-black  w-28 grow-0">
                 Goths
               </div>
 
@@ -61,7 +61,7 @@ export const Authentication = () => {
 
           <form onSubmit={handleSubmit}>
             <div>
-              <div className="text-red-500 text-center mt-2 break-all w-80 text-sm">
+              <div className="mt-2 text-sm text-center text-red-500 break-all w-80">
                 {error && error}
               </div>
               <div className="text-sm text-gray-500">メールアドレス</div>
@@ -70,19 +70,19 @@ export const Authentication = () => {
                   type="email"
                   id="email"
                   name="email"
-                  className="text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-80 "
+                  className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-80 "
                 ></input>
               </div>
             </div>
 
             <div>
-              <div className="text-sm text-gray-500 mt-4">パスワード</div>
+              <div className="mt-4 text-sm text-gray-500">パスワード</div>
               <div className="my-1">
                 <input
                   type="password"
                   id="password"
                   name="password"
-                  className="text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-80 "
+                  className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-80 "
                 ></input>
               </div>
             </div>
@@ -91,7 +91,7 @@ export const Authentication = () => {
               {/* <Link to="/login"> */}
               <button
                 type="submit"
-                className="my-4 bg-emerald-700 text-white text-sm py-2  px-4  font-medium rounded w-80"
+                className="px-4 py-2 my-4 text-sm font-medium text-white rounded bg-emerald-700 w-80"
               >
                 ログイン
               </button>
@@ -102,7 +102,7 @@ export const Authentication = () => {
             <button
               onClick={handleLogin}
               type="submit"
-              className="my-4 bg-green-800 text-white text-sm py-2  px-4  font-medium rounded w-80"
+              className="px-4 py-2 my-4 text-sm font-medium text-white bg-green-800 rounded w-80"
             >
               Googleログイン
             </button>

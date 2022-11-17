@@ -124,10 +124,10 @@ export const AdminBlogsIdConfig = () => {
         <div className="w-1/5">
           <Sidebar />
         </div>
-        <div className="flex justify-center mt-16 mr-48 h-full w-4/5">
+        <div className="flex justify-center w-4/5 h-full mt-16 mr-48">
           <div className="w-2/5 ">
             <div>
-              <div className="text-sm text-gray-500 mb-2">タイトル</div>
+              <div className="mb-2 text-sm text-gray-500">タイトル</div>
               <div className="my-1">
                 <input
                   type=""
@@ -136,12 +136,12 @@ export const AdminBlogsIdConfig = () => {
                   defaultValue={data?.Blog[0].title}
                   value={title}
                   onChange={handleTitleChange}
-                  className="ml-2 pl-4 py-1 pr-4 text-left border border-slate-300 rounded focus:outline-0   w-full "
+                  className="w-full py-1 pl-4 pr-4 ml-2 text-left border rounded border-slate-300 focus:outline-0 "
                 ></input>
               </div>
             </div>
 
-            <div className="flex justify-center mt-10 items-center focus:outline-none  focus-visible:ring-opacity-75">
+            <div className="flex items-center justify-center mt-10 focus:outline-none focus-visible:ring-opacity-75">
               <div>
                 <div className="flex flex-wrap items-stretch ">
                   <div className="relative flex items-center ">
@@ -173,9 +173,9 @@ export const AdminBlogsIdConfig = () => {
             </div>
 
             <div>
-              <div className="text-sm text-gray-500 mt-16"></div>
-              <div className="my-1 w-full">
-                <div className="flex justify-center items-center whitespace-normal text-left border border-dashed border-red-500 rounded-xl focus:outline-0 pl-4  pr-6  w-full ">
+              <div className="mt-16 text-sm text-gray-500"></div>
+              <div className="w-full my-1">
+                <div className="flex items-center justify-center w-full pl-4 pr-6 text-left whitespace-normal border border-red-500 border-dashed rounded-xl focus:outline-0 ">
                   <div className="my-6">
                     <BlogDeleteButton
                       onClick={async () => {

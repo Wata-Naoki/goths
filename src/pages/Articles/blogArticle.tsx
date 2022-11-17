@@ -141,7 +141,7 @@ function BlogArticle() {
 
               <button
                 className={`mr-8 ${
-                  page == "新着ブログ"
+                  page === "新着ブログ"
                     ? "text-green-700 underline underline-offset-8 decoration-1 "
                     : "text-black"
                 }`}
@@ -178,7 +178,7 @@ function BlogArticle() {
                   <button
                     onClick={onClickFetch}
                     type="submit"
-                    className="bg-emerald-700 text-white text-sm py-2  px-4  font-medium rounded"
+                    className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
                   >
                     さらに読み込む
                   </button>
@@ -189,7 +189,7 @@ function BlogArticle() {
                 {blogData?.Blog.map((x: any) => (
                   <div
                     key={x.id}
-                    className="flex justify-between items-center my-8 "
+                    className="flex items-center justify-between my-8 "
                   >
                     <div>
                       <h2 className="text-2xl">{x.title}</h2>
@@ -198,10 +198,10 @@ function BlogArticle() {
                       </h3>
                     </div>
                     <Link to={`/blogs/${x.id}/articles`}>
-                      <div className="flex justify-center items-center">
+                      <div className="flex items-center justify-center">
                         <div className="text-green-600">ブログ記事を見る </div>
                         <svg
-                          className="h-5 w-5 text-green-500"
+                          className="w-5 h-5 text-green-500"
                           width="24"
                           height="24"
                           viewBox="0 0 24 24"
@@ -224,7 +224,7 @@ function BlogArticle() {
                   <button
                     onClick={onClickFetchBlog}
                     type="submit"
-                    className="bg-emerald-700 text-white text-sm py-2  px-4  font-medium rounded"
+                    className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
                   >
                     さらに読み込む
                   </button>
@@ -285,7 +285,7 @@ export const Form = () => {
       {/* <form onSubmit={handleSubmit}> */}
       <button
         type="submit"
-        className="bg-emerald-700 text-white text-sm py-2  px-4  font-medium rounded"
+        className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
       >
         さらに読み込む
       </button>

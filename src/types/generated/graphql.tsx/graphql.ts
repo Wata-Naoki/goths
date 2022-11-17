@@ -27,6 +27,7 @@ export type Article = {
   blog_id?: Maybe<Scalars['uuid']>;
   createdAt: Scalars['timestamptz'];
   id: Scalars['uuid'];
+  like?: Maybe<Scalars['Int']>;
   status?: Maybe<Scalars['Boolean']>;
   text: Scalars['String'];
   title: Scalars['String'];
@@ -41,12 +42,47 @@ export type Article_Aggregate = {
   nodes: Array<Article>;
 };
 
+export type Article_Aggregate_Bool_Exp = {
+  bool_and?: InputMaybe<Article_Aggregate_Bool_Exp_Bool_And>;
+  bool_or?: InputMaybe<Article_Aggregate_Bool_Exp_Bool_Or>;
+  count?: InputMaybe<Article_Aggregate_Bool_Exp_Count>;
+};
+
+export type Article_Aggregate_Bool_Exp_Bool_And = {
+  arguments: Article_Select_Column_Article_Aggregate_Bool_Exp_Bool_And_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Article_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
+};
+
+export type Article_Aggregate_Bool_Exp_Bool_Or = {
+  arguments: Article_Select_Column_Article_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Article_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
+};
+
+export type Article_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Article_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Article_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
 /** aggregate fields of "Article" */
 export type Article_Aggregate_Fields = {
   __typename?: 'Article_aggregate_fields';
+  avg?: Maybe<Article_Avg_Fields>;
   count: Scalars['Int'];
   max?: Maybe<Article_Max_Fields>;
   min?: Maybe<Article_Min_Fields>;
+  stddev?: Maybe<Article_Stddev_Fields>;
+  stddev_pop?: Maybe<Article_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Article_Stddev_Samp_Fields>;
+  sum?: Maybe<Article_Sum_Fields>;
+  var_pop?: Maybe<Article_Var_Pop_Fields>;
+  var_samp?: Maybe<Article_Var_Samp_Fields>;
+  variance?: Maybe<Article_Variance_Fields>;
 };
 
 
@@ -58,9 +94,17 @@ export type Article_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "Article" */
 export type Article_Aggregate_Order_By = {
+  avg?: InputMaybe<Article_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Article_Max_Order_By>;
   min?: InputMaybe<Article_Min_Order_By>;
+  stddev?: InputMaybe<Article_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Article_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Article_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Article_Sum_Order_By>;
+  var_pop?: InputMaybe<Article_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Article_Var_Samp_Order_By>;
+  variance?: InputMaybe<Article_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "Article" */
@@ -68,6 +112,17 @@ export type Article_Arr_Rel_Insert_Input = {
   data: Array<Article_Insert_Input>;
   /** upsert condition */
   on_conflict?: InputMaybe<Article_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Article_Avg_Fields = {
+  __typename?: 'Article_avg_fields';
+  like?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "Article" */
+export type Article_Avg_Order_By = {
+  like?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "Article". All fields are combined with a logical 'AND'. */
@@ -81,6 +136,7 @@ export type Article_Bool_Exp = {
   blog_id?: InputMaybe<Uuid_Comparison_Exp>;
   createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  like?: InputMaybe<Int_Comparison_Exp>;
   status?: InputMaybe<Boolean_Comparison_Exp>;
   text?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
@@ -94,6 +150,11 @@ export enum Article_Constraint {
   ArticlePkey = 'Article_pkey'
 }
 
+/** input type for incrementing numeric columns in table "Article" */
+export type Article_Inc_Input = {
+  like?: InputMaybe<Scalars['Int']>;
+};
+
 /** input type for inserting data into table "Article" */
 export type Article_Insert_Input = {
   Blog?: InputMaybe<Blog_Obj_Rel_Insert_Input>;
@@ -102,6 +163,7 @@ export type Article_Insert_Input = {
   blog_id?: InputMaybe<Scalars['uuid']>;
   createdAt?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['uuid']>;
+  like?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['Boolean']>;
   text?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
@@ -116,6 +178,7 @@ export type Article_Max_Fields = {
   blog_id?: Maybe<Scalars['uuid']>;
   createdAt?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
+  like?: Maybe<Scalars['Int']>;
   text?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['timestamptz']>;
@@ -128,6 +191,7 @@ export type Article_Max_Order_By = {
   blog_id?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  like?: InputMaybe<Order_By>;
   text?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
@@ -141,6 +205,7 @@ export type Article_Min_Fields = {
   blog_id?: Maybe<Scalars['uuid']>;
   createdAt?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
+  like?: Maybe<Scalars['Int']>;
   text?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['timestamptz']>;
@@ -153,6 +218,7 @@ export type Article_Min_Order_By = {
   blog_id?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  like?: InputMaybe<Order_By>;
   text?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
@@ -183,6 +249,7 @@ export type Article_Order_By = {
   blog_id?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  like?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
   text?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
@@ -206,6 +273,8 @@ export enum Article_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  Like = 'like',
+  /** column name */
   Status = 'status',
   /** column name */
   Text = 'text',
@@ -217,17 +286,63 @@ export enum Article_Select_Column {
   UserId = 'user_id'
 }
 
+/** select "Article_aggregate_bool_exp_bool_and_arguments_columns" columns of table "Article" */
+export enum Article_Select_Column_Article_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
+  /** column name */
+  Status = 'status'
+}
+
+/** select "Article_aggregate_bool_exp_bool_or_arguments_columns" columns of table "Article" */
+export enum Article_Select_Column_Article_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
+  /** column name */
+  Status = 'status'
+}
+
 /** input type for updating data in table "Article" */
 export type Article_Set_Input = {
   all_text?: InputMaybe<Scalars['String']>;
   blog_id?: InputMaybe<Scalars['uuid']>;
   createdAt?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['uuid']>;
+  like?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['Boolean']>;
   text?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['timestamptz']>;
   user_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** aggregate stddev on columns */
+export type Article_Stddev_Fields = {
+  __typename?: 'Article_stddev_fields';
+  like?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "Article" */
+export type Article_Stddev_Order_By = {
+  like?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Article_Stddev_Pop_Fields = {
+  __typename?: 'Article_stddev_pop_fields';
+  like?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "Article" */
+export type Article_Stddev_Pop_Order_By = {
+  like?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Article_Stddev_Samp_Fields = {
+  __typename?: 'Article_stddev_samp_fields';
+  like?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "Article" */
+export type Article_Stddev_Samp_Order_By = {
+  like?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "Article" */
@@ -244,11 +359,23 @@ export type Article_Stream_Cursor_Value_Input = {
   blog_id?: InputMaybe<Scalars['uuid']>;
   createdAt?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['uuid']>;
+  like?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['Boolean']>;
   text?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['timestamptz']>;
   user_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** aggregate sum on columns */
+export type Article_Sum_Fields = {
+  __typename?: 'Article_sum_fields';
+  like?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "Article" */
+export type Article_Sum_Order_By = {
+  like?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "Article" */
@@ -262,6 +389,8 @@ export enum Article_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  Like = 'like',
+  /** column name */
   Status = 'status',
   /** column name */
   Text = 'text',
@@ -274,9 +403,44 @@ export enum Article_Update_Column {
 }
 
 export type Article_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Article_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Article_Set_Input>;
   where: Article_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Article_Var_Pop_Fields = {
+  __typename?: 'Article_var_pop_fields';
+  like?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "Article" */
+export type Article_Var_Pop_Order_By = {
+  like?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Article_Var_Samp_Fields = {
+  __typename?: 'Article_var_samp_fields';
+  like?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "Article" */
+export type Article_Var_Samp_Order_By = {
+  like?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Article_Variance_Fields = {
+  __typename?: 'Article_variance_fields';
+  like?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "Article" */
+export type Article_Variance_Order_By = {
+  like?: InputMaybe<Order_By>;
 };
 
 /** columns and relationships of "Blog" */
@@ -361,10 +525,12 @@ export type Blog_Aggregate_FieldsCountArgs = {
 /** Boolean expression to filter rows from the table "Blog". All fields are combined with a logical 'AND'. */
 export type Blog_Bool_Exp = {
   Articles?: InputMaybe<Article_Bool_Exp>;
+  Articles_aggregate?: InputMaybe<Article_Aggregate_Bool_Exp>;
   _and?: InputMaybe<Array<Blog_Bool_Exp>>;
   _not?: InputMaybe<Blog_Bool_Exp>;
   _or?: InputMaybe<Array<Blog_Bool_Exp>>;
   blog_users?: InputMaybe<Blog_User_Bool_Exp>;
+  blog_users_aggregate?: InputMaybe<Blog_User_Aggregate_Bool_Exp>;
   createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
@@ -510,6 +676,19 @@ export type Boolean_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['Boolean']>>;
 };
 
+/** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
+export type Int_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Int']>;
+  _gt?: InputMaybe<Scalars['Int']>;
+  _gte?: InputMaybe<Scalars['Int']>;
+  _in?: InputMaybe<Array<Scalars['Int']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Int']>;
+  _lte?: InputMaybe<Scalars['Int']>;
+  _neq?: InputMaybe<Scalars['Int']>;
+  _nin?: InputMaybe<Array<Scalars['Int']>>;
+};
+
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type String_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['String']>;
@@ -557,6 +736,7 @@ export type User = {
   createdAt: Scalars['timestamptz'];
   email: Scalars['String'];
   id: Scalars['uuid'];
+  like_article_id?: Maybe<Scalars['uuid']>;
   name: Scalars['String'];
   updatedAt: Scalars['timestamptz'];
 };
@@ -626,13 +806,16 @@ export type User_Aggregate_FieldsCountArgs = {
 /** Boolean expression to filter rows from the table "User". All fields are combined with a logical 'AND'. */
 export type User_Bool_Exp = {
   Articles?: InputMaybe<Article_Bool_Exp>;
+  Articles_aggregate?: InputMaybe<Article_Aggregate_Bool_Exp>;
   _and?: InputMaybe<Array<User_Bool_Exp>>;
   _not?: InputMaybe<User_Bool_Exp>;
   _or?: InputMaybe<Array<User_Bool_Exp>>;
   blog_users?: InputMaybe<Blog_User_Bool_Exp>;
+  blog_users_aggregate?: InputMaybe<Blog_User_Aggregate_Bool_Exp>;
   createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
   email?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  like_article_id?: InputMaybe<Uuid_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   updatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
 };
@@ -652,6 +835,7 @@ export type User_Insert_Input = {
   createdAt?: InputMaybe<Scalars['timestamptz']>;
   email?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['uuid']>;
+  like_article_id?: InputMaybe<Scalars['uuid']>;
   name?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['timestamptz']>;
 };
@@ -662,6 +846,7 @@ export type User_Max_Fields = {
   createdAt?: Maybe<Scalars['timestamptz']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
+  like_article_id?: Maybe<Scalars['uuid']>;
   name?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['timestamptz']>;
 };
@@ -672,6 +857,7 @@ export type User_Min_Fields = {
   createdAt?: Maybe<Scalars['timestamptz']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
+  like_article_id?: Maybe<Scalars['uuid']>;
   name?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['timestamptz']>;
 };
@@ -706,6 +892,7 @@ export type User_Order_By = {
   createdAt?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  like_article_id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
 };
@@ -724,6 +911,8 @@ export enum User_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  LikeArticleId = 'like_article_id',
+  /** column name */
   Name = 'name',
   /** column name */
   UpdatedAt = 'updatedAt'
@@ -734,6 +923,7 @@ export type User_Set_Input = {
   createdAt?: InputMaybe<Scalars['timestamptz']>;
   email?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['uuid']>;
+  like_article_id?: InputMaybe<Scalars['uuid']>;
   name?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['timestamptz']>;
 };
@@ -751,6 +941,7 @@ export type User_Stream_Cursor_Value_Input = {
   createdAt?: InputMaybe<Scalars['timestamptz']>;
   email?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['uuid']>;
+  like_article_id?: InputMaybe<Scalars['uuid']>;
   name?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['timestamptz']>;
 };
@@ -763,6 +954,8 @@ export enum User_Update_Column {
   Email = 'email',
   /** column name */
   Id = 'id',
+  /** column name */
+  LikeArticleId = 'like_article_id',
   /** column name */
   Name = 'name',
   /** column name */
@@ -792,6 +985,17 @@ export type Blog_User_Aggregate = {
   __typename?: 'blog_user_aggregate';
   aggregate?: Maybe<Blog_User_Aggregate_Fields>;
   nodes: Array<Blog_User>;
+};
+
+export type Blog_User_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Blog_User_Aggregate_Bool_Exp_Count>;
+};
+
+export type Blog_User_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Blog_User_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Blog_User_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
 };
 
 /** aggregate fields of "blog_user" */
@@ -1134,6 +1338,7 @@ export type Mutation_RootInsert_Blog_User_OneArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_ArticleArgs = {
+  _inc?: InputMaybe<Article_Inc_Input>;
   _set?: InputMaybe<Article_Set_Input>;
   where: Article_Bool_Exp;
 };
@@ -1141,6 +1346,7 @@ export type Mutation_RootUpdate_ArticleArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Article_By_PkArgs = {
+  _inc?: InputMaybe<Article_Inc_Input>;
   _set?: InputMaybe<Article_Set_Input>;
   pk_columns: Article_Pk_Columns_Input;
 };
@@ -1355,7 +1561,7 @@ export type Subscription_Root = {
   Article_aggregate: Article_Aggregate;
   /** fetch data from the table: "Article" using primary key columns */
   Article_by_pk?: Maybe<Article>;
-  /** fetch data from the table in a streaming manner : "Article" */
+  /** fetch data from the table in a streaming manner: "Article" */
   Article_stream: Array<Article>;
   /** fetch data from the table: "Blog" */
   Blog: Array<Blog>;
@@ -1363,7 +1569,7 @@ export type Subscription_Root = {
   Blog_aggregate: Blog_Aggregate;
   /** fetch data from the table: "Blog" using primary key columns */
   Blog_by_pk?: Maybe<Blog>;
-  /** fetch data from the table in a streaming manner : "Blog" */
+  /** fetch data from the table in a streaming manner: "Blog" */
   Blog_stream: Array<Blog>;
   /** fetch data from the table: "User" */
   User: Array<User>;
@@ -1371,7 +1577,7 @@ export type Subscription_Root = {
   User_aggregate: User_Aggregate;
   /** fetch data from the table: "User" using primary key columns */
   User_by_pk?: Maybe<User>;
-  /** fetch data from the table in a streaming manner : "User" */
+  /** fetch data from the table in a streaming manner: "User" */
   User_stream: Array<User>;
   /** fetch data from the table: "blog_user" */
   blog_user: Array<Blog_User>;
@@ -1379,7 +1585,7 @@ export type Subscription_Root = {
   blog_user_aggregate: Blog_User_Aggregate;
   /** fetch data from the table: "blog_user" using primary key columns */
   blog_user_by_pk?: Maybe<Blog_User>;
-  /** fetch data from the table in a streaming manner : "blog_user" */
+  /** fetch data from the table in a streaming manner: "blog_user" */
   blog_user_stream: Array<Blog_User>;
 };
 
@@ -1549,7 +1755,7 @@ export type GetArticleQueryVariables = Exact<{
 }>;
 
 
-export type GetArticleQuery = { __typename?: 'query_root', Article: Array<{ __typename?: 'Article', id: any, title: string, text: string, createdAt: any, updatedAt: any, all_text?: string | null, status?: boolean | null, User?: { __typename?: 'User', name: string, id: any, email: string } | null, Blog?: { __typename?: 'Blog', title: string } | null }> };
+export type GetArticleQuery = { __typename?: 'query_root', Article: Array<{ __typename?: 'Article', id: any, title: string, text: string, createdAt: any, updatedAt: any, all_text?: string | null, status?: boolean | null, like?: number | null, User?: { __typename?: 'User', name: string, id: any, email: string } | null, Blog?: { __typename?: 'Blog', title: string } | null }> };
 
 export type GetBlogsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']>;
@@ -1678,10 +1884,26 @@ export type GetBlogsModalQueryVariables = Exact<{
 
 export type GetBlogsModalQuery = { __typename?: 'query_root', Blog: Array<{ __typename?: 'Blog', id: any, title: string }> };
 
+export type UpdateArticleLikeMutationVariables = Exact<{
+  id: Scalars['uuid'];
+  like: Scalars['Int'];
+}>;
+
+
+export type UpdateArticleLikeMutation = { __typename?: 'mutation_root', update_Article_by_pk?: { __typename?: 'Article', like?: number | null, title: string, status?: boolean | null } | null };
+
+export type GetSearchArticlesQueryVariables = Exact<{
+  _iregex: Scalars['String'];
+  limit?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetSearchArticlesQuery = { __typename?: 'query_root', Article: Array<{ __typename?: 'Article', id: any, title: string, text: string, createdAt: any }> };
+
 
 export const GetArticlesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetArticles"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Article"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"createdAt"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"Blog"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]} as unknown as DocumentNode<GetArticlesQuery, GetArticlesQueryVariables>;
 export const GetBlogArticlesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetBlogArticles"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Blog"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"Articles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"all_text"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"User"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Blog"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetBlogArticlesQuery, GetBlogArticlesQueryVariables>;
-export const GetArticleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetArticle"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Article"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"createdAt"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"all_text"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"User"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Blog"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]} as unknown as DocumentNode<GetArticleQuery, GetArticleQueryVariables>;
+export const GetArticleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetArticle"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Article"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"createdAt"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"all_text"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"like"}},{"kind":"Field","name":{"kind":"Name","value":"User"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Blog"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]} as unknown as DocumentNode<GetArticleQuery, GetArticleQueryVariables>;
 export const GetBlogsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetBlogs"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Blog"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"createdAt"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"blog_users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"User"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetBlogsQuery, GetBlogsQueryVariables>;
 export const GetUserBlogsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserBlogs"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Blog"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"blog_users"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"User"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}]}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"createdAt"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"blog_users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"User"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetUserBlogsQuery, GetUserBlogsQueryVariables>;
 export const GetBlogDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetBlog"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Blog"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"blog_users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"User"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"Articles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"createdAt"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"status"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"all_text"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]}}]} as unknown as DocumentNode<GetBlogQuery, GetBlogQueryVariables>;
@@ -1698,3 +1920,5 @@ export const CreateUserOneDocument = {"kind":"Document","definitions":[{"kind":"
 export const GetBlogEditorsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetBlogEditors"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"blog_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"User"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"blog_users"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"blog_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"blog_id"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]} as unknown as DocumentNode<GetBlogEditorsQuery, GetBlogEditorsQueryVariables>;
 export const DeleteUserOneDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUserOne"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_User_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<DeleteUserOneMutation, DeleteUserOneMutationVariables>;
 export const GetBlogsModalDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetBlogsModal"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Blog"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"blog_users"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"User"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<GetBlogsModalQuery, GetBlogsModalQueryVariables>;
+export const UpdateArticleLikeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateArticleLike"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"like"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_Article_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"like"},"value":{"kind":"Variable","name":{"kind":"Name","value":"like"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"like"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<UpdateArticleLikeMutation, UpdateArticleLikeMutationVariables>;
+export const GetSearchArticlesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSearchArticles"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"_iregex"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Article"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_iregex"},"value":{"kind":"Variable","name":{"kind":"Name","value":"_iregex"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"createdAt"},"value":{"kind":"EnumValue","value":"desc"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<GetSearchArticlesQuery, GetSearchArticlesQueryVariables>;

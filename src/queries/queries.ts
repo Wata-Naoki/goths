@@ -51,6 +51,7 @@ export const GET_ARTICLE = gql`
       updatedAt
       all_text
       status
+      like
       User {
         name
         id
@@ -279,6 +280,31 @@ export const GET_BLOGS_MODAL = gql`
     Blog(where: { blog_users: { User: { email: { _eq: $email } } } }) {
       id
       title
+    }
+  }
+`;
+
+export const UPDATE_ARTICLE_LIKE = gql`
+  mutation UpdateArticleLike($id: uuid!, $like: Int!) {
+    update_Article_by_pk(pk_columns: { id: $id }, _set: { like: $like }) {
+      like
+      title
+      status
+    }
+  }
+`;
+
+export const GET_SEARCH_ARTICLES = gql`
+  query GetSearchArticles($_iregex: String!, $limit: Int) {
+    Article(
+      where: { title: { _iregex: $_iregex } }
+      order_by: { createdAt: desc }
+      limit: $limit
+    ) {
+      id
+      title
+      text
+      createdAt
     }
   }
 `;

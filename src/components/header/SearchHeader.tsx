@@ -9,6 +9,7 @@ import { Manage } from "../../pages/Articles/blogArticle";
 import { ResultSearch } from "../6.search/ResultSearch";
 import Searches from "../6.search/serches";
 import { blogIdState } from "../Atom/BlogChoiceAtom";
+import { Loading } from "../Loading/Loading";
 import UserIcon from "./UserIcon";
 
 export const Header = () => {
@@ -21,20 +22,20 @@ export const Header = () => {
 
   return (
     <>
-      <div className="flex justify-between my-6 mx-3">
+      <div className="flex justify-between mx-3 my-6">
         <div>
-          <Link to={"/admin/blogs"}>
-            <div className="text-black w-28 h-10 text-3xl  font-medium not-italic flex-none order-none grow-0">
+          <Link to={"/"}>
+            <div className="flex-none order-none h-10 text-3xl not-italic font-medium text-black w-28 grow-0">
               Goths
             </div>
           </Link>
         </div>
 
         <div>
-          <div className="flex w-40 flex-wrap items-stretch mb-2">
+          <div className="flex flex-wrap items-stretch w-40 mb-2">
             <div className="relative flex items-center">
               <svg
-                className="h-4 w-4 text-gray-500 absolute ml-2 mt-7"
+                className="absolute w-4 h-4 ml-2 text-gray-500 mt-7 hover:cursor-pointer "
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -43,7 +44,7 @@ export const Header = () => {
                 stroke-linejoin="round"
                 onClick={() => {
                   if (text) {
-                    navigate(`/search/${text}`);
+                    window.location.href = `/search/${text}`;
                   }
                 }}
               >
@@ -60,19 +61,42 @@ export const Header = () => {
               }}
               type="text"
               placeholder="検索ワードを入力"
-              className="px-1 py-1  text-slate-600 bg-white text-sm rounded border border-slate-300 shadow-sm outline-none pl-7 pr-4"
+              className="px-1 py-1 pr-4 text-sm bg-white border rounded shadow-sm outline-none text-slate-600 border-slate-300 pl-7"
             />
           </div>
         </div>
         <div>
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <div className="mr-3 text-gray-500">
               <Link to="/favorites">お気に入り</Link>
             </div>
 
             <div className="mr-3">
               <Link to={`/admin/blogs`}>
-                <Manage />
+                <div className="flex flex-wrap items-stretch ">
+                  <div className="relative flex items-center ">
+                    <svg
+                      className="h-4 w-4 text-white absolute ml-1.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
+                      />
+                    </svg>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="bg-emerald-700 text-white text-sm py-1.5  px-4 pl-6  font-medium rounded"
+                  >
+                    管理画面
+                  </button>
+                </div>
               </Link>
             </div>
             <div>

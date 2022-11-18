@@ -6,8 +6,10 @@ import { useAuthContext } from "../../AuthContext";
 import { GET_BLOGS, GET_USER_BLOGS } from "../../queries/queries";
 
 import { blogChoiceState } from "../Atom/BlogChoiceAtom";
+import { CreateNewBlog } from "../CreateNewBlog/CreateNewBlog";
 import { Header } from "../header/SearchHeader";
 import { Loading } from "../Loading/Loading";
+import { Modal } from "../modal/Modal";
 
 const ARTICLESBYMYBLOG_QUERY = gql`
   query myBlogsByUser {
@@ -69,6 +71,7 @@ export const AdminBlogs = () => {
   // console.log(blogState)
 
   const [numblog, setNumBlog] = useState<number>(2);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [
     executeBlog,
@@ -102,13 +105,41 @@ export const AdminBlogs = () => {
     <>
       <Header />
 
-      <div className=" flex justify-center w-full">
+      <div className="flex justify-center w-full ">
         <div className="w-1/3">
           <div>
             <div className="flex justify-between">
               <div>ブログ管理</div>
               <div>
-                <CreateNewBlog />
+                <div className="flex flex-wrap items-stretch ">
+                  <div className="relative flex items-center ">
+                    <svg
+                      className="h-4 w-4 text-white absolute ml-1.5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      {" "}
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />{" "}
+                      <polyline points="14 2 14 8 20 8" />{" "}
+                      <line x1="12" y1="18" x2="12" y2="12" />{" "}
+                      <line x1="9" y1="15" x2="15" y2="15" />
+                    </svg>
+                  </div>
+
+                  <button
+                    onClick={() => setIsModalOpen(!isModalOpen)}
+                    className="bg-emerald-700 text-white text-sm py-1.5  px-4 pl-6  font-medium rounded"
+                  >
+                    ブログ新規作成
+                  </button>
+                </div>
+                <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
+                  <CreateNewBlog setIsModalOpen={setIsModalOpen} />
+                </Modal>
               </div>
             </div>
           </div>
@@ -142,20 +173,11 @@ export const AdminBlogs = () => {
                     <h2>{x.title}</h2>
                     <h3>{x.blog_users[0].User.name}</h3>
                   </div>
-                  <Link
-                    to={`/admin/blogs/${x.id}`}
-                    onClick={() => {
-                      const targetArticle = blogData?.blogChoice.data.find(
-                        (y: any) => y.mockMyBlogs.id === x.id
-                      );
-                      setBlogState(targetArticle?.blogName);
-                      // console.log(blogState);
-                    }}
-                  >
-                    <div className="flex justify-center items-center">
+                  <Link to={`/admin/blogs/${x.id}`}>
+                    <div className="flex items-center justify-center">
                       <div className="text-green-600">ブログ管理画面へ </div>
                       <svg
-                        className="h-5 w-5 text-green-500"
+                        className="w-5 h-5 text-green-500"
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
@@ -182,20 +204,11 @@ export const AdminBlogs = () => {
                     <h2>{x.title}</h2>
                     <h3>{x.user}</h3>
                   </div>
-                  <Link
-                    to={`/admin/blogs/${x.id}`}
-                    onClick={() => {
-                      const targetArticle = blogData?.blogChoice.data.find(
-                        (y: any) => y.mockMyBlogs.id === x.id
-                      );
-                      setBlogState(targetArticle?.blogName);
-                      //console.log(blogState);
-                    }}
-                  >
-                    <div className="flex justify-center items-center">
+                  <Link to={`/admin/blogs/${x.id}`}>
+                    <div className="flex items-center justify-center">
                       <div className="text-green-600">ブログ管理画面へ </div>
                       <svg
-                        className="h-5 w-5 text-green-500"
+                        className="w-5 h-5 text-green-500"
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
@@ -219,51 +232,12 @@ export const AdminBlogs = () => {
             <button
               onClick={onClickFetchBlog}
               type="submit"
-              className="bg-emerald-700 text-white text-sm py-2  px-4  font-medium rounded"
+              className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
             >
               さらに読み込む
             </button>
           </div>
         </div>
-      </div>
-    </>
-  );
-};
-
-export const CreateNewBlog = () => {
-  function handleSubmit(e: any) {
-    e.preventDefault();
-    //console.log("You clicked submit.");
-  }
-  return (
-    <>
-      <div className="flex flex-wrap items-stretch ">
-        <div className="relative flex items-center ">
-          <svg
-            className="h-4 w-4 text-white absolute ml-1.5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            {" "}
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />{" "}
-            <polyline points="14 2 14 8 20 8" />{" "}
-            <line x1="12" y1="18" x2="12" y2="12" />{" "}
-            <line x1="9" y1="15" x2="15" y2="15" />
-          </svg>
-        </div>
-
-        <form onSubmit={handleSubmit}>
-          <button
-            type="submit"
-            className="bg-emerald-700 text-white text-sm py-1.5  px-4 pl-6  font-medium rounded"
-          >
-            ブログ新規作成
-          </button>
-        </form>
       </div>
     </>
   );

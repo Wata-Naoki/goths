@@ -54,7 +54,7 @@ export default function UserIcon() {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="px-1 py-1 ">
+            <div className="">
               <Link to={`/admin/blogs/${blogData?.Blog[0]?.id}`}>
                 <Menu.Item>
                   {({ active }) => (

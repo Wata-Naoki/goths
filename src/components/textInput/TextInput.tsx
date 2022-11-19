@@ -65,7 +65,7 @@ export const TextInput: React.FC<TextInputProps> = forwardRef<
             </div>
           )}
 
-          <div className="flex items-center">
+          <div className="flex items-center text-center">
             <input
               disabled={loading || disabled}
               ref={ref}
@@ -78,9 +78,9 @@ export const TextInput: React.FC<TextInputProps> = forwardRef<
                 leadingIcon && "pl-9",
                 trailingIcon && "pr-9",
                 error
-                  ? "border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring focus:ring-red-500"
+                  ? "border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring text-center text-sm sm:text-lg focus:ring-red-500"
                   : "focus:ring-primary focus:border-primary border-gray-300",
-                "hover:border-theme-400 block w-full rounded border p-3 shadow-sm focus:outline-none focus:ring sm:text-sm md:max-w-md",
+                "hover:border-theme-400 block w-full rounded border p-3 shadow-sm focus:outline-none focus:ring  md:max-w-md",
                 className
               )}
               placeholder={placeholder}

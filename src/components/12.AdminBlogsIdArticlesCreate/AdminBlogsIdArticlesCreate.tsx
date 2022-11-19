@@ -24,7 +24,8 @@ export const AdminBlogsIdArticlesCreate = () => {
   const { data, loading } = useQuery<BlogUserQuery>(GET_BLOG_USER, {
     variables: { id: id },
   });
-  //console.log(data?.blog_user[0].user_id);
+  // console.log(data?.blog_user[0].user_id);
+  // console.log(id);
 
   const [insert_Article_one, { loading: articleLoading, error }] =
     useMutation<CreateArticleOneMutation>(CREATE_ARTICLE, {
@@ -79,7 +80,7 @@ export const AdminBlogsIdArticlesCreate = () => {
         <BlogHeader />
       </div>
 
-      <div className="flex justify-start w-full  ">
+      <div className="flex justify-start w-full ">
         <div className="w-1/5">
           <Sidebar />
         </div>
@@ -89,7 +90,7 @@ export const AdminBlogsIdArticlesCreate = () => {
             <div className="flex justify-center mt-5 ">
               <div className="w-2/5 ">
                 <div>
-                  <div className="text-sm text-gray-500 mb-2">タイトル</div>
+                  <div className="mb-2 text-sm text-gray-500">タイトル</div>
                   <div className="my-1">
                     <input
                       type="text"
@@ -97,40 +98,40 @@ export const AdminBlogsIdArticlesCreate = () => {
                       value={title}
                       onChange={handleTitleChange}
                       name="title"
-                      className="ml-2 pl-4 py-1 pr-4 text-left border border-slate-300 rounded focus:outline-0   w-full "
+                      className="w-full py-1 pl-4 pr-4 ml-2 text-left border rounded border-slate-300 focus:outline-0 "
                     ></input>
                   </div>
                 </div>
 
                 <div>
-                  <div className="text-sm text-gray-500 mt-8">概要</div>
-                  <div className="my-1 w-full">
+                  <div className="mt-8 text-sm text-gray-500">概要</div>
+                  <div className="w-full my-1">
                     <textarea
                       rows={1}
                       id=""
                       name="content"
                       value={text}
                       onChange={handleTextChange}
-                      className="text-sm whitespace-normal text-left border border-slate-300 rounded focus:outline-0 pl-4 pt-2 pr-4 pb-24 w-full "
+                      className="w-full pt-2 pb-24 pl-4 pr-4 text-sm text-left whitespace-normal border rounded border-slate-300 focus:outline-0 "
                     ></textarea>
                   </div>
                 </div>
 
                 <div>
-                  <div className="text-sm text-gray-500 mt-8">内容</div>
-                  <div className="my-1 w-full">
+                  <div className="mt-8 text-sm text-gray-500">内容</div>
+                  <div className="w-full my-1">
                     <textarea
                       rows={4}
                       id=""
                       name="content"
                       value={allText}
                       onChange={handleAllTextChange}
-                      className="text-sm whitespace-normal text-left border border-slate-300 rounded focus:outline-0 pl-4 pt-2 pr-4 pb-24 w-full "
+                      className="w-full pt-2 pb-24 pl-4 pr-4 text-sm text-left whitespace-normal border rounded border-slate-300 focus:outline-0 "
                     ></textarea>
                   </div>
                 </div>
 
-                <div className="flex justify-center mt-10 items-center">
+                <div className="flex items-center justify-center mt-10">
                   <div>
                     <div className="flex flex-wrap items-stretch ">
                       <div className="relative flex items-center ">

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { useAuthContext } from "../../AuthContext";
-import { GET_BLOGS, GET_USER_BLOGS } from "../../queries/queries";
+import { GET_BLOGS, GET_USER, GET_USER_BLOGS } from "../../queries/queries";
 
 import { blogChoiceState } from "../Atom/BlogChoiceAtom";
 import { CreateNewBlog } from "../CreateNewBlog/CreateNewBlog";
@@ -55,6 +55,7 @@ export const AdminBlogs = () => {
     data: myblogdata,
   } = useQuery(ARTICLESBYMYBLOG_QUERY);
   const { loading, error, data } = useQuery(ARTICLESBYBLOG_QUERY);
+  const { user } = useAuthContext();
 
   // console.log(data);
   const [page, setPage] = useState<"Myブログ" | "編集者ブログ">("Myブログ");
@@ -75,15 +76,22 @@ export const AdminBlogs = () => {
 
   const [
     executeBlog,
-    { data: blogData, error: blogError, loading: blogLoading },
+    { data: blogData, error: blogError, loading: blogLoading, refetch },
   ] = useLazyQuery(GET_USER_BLOGS);
   console.log(blogData);
+
+  const {
+    data: userData,
+    loading: userLoading,
+    error: userError,
+  } = useQuery(GET_USER, { variables: { email: user.email } });
+
+  // console.log(userData?.User[0]?.id);
 
   const onClickFetchBlog = () => {
     setNumBlog(numblog + 1);
     //console.log(num);
   };
-  const { user } = useAuthContext();
 
   useEffect(() => {
     // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
@@ -137,8 +145,16 @@ export const AdminBlogs = () => {
                     ブログ新規作成
                   </button>
                 </div>
-                <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
-                  <CreateNewBlog setIsModalOpen={setIsModalOpen} />
+                <Modal
+                  isOpen={isModalOpen}
+                  setIsOpen={setIsModalOpen}
+                  className=""
+                >
+                  <CreateNewBlog
+                    setIsModalOpen={setIsModalOpen}
+                    userId={userData?.User[0]?.id}
+                    refetch={refetch}
+                  />
                 </Modal>
               </div>
             </div>

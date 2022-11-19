@@ -31,56 +31,56 @@ const Mypage = () => {
         <Header />
       </div>
 
-      <div className="text-center my-10">記事作成履歴</div>
+      <div className="my-10 text-center">記事作成履歴</div>
 
       <div className="flex justify-center">
         <div className="flex flex-col w-3/5">
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-              <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+            <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+              <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
                 <table className="min-w-full divide-y ">
-                  <tbody className="bg-white divide-y divide-gray-00 font-normal">
-                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                  <tbody className="font-normal bg-white divide-y divide-gray-00">
+                    <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       1月
                     </th>
-                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                    <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       2月
                     </th>
-                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                    <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       3月
                     </th>
-                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                    <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       4月
                     </th>
-                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                    <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       5月
                     </th>
-                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                    <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       6月
                     </th>
-                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                    <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       7月
                     </th>
-                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                    <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       8月
                     </th>
-                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                    <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       9月
                     </th>
-                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                    <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       10月
                     </th>
-                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                    <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       11月
                     </th>
-                    <th className="py-2 text-gray-400 bg-gray-100 font-normal">
+                    <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       12月
                     </th>
 
                     <tr>
                       {[0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1].map(
                         (x: any, index) => (
-                          <td className="px-6 py-4  ">
+                          <td className="px-6 py-4 ">
                             <div key={index} className="flex justify-center">
                               <h2>{x}</h2>
                             </div>
@@ -96,7 +96,7 @@ const Mypage = () => {
         </div>
       </div>
 
-      <div className="text-center text-2xl mt-24 mb-10">ユーザー設定</div>
+      <div className="mt-24 mb-10 text-2xl text-center">ユーザー設定</div>
 
       <div className="">
         <UserForm />
@@ -149,8 +149,8 @@ export const UserForm = () => {
  */
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    toastLoading();
-    if (username) {
+    if (username !== "" && email !== "") {
+      toastLoading();
       try {
         await updata_users_by_pk({
           variables: {
@@ -183,7 +183,7 @@ export const UserForm = () => {
                 defaultValue={userDate?.User[0].name}
                 value={username ? username : userDate?.User[0].name}
                 onChange={(e: any) => setUsername(e.target.value)}
-                className="text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-96 "
+                className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-96 "
               />
             </div>
 
@@ -193,7 +193,7 @@ export const UserForm = () => {
                 defaultValue={userDate?.User[0].email}
                 value={email ? email : userDate?.User[0].email}
                 onChange={(e: any) => setEmail(e.target.value)}
-                className=" text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-96 "
+                className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-96"
               />
             </div>
 
@@ -202,7 +202,7 @@ export const UserForm = () => {
               <input
                 value={gitToken}
                 onChange={(e: any) => setGitToken(e.target.value)}
-                className="text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-96 "
+                className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-96 "
               />
             </div> */}
 

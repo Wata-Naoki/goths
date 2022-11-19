@@ -87,25 +87,31 @@ export const AdminBlogsIdConfig = () => {
     }
   };
 
-  const handleDelete = async () => {
-    toastLoading();
-
+  const handleDelete = async (e: any) => {
+    e.preventDefault();
     if (blogId) {
+      //toastLoading();
       try {
         await delete_Blog_by_pk({ variables: { id: blogId } });
-        toastSucceeded();
+        alert("ブログを削除しました");
+        //toastSucceeded();
+
+        window.location.href = `/admin/blogs`;
 
         // alert("変更が保存されました");
         // navigate(-1);
       } catch (err: any) {
+        console.log(err);
         toastFailed();
+
+        //window.location.href = `/admin/blogs`;
 
         // alert(err.message);
       }
     }
   };
 
-  if (loading || updateBlogLoading || deleteBlogLoading) {
+  if (loading) {
     return <Loading />;
   }
   if (error) {
@@ -177,13 +183,7 @@ export const AdminBlogsIdConfig = () => {
               <div className="w-full my-1">
                 <div className="flex items-center justify-center w-full pl-4 pr-6 text-left whitespace-normal border border-red-500 border-dashed rounded-xl focus:outline-0 ">
                   <div className="my-6">
-                    <BlogDeleteButton
-                      onClick={async () => {
-                        await handleDelete();
-                        window.location.href = `/admin/blogs`;
-                        //navigate(`/admin/blogs/${blogId}`);
-                      }}
-                    />
+                    <BlogDeleteButton onClick={(e) => handleDelete(e)} />
                   </div>
                 </div>
               </div>

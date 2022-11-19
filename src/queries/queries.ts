@@ -308,3 +308,14 @@ export const GET_SEARCH_ARTICLES = gql`
     }
   }
 `;
+
+export const CREATE_BLOG = gql`
+  mutation CreateBlog($user_id: uuid!, $title: String!) {
+    insert_Blog_one(
+      object: { blog_users: { data: { user_id: $user_id } }, title: $title }
+    ) {
+      id
+      title
+    }
+  }
+`;

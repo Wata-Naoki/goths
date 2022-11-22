@@ -194,7 +194,7 @@ function BlogArticle() {
                     <div>
                       <h2 className="text-2xl">{x.title}</h2>
                       <h3 className="my-2 text-gray-500">
-                        {x.blog_users[0].User.name}
+                        {x?.blog_users[0]?.User?.name}
                       </h3>
                     </div>
                     <Link to={`/blogs/${x.id}/articles`}>

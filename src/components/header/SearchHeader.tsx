@@ -6,8 +6,8 @@ import { Manage } from "../../pages/Articles/blogArticle";
 
 /* import { Manage } from "../../pages/Articles/blogArticle";
  */
-import { ResultSearch } from "../6.search/ResultSearch";
-import Searches from "../6.search/serches";
+import { ResultSearch } from "../search/ResultSearch";
+import Searches from "../search/serches";
 import { blogIdState } from "../Atom/BlogChoiceAtom";
 import { Loading } from "../Loading/Loading";
 import UserIcon from "./UserIcon";

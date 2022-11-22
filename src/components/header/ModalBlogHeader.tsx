@@ -21,49 +21,34 @@ import { blogChoiceState, blogIdState } from "../Atom/BlogChoiceAtom";
 //   }
 // `;
 
-export const ModalBlogHeader = ({ blogTitle }: any) => {
-  console.log(blogTitle);
+export const ModalBlogHeader = ({
+  blogTitle,
+  isOpen,
+  setIsOpen,
+  closeModal,
+  openModal,
+}: any) => {
   const { user } = useAuthContext();
-
   const { loading, error, data } = useQuery(GET_BLOGS_MODAL, {
     variables: { email: user?.email },
   });
-  console.log(data);
-
   const { id } = useParams();
   const titleState = data?.Blog.find((blog: any) => blog.id === id);
-  console.log(titleState);
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  // const [blogState, setBlogState] = useRecoilState(blogChoiceState);
-  // const blogIdStateValue = useRecoilValue(blogIdState);
-
-  //const targetArticle = data?.blogChoice.data.find((x: any) => x.mockMyBlogs.id === id);
-  //blogState = targetArticle?.blogName
-
-  // console.log(blogIdState);
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
   const handleLink = (id: any) => {
     window.location.href = `/admin/blogs/${id}`;
   };
 
   return (
     <>
-      <div className="flex juestify-center items-center mt-2 ">
+      <div
+        className="flex items-center mt-2 cursor-pointer juestify-center"
+        onClick={openModal}
+      >
         <div>{titleState?.title}</div>
 
         <div className="mx-2">
           <svg
-            className="h-5 w-5 text-gray-500"
+            className="w-5 h-5 text-gray-500"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -93,7 +78,7 @@ export const ModalBlogHeader = ({ blogTitle }: any) => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <div className="flex items-center justify-center min-h-full p-4 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -103,26 +88,26 @@ export const ModalBlogHeader = ({ blogTitle }: any) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl transition-all focus:outline-none">
+                <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white rounded shadow-xl focus:outline-none">
                   <Dialog.Title
                     as="h3"
-                    className="text font-medium leading-6 text-gray-900"
+                    className="font-medium leading-6 text-gray-900 text"
                   >
-                    <div className="text-center my-4">ブログ選択</div>
+                    <div className="my-4 text-center">ブログ選択</div>
                     <div className="flex justify-center">
                       <div className="flex flex-col w-3/4">
                         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded">
+                          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                            <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded">
                               <table className="min-w-full divide-y ">
                                 <tbody className="bg-white divide-y divide-gray-00">
-                                  <th className="py-2 pr-16 text-gray-500 bg-gray-100 text-sm text-center font-normal">
+                                  <th className="py-2 pr-16 text-sm font-normal text-center text-gray-500 bg-gray-100">
                                     タイトル
                                   </th>
 
                                   {data?.Blog.map((x: any, index: number) => (
                                     <tr key={index}>
-                                      <td className=" py-4 pl-2 hover:bg-gray-100 ">
+                                      <td className="py-4 pl-2 hover:bg-gray-100">
                                         <div className="flex justify-start">
                                           <div
                                             className={`relative flex items-center pr-4 ml-4  ${
@@ -132,7 +117,7 @@ export const ModalBlogHeader = ({ blogTitle }: any) => {
                                             }`}
                                           >
                                             <svg
-                                              className="h-6 w-6 text-green-700 "
+                                              className="w-6 h-6 text-green-700 "
                                               viewBox="0 0 24 24"
                                               fill="none"
                                               stroke="currentColor"

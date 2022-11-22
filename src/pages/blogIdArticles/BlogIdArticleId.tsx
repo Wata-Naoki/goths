@@ -1,13 +1,22 @@
-import React, { useRef, useState } from "react";
-import { useQuery, gql, useMutation } from "@apollo/client";
+import React, { useEffect, useRef, useState } from "react";
+import { useQuery, gql, useMutation, useLazyQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { Header } from "../../components/header/SearchHeader";
-import { GET_ARTICLE, UPDATE_ARTICLE_LIKE } from "../../queries/queries";
+import {
+  GET_ARTICLE,
+  GET_FAVORITES_ARTICLES,
+  UPDATE_ARTICLE_LIKE,
+  UPDATE_FAVORITES_ARTICLES,
+} from "../../queries/queries";
 import { Loading } from "../../components/Loading/Loading";
 import { formatJst } from "../../components/FormatJst/FormatJst";
-import { UpdateArticleLikeMutation } from "../../types/generated/graphql.tsx/graphql";
+import {
+  GetFavoritesArticlesQuery,
+  UpdateArticleLikeMutation,
+} from "../../types/generated/graphql.tsx/graphql";
 import { useToast } from "../../components/Loading/useToast";
 import { SectionLoading } from "../../components/Loading/SectionLoading";
+import { useAuthContext } from "../../AuthContext";
 
 const BLOGIDARTICLESID_QUERY = gql`
   query article {
@@ -28,6 +37,24 @@ const BLOGIDARTICLESID_QUERY = gql`
 const BlogIdArticleId = () => {
   const { loading, error, data } = useQuery(BLOGIDARTICLESID_QUERY);
   const { id, articleId } = useParams();
+  const { user } = useAuthContext();
+  const [
+    excute,
+    {
+      data: favoriteData,
+      error: favoriteError,
+      loading: favoriteLoading,
+      refetch: refetchFavorite,
+    },
+  ] = useLazyQuery<GetFavoritesArticlesQuery>(GET_FAVORITES_ARTICLES);
+
+  useEffect(() => {
+    // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
+    console.log(user.email);
+
+    excute({ variables: { email: user?.email } });
+    console.log(favoriteData);
+  }, [user.email]);
 
   const {
     data: articleData,
@@ -45,6 +72,7 @@ const BlogIdArticleId = () => {
       onCompleted: () => {
         console.log("いいねしました");
         refetch();
+        refetchFavorite();
       },
       onError: () => {
         console.log("いいねできませんでした");
@@ -53,28 +81,57 @@ const BlogIdArticleId = () => {
     });
 
   const like = useRef(true);
+  const [add_favorites, { loading: addLoading, error: addError }] = useMutation(
+    UPDATE_FAVORITES_ARTICLES
+  );
 
   console.log(articleData?.Article[0].like);
-  const handleLike = () => {
-    like.current = !like.current;
-    console.log(like);
-    //likeの値が変わったら、update_Article_by_pkを実行する
-    update_Article_by_pk({
-      variables: {
-        id: articleId,
-        like:
-          like.current === true
-            ? articleData?.Article[0].like - 1
-            : articleData?.Article[0].like + 1,
-      },
-    });
+  const handleLike = async (articleId: string) => {
+    //favoriteDataにarticleIdがあるかどうかで処理を分ける
+    if (favoriteData?.Article.find((x) => x.id !== articleId)) {
+      like.current = !like.current;
+      console.log(like);
+      //likeの値が変わったら、update_Article_by_pkを実行する
 
-    console.log(like.current);
+      //
+      await update_Article_by_pk({
+        variables: {
+          id: articleId,
+          like: articleData?.Article[0].like + 1,
+        },
+      });
+
+      await add_favorites({
+        variables: {
+          id: articleId,
+          user_favorite_articles_id: user?.email,
+        },
+      });
+
+      console.log(like.current);
+    } else {
+      await update_Article_by_pk({
+        variables: {
+          id: articleId,
+          like: articleData?.Article[0].like - 1,
+        },
+      });
+
+      //TODO: addではなく、deleteを実行する
+      await add_favorites({
+        variables: {
+          id: articleId,
+          user_favorite_articles_id: user?.email,
+        },
+      });
+    }
   };
 
   if (articeDataLoading) {
     return <Loading />;
   }
+
+  console.log(articleData);
 
   return (
     <>
@@ -100,7 +157,10 @@ const BlogIdArticleId = () => {
             <p className="mb-5">{articleData?.Article[0].all_text}</p>
 
             <div className="items-center justify-end inline-block float-right w-auto mt-5 text-gray-500 ">
-              <button className="flex items-center" onClick={handleLike}>
+              <button
+                className="flex items-center"
+                onClick={() => handleLike(articleData.id)}
+              >
                 <div>
                   <svg
                     className={`w-5 h-5   ${

@@ -1,13 +1,18 @@
-import React from "react";
-import { useQuery, gql } from "@apollo/client";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useQuery, gql, useLazyQuery } from "@apollo/client";
+import { Link, useParams } from "react-router-dom";
 import { Form } from "../Articles/blogArticle";
 import { Header } from "../../components/header/SearchHeader";
+import { useAuthContext } from "../../AuthContext";
+import { GET_FAVORITES_ARTICLES, GET_USER_BLOGS } from "../../queries/queries";
+import { GetFavoritesArticlesQuery } from "../../types/generated/graphql.tsx/graphql";
+import { Loading } from "../../components/Loading/Loading";
+import { formatJst } from "../../components/FormatJst/FormatJst";
 
 const FAVORITES_QUERY = gql`
   query favoriteArticles {
     favoriteArticles {
-      mockFavoriteArticles{
+      mockFavoriteArticles {
         title
         users
         createAt
@@ -16,13 +21,42 @@ const FAVORITES_QUERY = gql`
     }
   }
 `;
-
 const Favorites = () => {
   const { loading, error, data } = useQuery(FAVORITES_QUERY);
   const { id, articleId } = useParams();
+  const { user } = useAuthContext();
+  const [numblog, setNumBlog] = useState<number>(2);
+
+  //GET_FAVORITES_ARTICLES_QUERY
+  const [
+    excute,
+    {
+      data: favoriteData,
+      error: favoriteError,
+      loading: favoriteLoading,
+      refetch: refetchFavorite,
+    },
+  ] = useLazyQuery<GetFavoritesArticlesQuery>(GET_FAVORITES_ARTICLES);
+
+  useEffect(() => {
+    // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
+    console.log(user.email);
+
+    excute({ variables: { email: user?.email, limit: numblog } });
+  }, [numblog]);
 
   // console.log(data);
   // console.log(id, articleId);
+  const onClickFetchBlog = () => {
+    setNumBlog(numblog + 1);
+    //console.log(num);
+  };
+
+  if (favoriteLoading) {
+    return <Loading />;
+  }
+
+  console.log(favoriteData);
 
   return (
     <>
@@ -38,22 +72,37 @@ const Favorites = () => {
             </div>
 
             <div>
-              {data?.favoriteArticles.data.map((x: any) => (
+              {favoriteData?.Article?.map((x: any) => (
                 <div key={x.id}>
-                  <h2 className="mt-8 text-xl">{x.title}</h2>
-                  
-                  <div className="flex justify-between text-gray-500 my-2">
-                    <h3>{x.users}</h3>
-                    <h3>{x.createAt}</h3>
-                  </div>
+                  <div className="my-8">
+                    <Link
+                      to={`/blogs/articles/${x.id}`}
+                      className="hover:text-gray-500"
+                    >
+                      <h2 className="text-2xl">{x.title}</h2>
+                    </Link>
 
-                  <p>{x.text}</p>
+                    <div className="flex justify-between my-2 text-gray-500">
+                      <h3>{x.Blog.title}</h3>
+                      <h3 className="mr-4 text-gray-500">
+                        {formatJst(x.createdAt)}
+                      </h3>
+                    </div>
+
+                    <p>{x.text}</p>
+                  </div>
                 </div>
               ))}
             </div>
 
-            <div className="flex justify-center mt-10">
-              <Form />
+            <div className="flex justify-center my-10">
+              <button
+                type="button"
+                onClick={onClickFetchBlog}
+                className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
+              >
+                さらに読み込む
+              </button>
             </div>
           </div>
         </div>

@@ -4,19 +4,22 @@ import { useRecoilValue } from "recoil";
 import { Manage } from "../../pages/Articles/blogArticle";
 import { blogIdState } from "../Atom/BlogChoiceAtom";
 import { ModalBlogHeader } from "./ModalBlogHeader";
+import { useModalState } from "./useModalState";
 import UserIcon from "./UserIcon";
 
 export const BlogHeader = ({ blogTitle }: any) => {
   const blogIdStateValue = useRecoilValue(blogIdState);
   // console.log(blogIdStateValue)
   console.log(blogTitle);
+
+  const { isOpen, setIsOpen, closeModal, openModal } = useModalState();
   return (
     <>
-      <div className="flex justify-between my-2 mx-5">
+      <div className="flex justify-between mx-5 my-2">
         <div>
           {/* 1 */}
           <Link to="/admin/blogs">
-            <div className="text-black w-28 h-10 text-3xl  font-medium not-italic flex-none order-none grow-0">
+            <div className="flex-none order-none h-10 text-3xl not-italic font-medium text-black w-28 grow-0">
               Goths
             </div>
           </Link>
@@ -26,8 +29,14 @@ export const BlogHeader = ({ blogTitle }: any) => {
         <div>
           {/* 2 */}
 
-          <div>
-            <ModalBlogHeader blogTitle={blogTitle} />
+          <div className="">
+            <ModalBlogHeader
+              blogTitle={blogTitle}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              closeModal={closeModal}
+              openModal={openModal}
+            />
           </div>
         </div>
         {/* 2 */}
@@ -35,8 +44,8 @@ export const BlogHeader = ({ blogTitle }: any) => {
         <div>
           {/* 3 */}
 
-          <div className="flex justify-between items-center">
-            <div className=" text-gray-500 mr-4">
+          <div className="flex items-center justify-between">
+            <div className="mr-4 text-gray-500 ">
               <Link to="/favorites">お気に入り</Link>
             </div>
 

@@ -319,3 +319,40 @@ export const CREATE_BLOG = gql`
     }
   }
 `;
+
+// ex) uuid = "1bf773a5-9c62-43bc-b5ce-43633fdb3b14"
+export const GET_FAVORITES_ARTICLES = gql`
+  query GetFavoritesArticles($email: String, $limit: Int) {
+    Article(
+      where: { user_favorite_articles_id: { _eq: $email } }
+      limit: $limit
+      order_by: { createdAt: desc }
+    ) {
+      id
+      title
+      Blog {
+        title
+      }
+      createdAt
+      text
+    }
+  }
+`;
+
+// ex) uuid = "21aefd7e-8ea4-478d-b1ba-99fc4779116c" String = "user1-1@gmail.com"
+//user_favorite_articles_idはEmail
+export const UPDATE_FAVORITES_ARTICLES = gql`
+  mutation UpdateFavoriteArticles(
+    $id: uuid!
+    $user_favorite_articles_id: String!
+  ) {
+    update_Article_by_pk(
+      pk_columns: { id: $id }
+      _set: { user_favorite_articles_id: $user_favorite_articles_id }
+    ) {
+      id
+      user_favorite_articles_id
+      title
+    }
+  }
+`;

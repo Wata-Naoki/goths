@@ -41,7 +41,7 @@ export const ModalBlogHeader = ({
   return (
     <>
       <div
-        className="flex items-center mt-2 cursor-pointer juestify-center"
+        className="flex items-center justify-center mt-2 cursor-pointer"
         onClick={openModal}
       >
         <div>{titleState?.title}</div>

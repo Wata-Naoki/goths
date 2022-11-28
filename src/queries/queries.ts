@@ -285,8 +285,20 @@ export const GET_BLOGS_MODAL = gql`
 `;
 
 export const UPDATE_ARTICLE_LIKE = gql`
-  mutation UpdateArticleLike($id: uuid!, $like: Int!) {
-    update_Article_by_pk(pk_columns: { id: $id }, _set: { like: $like }) {
+  mutation UpdateArticleLike(
+    $id: uuid!
+    $like: Int!
+    $user_favorite_articles_id: String
+    $status: Boolean
+  ) {
+    update_Article_by_pk(
+      pk_columns: { id: $id }
+      _set: {
+        like: $like
+        user_favorite_articles_id: $user_favorite_articles_id
+        status: $status
+      }
+    ) {
       like
       title
       status
@@ -324,7 +336,10 @@ export const CREATE_BLOG = gql`
 export const GET_FAVORITES_ARTICLES = gql`
   query GetFavoritesArticles($email: String, $limit: Int) {
     Article(
-      where: { user_favorite_articles_id: { _eq: $email } }
+      where: {
+        user_favorite_articles_id: { _eq: $email }
+        status: { _eq: true }
+      }
       limit: $limit
       order_by: { createdAt: desc }
     ) {
@@ -344,14 +359,28 @@ export const GET_FAVORITES_ARTICLES = gql`
 export const UPDATE_FAVORITES_ARTICLES = gql`
   mutation UpdateFavoriteArticles(
     $id: uuid!
-    $user_favorite_articles_id: String!
+    $user_favorite_articles_id: String
+    $status: Boolean
   ) {
     update_Article_by_pk(
       pk_columns: { id: $id }
-      _set: { user_favorite_articles_id: $user_favorite_articles_id }
+      _set: {
+        user_favorite_articles_id: $user_favorite_articles_id
+        status: $status
+      }
     ) {
       id
       user_favorite_articles_id
+      title
+    }
+  }
+`;
+
+//ex) uuid = "84eebb47-a9c1-488c-90bb-2143b4890ec6"
+export const DELETE_FAVORITE_ARTICLE = gql`
+  mutation deleteFavoriteArticles($id: uuid!) {
+    delete_Article_by_pk(id: $id) {
+      id
       title
     }
   }

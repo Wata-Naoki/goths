@@ -3,6 +3,7 @@ import { useQuery, gql, useMutation, useLazyQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { Header } from "../../components/header/SearchHeader";
 import {
+  DELETE_FAVORITE_ARTICLE,
   GET_ARTICLE,
   GET_FAVORITES_ARTICLES,
   UPDATE_ARTICLE_LIKE,
@@ -36,7 +37,7 @@ const BLOGIDARTICLESID_QUERY = gql`
 
 const BlogIdArticleId = () => {
   const { loading, error, data } = useQuery(BLOGIDARTICLESID_QUERY);
-  const { id, articleId } = useParams();
+  const { articleId } = useParams();
   const { user } = useAuthContext();
   const [
     excute,
@@ -50,10 +51,8 @@ const BlogIdArticleId = () => {
 
   useEffect(() => {
     // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
-    console.log(user.email);
 
     excute({ variables: { email: user?.email } });
-    console.log(favoriteData);
   }, [user.email]);
 
   const {
@@ -73,6 +72,7 @@ const BlogIdArticleId = () => {
         console.log("いいねしました");
         refetch();
         refetchFavorite();
+        toastSucceeded();
       },
       onError: () => {
         console.log("いいねできませんでした");
@@ -80,17 +80,21 @@ const BlogIdArticleId = () => {
       },
     });
 
-  const like = useRef(true);
-  const [add_favorites, { loading: addLoading, error: addError }] = useMutation(
-    UPDATE_FAVORITES_ARTICLES
-  );
+  // useEffect(() => {
+  //   if (!favoriteData?.Article.find((x) => x.id === articleId)) {
+  //     like.current = true;
+  //     console.log(like.current);
+  //   } else {
+  //     like.current = false;
+  //     console.log(like.current);
+  //   }
+  // }, [like]);
 
-  console.log(articleData?.Article[0].like);
-  const handleLike = async (articleId: string) => {
+  const handleLike = async () => {
     //favoriteDataにarticleIdがあるかどうかで処理を分ける
-    if (favoriteData?.Article.find((x) => x.id !== articleId)) {
-      like.current = !like.current;
-      console.log(like);
+    toastLoading();
+
+    if (!favoriteData?.Article?.find((x) => x.id === articleId)) {
       //likeの値が変わったら、update_Article_by_pkを実行する
 
       //
@@ -98,32 +102,26 @@ const BlogIdArticleId = () => {
         variables: {
           id: articleId,
           like: articleData?.Article[0].like + 1,
-        },
-      });
-
-      await add_favorites({
-        variables: {
-          id: articleId,
           user_favorite_articles_id: user?.email,
+          status: true,
         },
       });
-
-      console.log(like.current);
     } else {
       await update_Article_by_pk({
         variables: {
           id: articleId,
           like: articleData?.Article[0].like - 1,
+          status: false,
         },
       });
 
       //TODO: addではなく、deleteを実行する
-      await add_favorites({
-        variables: {
-          id: articleId,
-          user_favorite_articles_id: user?.email,
-        },
-      });
+      // await add_favorites({
+      //   variables: {
+      //     id: articleId,
+      //     status: false,
+      //   },
+      // });
     }
   };
 
@@ -159,12 +157,14 @@ const BlogIdArticleId = () => {
             <div className="items-center justify-end inline-block float-right w-auto mt-5 text-gray-500 ">
               <button
                 className="flex items-center"
-                onClick={() => handleLike(articleData.id)}
+                onClick={() => handleLike()}
               >
                 <div>
                   <svg
                     className={`w-5 h-5   ${
-                      like.current === true ? "text-gray-500" : "text-red-500"
+                      favoriteData?.Article?.find((x) => x.id === articleId)
+                        ? "text-red-500"
+                        : "text-gray-500"
                     }`}
                     fill="none"
                     viewBox="0 0 24 24"

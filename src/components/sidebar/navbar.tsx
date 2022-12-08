@@ -27,7 +27,7 @@ export const Sidebar = () => {
     <>
       {/*  <div>Sidebar</div> */}
 
-      <div className="w-60  pr-1 flex flex-col items-start justify-between sticky top-0">
+      <div className="sticky top-0 flex flex-col items-start justify-between pr-1 w-60">
         <div>
           <div className="">
             <button
@@ -38,9 +38,9 @@ export const Sidebar = () => {
                   : ""
               }`}
             >
-              <div>
+              <div className="mr-1">
                 <svg
-                  className="h-5 w-5 text-gray-500"
+                  className="w-5 h-5 text-gray-500"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -66,9 +66,9 @@ export const Sidebar = () => {
                   : ""
               }`}
             >
-              <div>
+              <div className="mr-1">
                 <svg
-                  className="h-5 w-5 text-gray-500"
+                  className="w-5 h-5 text-gray-500"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -94,9 +94,9 @@ export const Sidebar = () => {
                   : ""
               }`}
             >
-              <div>
+              <div className="mr-1">
                 <svg
-                  className="h-5 w-5 text-gray-500"
+                  className="w-5 h-5 text-gray-500"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -126,9 +126,9 @@ export const Sidebar = () => {
                   : ""
               }`}
             >
-              <div>
+              <div className="mr-1">
                 <svg
-                  className="h-5 w-5 text-gray-500"
+                  className="w-5 h-5 text-gray-500"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -147,10 +147,10 @@ export const Sidebar = () => {
           </div>
 
           <div className="">
-            <button className="relative w-56 flex items-center text-sm py-3 px-4 text-gray-600 hover:bg-teal-100">
-              <div>
+            <button className="relative flex items-center w-56 px-4 py-3 text-sm text-gray-600 hover:bg-teal-100">
+              <div className="mr-1">
                 <svg
-                  className="h-5 w-5 text-gray-500"
+                  className="w-5 h-5 text-gray-500"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

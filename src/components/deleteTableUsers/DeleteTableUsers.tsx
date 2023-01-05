@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { DELETE_USER_ONE } from "../../queries/queries";
+import { DELETE_USER_ONE } from "../../queries";
 import { DeleteUserOneMutation } from "../../types/generated/graphql.tsx/graphql";
 import { Loading } from "../Loading/Loading";
 import { useToast } from "../Loading/useToast";

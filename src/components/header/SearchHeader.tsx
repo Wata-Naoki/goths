@@ -32,7 +32,7 @@ export const Header = () => {
         </div>
 
         <div>
-          <div className="flex flex-wrap items-stretch w-40 mb-2">
+          <div className="flex flex-wrap items-stretch w-40 mb-2 ml-16">
             <div className="relative flex items-center">
               <svg
                 className="absolute w-4 h-4 ml-2 text-gray-500 mt-7 hover:cursor-pointer "

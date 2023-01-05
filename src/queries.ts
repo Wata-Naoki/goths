@@ -288,7 +288,7 @@ export const UPDATE_ARTICLE_LIKE = gql`
   mutation UpdateArticleLike(
     $id: uuid!
     $like: Int!
-    $user_favorite_articles_id: String
+    $user_favorite_articles_id: uuid
     $status: Boolean
   ) {
     update_Article_by_pk(
@@ -334,12 +334,9 @@ export const CREATE_BLOG = gql`
 
 // ex) uuid = "1bf773a5-9c62-43bc-b5ce-43633fdb3b14"
 export const GET_FAVORITES_ARTICLES = gql`
-  query GetFavoritesArticles($email: String, $limit: Int) {
+  query GetFavoritesArticles($id: uuid!, $limit: Int) {
     Article(
-      where: {
-        user_favorite_articles_id: { _eq: $email }
-        status: { _eq: true }
-      }
+      where: { user_favorite_articles_id: { _eq: $id }, status: { _eq: true } }
       limit: $limit
       order_by: { createdAt: desc }
     ) {
@@ -359,7 +356,7 @@ export const GET_FAVORITES_ARTICLES = gql`
 export const UPDATE_FAVORITES_ARTICLES = gql`
   mutation UpdateFavoriteArticles(
     $id: uuid!
-    $user_favorite_articles_id: String
+    $user_favorite_articles_id: uuid
     $status: Boolean
   ) {
     update_Article_by_pk(
@@ -382,6 +379,17 @@ export const DELETE_FAVORITE_ARTICLE = gql`
     delete_Article_by_pk(id: $id) {
       id
       title
+    }
+  }
+`;
+
+export const CREATE_ADMIN_USER_ONE = gql`
+  mutation CreateAdminUserOne($name: String!, $email: String!) {
+    insert_User_one(object: { name: $name, email: $email }) {
+      id
+      name
+      email
+      createdAt
     }
   }
 `;

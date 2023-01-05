@@ -1,9 +1,9 @@
-import { gql, useMutation, useQuery } from '@apollo/client'
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import { GET_BLOG_EDITORS } from '../../queries/queries'
-import { GetBlogEditorsQuery } from '../../types/generated/graphql.tsx/graphql'
-import DeleteTableUsers from '../deleteTableUsers/DeleteTableUsers'
+import { gql, useMutation, useQuery } from "@apollo/client";
+import React from "react";
+import { useParams } from "react-router-dom";
+import { GET_BLOG_EDITORS } from "../../queries";
+import { GetBlogEditorsQuery } from "../../types/generated/graphql.tsx/graphql";
+import DeleteTableUsers from "../deleteTableUsers/DeleteTableUsers";
 
 // const ADMIN_TABLE_USERS_QUERY = gql`
 //   query adminTableUsers {
@@ -35,14 +35,14 @@ export const UserTable1 = () => {
   // const { loading, error, data } = useQuery(ADMIN_TABLE_USERS_QUERY);
   // console.log(data);
 
-  const { id } = useParams()
+  const { id } = useParams();
   const { data, loading, error } = useQuery<GetBlogEditorsQuery>(
     GET_BLOG_EDITORS,
     {
       variables: { blog_id: id },
     }
-  )
-  console.log(data)
+  );
+  console.log(data);
 
   return (
     <div className="flex flex-col">
@@ -98,5 +98,5 @@ export const UserTable1 = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

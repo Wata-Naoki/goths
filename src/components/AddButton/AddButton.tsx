@@ -2,7 +2,8 @@ import { gql, useMutation } from "@apollo/client";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CREATE_USER_ONE } from "../../queries/queries";
+import { auth } from "../../firebaseConfig";
+import { CREATE_USER_ONE } from "../../queries";
 import { useToast } from "../Loading/useToast";
 
 // const USER_ADD = gql`
@@ -12,11 +13,15 @@ import { useToast } from "../Loading/useToast";
 //     }
 //   }
 // `;
+type UserState = { name: string; email: string; password: string };
 
 export const AddButton = () => {
   const { id } = useParams();
-  const [name, setName] = useState<string>();
-  const [email, setEmail] = useState<string>();
+  const [userState, setUserState] = useState<UserState>({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [insert_User_one, { loading, error }] = useMutation(CREATE_USER_ONE, {
     onCompleted: () => {
       toastSucceeded();
@@ -29,15 +34,19 @@ export const AddButton = () => {
 
   const handleSubmit = async () => {
     toastLoading();
-    if (id) {
+    if (id && userState.name && userState.email && userState.password) {
       try {
         await insert_User_one({
           variables: {
             blog_id: id,
-            name: name,
-            email: email,
+            name: userState.name,
+            email: userState.email,
           },
         });
+        await auth.createUserWithEmailAndPassword(
+          userState.email,
+          userState.password
+        );
         toastSucceeded();
         //alert("変更が保存されました");
       } catch (err: any) {
@@ -63,7 +72,7 @@ export const AddButton = () => {
         <div className="relative flex items-center">
           <button
             onClick={openModal}
-            className="bg-green-700 px-2  py-1  rounded-full"
+            className="px-2 py-1 bg-green-700 rounded-full"
           >
             追加
           </button>
@@ -85,7 +94,7 @@ export const AddButton = () => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <div className="flex items-center justify-center min-h-full p-4 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -95,7 +104,7 @@ export const AddButton = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -112,34 +121,62 @@ export const AddButton = () => {
                         <div>
                           <div className="">編集者追加</div>
 
-                          <div className="mt-4 text-sm text-gray-500 px-10">
+                          <div className="px-10 mt-4 text-sm text-gray-500">
                             <p>名前を入力してください。</p>
                             <input
-                              value={name}
+                              value={userState.name}
+                              defaultValue={""}
                               type="name"
-                              onChange={(e: any) => setName(e.target.value)}
+                              onChange={(e: any) =>
+                                setUserState({
+                                  ...userState,
+                                  name: e.target.value,
+                                })
+                              }
                               id="name"
                               required
                               name="name"
-                              className="mb-4 text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-80 "
+                              className="py-1 pl-1 mb-4 text-left border rounded border-slate-400 focus:outline-0 w-80 "
                             />
                             <p>Eメールアドレスを入力してください。</p>
                             <input
-                              value={email}
+                              value={userState.email}
+                              defaultValue={""}
                               type="email"
-                              onChange={(e: any) => setEmail(e.target.value)}
+                              onChange={(e: any) =>
+                                setUserState({
+                                  ...userState,
+                                  email: e.target.value,
+                                })
+                              }
                               id="email"
                               required
                               name="email"
-                              className="my-2 text-left border border-slate-400 rounded focus:outline-0 pl-1  py-1 w-80 "
+                              className="py-1 pl-1 my-2 text-left border rounded border-slate-400 focus:outline-0 w-80 "
+                            />
+                            <p>パスワードを入力してください。</p>
+                            <input
+                              value={userState.password}
+                              defaultValue={""}
+                              type="password"
+                              onChange={(e: any) =>
+                                setUserState({
+                                  ...userState,
+                                  password: e.target.value,
+                                })
+                              }
+                              id="password"
+                              required
+                              name="password"
+                              className="py-1 pl-1 my-2 text-left border rounded border-slate-400 focus:outline-0 w-80 "
                             />
                           </div>
                         </div>
                       </div>
-                      <div className="mt-2 flex justify-between w-full">
+                      <div className="flex justify-between w-full mt-2">
                         <button
                           type="button"
-                          className="w-1/2 mr-4 inline-flex justify-center rounded-md border border-inherit bg-white px-4 py-2 text-sm font-medium text-black hover:bg-gray-50 focus:outline-none "
+                          className="inline-flex justify-center w-1/2 px-4 py-2 mr-4 text-sm font-medium text-black bg-white border rounded-md border-inherit hover:bg-gray-50 focus:outline-none "
                           onClick={closeModal}
                         >
                           Cancel
@@ -148,7 +185,7 @@ export const AddButton = () => {
                         <div className="relative flex items-center "></div>
                         <button
                           type="submit"
-                          className="w-1/2 inline-flex justify-center rounded-md border border-inherit bg-green-700 pl-3 py-2 text-sm font-medium text-white hover:bg-green-600 focus:outline-none "
+                          className="inline-flex justify-center w-1/2 py-2 pl-3 text-sm font-medium text-white bg-green-700 border rounded-md border-inherit hover:bg-green-600 focus:outline-none "
                         >
                           追加
                         </button>

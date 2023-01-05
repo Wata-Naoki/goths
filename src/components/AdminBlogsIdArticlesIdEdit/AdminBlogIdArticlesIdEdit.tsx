@@ -15,14 +15,14 @@ export const AdminBlogIdArticlesIdEdit = () => {
         <div className="w-1/5">
           <Sidebar />
         </div>
-        <div className="flex justify-center mt-5 ml-24 h-full w-4/5">
+        <div className="flex justify-center w-4/5 h-full mt-5 ml-24">
           <div className="w-3/4">
-            <div className="flex justify-end mt-10 items-center">
+            <div className="flex items-center justify-end mt-10">
               <div>
                 <div className="flex flex-wrap items-stretch ">
-                  <div className="relative flex items-center ">
+                  <div className="relative z-10 flex items-center ">
                     <svg
-                      className="h-5 w-5 text-white  absolute ml-3 mb-0.5"
+                      className="h-5 w-5  text-white  absolute ml-3 mb-0.5"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -38,7 +38,7 @@ export const AdminBlogIdArticlesIdEdit = () => {
 
                   <button
                     type="button"
-                    className=" bg-emerald-700 text-white text-sm py-1  pr-2 pl-8  font-medium rounded"
+                    className="z-0 py-1 pl-8 pr-2 text-sm font-medium text-white rounded bg-emerald-700"
                   >
                     <AddButton />
                   </button>

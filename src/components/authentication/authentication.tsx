@@ -39,6 +39,7 @@ export const Authentication = () => {
   const handleLogin = async (event: any) => {
     try {
       await auth.signInWithPopup(provider);
+      console.log(user, "ログインしました。");
       navigate("/");
     } catch (error: any) {
       console.log(error);
@@ -51,7 +52,7 @@ export const Authentication = () => {
         <div>
           <div className="flex justify-center mb-4 text-center">
             <div>
-              <div className="flex-none order-none h-10 text-3xl not-italic font-medium text-black  w-28 grow-0">
+              <div className="flex-none order-none h-10 text-3xl not-italic font-medium text-black w-28 grow-0">
                 Goths
               </div>
 

@@ -4,30 +4,63 @@ import { Link, useParams } from "react-router-dom";
 import { Form } from "../Articles/blogArticle";
 import { Header } from "../../components/header/SearchHeader";
 import { useAuthContext } from "../../AuthContext";
-import { GET_FAVORITES_ARTICLES, GET_USER_BLOGS } from "../../queries/queries";
-import { GetFavoritesArticlesQuery } from "../../types/generated/graphql.tsx/graphql";
+import {
+  GET_FAVORITES_ARTICLES,
+  GET_USER,
+  GET_USER_BLOGS,
+} from "../../queries";
+import {
+  GetFavoritesArticlesQuery,
+  GetUserQuery,
+} from "../../types/generated/graphql.tsx/graphql";
 import { Loading } from "../../components/Loading/Loading";
 import { formatJst } from "../../components/FormatJst/FormatJst";
 
-const FAVORITES_QUERY = gql`
-  query favoriteArticles {
-    favoriteArticles {
-      mockFavoriteArticles {
-        title
-        users
-        createAt
-        text
-      }
-    }
-  }
-`;
+// const FAVORITES_QUERY = gql`
+//   query favoriteArticles {
+//     favoriteArticles {
+//       mockFavoriteArticles {
+//         title
+//         users
+//         createAt
+//         text
+//       }
+//     }
+//   }
+
+// `;
+
+// user?.emailの型をuuidにする
+// const GET_FAVORITES_ARTICLES_QUERY = gql`
+//   query GetFavoritesArticles($email: uuid!) {
+//     Article(where: { users: { email: { _eq: $email } } }) {
+//       id
+//       title
+//       text
+//       createdAt
+//       Blog {
+//         title
+//       }
+
 const Favorites = () => {
-  const { loading, error, data } = useQuery(FAVORITES_QUERY);
+  // const { loading, error, data } = useQuery(FAVORITES_QUERY);
   const { id, articleId } = useParams();
   const { user } = useAuthContext();
   const [numblog, setNumBlog] = useState<number>(2);
 
   //GET_FAVORITES_ARTICLES_QUERY
+
+  const {
+    data: userData,
+    error: userDataError,
+    loading: userDataLoading,
+    refetch: userDataRefetch,
+  } = useQuery<GetUserQuery>(GET_USER, {
+    variables: { email: user?.email },
+  });
+
+  console.log(userData);
+
   const [
     excute,
     {
@@ -41,9 +74,10 @@ const Favorites = () => {
   useEffect(() => {
     // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
     console.log(user.email);
-
-    excute({ variables: { email: user?.email, limit: numblog } });
-  }, [numblog]);
+    if (userData) {
+      excute({ variables: { id: userData?.User[0]?.id, limit: numblog } });
+    }
+  }, [numblog, userData]);
 
   // console.log(data);
   // console.log(id, articleId);

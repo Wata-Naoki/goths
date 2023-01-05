@@ -15,7 +15,7 @@ export const BlogHeader = ({ blogTitle }: any) => {
   const { isOpen, setIsOpen, closeModal, openModal } = useModalState();
   return (
     <>
-      <div className="flex justify-between mx-5 my-2">
+      <div className="flex justify-between w-screen mx-5 my-4 ">
         <div>
           {/* 1 */}
           <Link to="/admin/blogs">
@@ -29,7 +29,7 @@ export const BlogHeader = ({ blogTitle }: any) => {
         <div>
           {/* 2 */}
 
-          <div className="">
+          <div className="flex justify-center w-full ml-20">
             <ModalBlogHeader
               blogTitle={blogTitle}
               isOpen={isOpen}

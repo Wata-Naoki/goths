@@ -5,7 +5,7 @@ import { Header } from "../../components/header/SearchHeader";
 import { Form } from "../Articles/blogArticle";
 import { blogChoiceState } from "../../components/Atom/BlogChoiceAtom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { GET_ARTICLE, GET_BLOG_ARTICLES } from "../../queries/queries";
+import { GET_ARTICLE, GET_BLOG_ARTICLES } from "../../queries";
 import { Loading } from "../../components/Loading/Loading";
 import { formatJst } from "../../components/FormatJst/FormatJst";
 

@@ -2,7 +2,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { GET_ARTICLE, UPDATE_ARTICLE } from "../../queries/queries";
+import { GET_ARTICLE, UPDATE_ARTICLE } from "../../queries";
 import {
   GetArticleQuery,
   UpdateArticleMutation,

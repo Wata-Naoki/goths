@@ -2,11 +2,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  DELETE_BLOG_ONE,
-  GET_BLOG_ONE,
-  UPDATE_BLOG_ONE,
-} from "../../queries/queries";
+import { DELETE_BLOG_ONE, GET_BLOG_ONE, UPDATE_BLOG_ONE } from "../../queries";
 import {
   DeleteBlogOneMutation,
   UpdateBlogOneMutation,

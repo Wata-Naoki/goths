@@ -2,7 +2,7 @@ import { gql, useQuery, useMutation, useLazyQuery } from "@apollo/client";
 import React, { useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { GET_ARTICLE, UPDATE_DELETE_ARTICLE } from "../../queries/queries";
+import { GET_ARTICLE, UPDATE_DELETE_ARTICLE } from "../../queries";
 import { UpdateDeleteArticleMutation } from "../../types/generated/graphql.tsx/graphql";
 import {
   adminBlogState,

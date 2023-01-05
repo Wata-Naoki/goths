@@ -1,15 +1,13 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { CREATE_ARTICLE, GET_BLOG_USER } from "../../queries/queries";
+import { CREATE_ARTICLE, GET_BLOG_USER } from "../../queries";
 
 import {
   BlogUserQuery,
   CreateArticleOneMutation,
 } from "../../types/generated/graphql.tsx/graphql";
 import { BlogHeader } from "../header/BlogHeader";
-import { Header } from "../header/SearchHeader";
-import { Loading } from "../Loading/Loading";
 import { useToast } from "../Loading/useToast";
 import { Quote } from "../Quote/Quote";
 import { Sidebar } from "../sidebar/navbar";
@@ -85,7 +83,7 @@ export const AdminBlogsIdArticlesCreate = () => {
           <Sidebar />
         </div>
 
-        <div className="w-4/5 mt-16 mr-12">
+        <div className="w-4/5 mt-10 mr-12">
           <form onSubmit={handleSubmit}>
             <div className="flex justify-center mt-5 ">
               <div className="w-2/5 ">

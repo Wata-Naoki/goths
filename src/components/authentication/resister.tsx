@@ -1,28 +1,49 @@
+import { useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebaseConfig";
+import { CREATE_ADMIN_USER_ONE } from "../../queries";
 
 export const Register = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
   const [error, setError] = useState<string>("");
 
-  const handleEmailChange = (e: any) => {
-    setEmail(e.target.value);
-  };
-  const handlePasswordChange = (e: any) => {
-    setPassword(e.target.value);
-  };
+  const [excute, { error: adminError, loading: adminLoading }] = useMutation(
+    CREATE_ADMIN_USER_ONE,
+    {
+      onCompleted: () => {
+        alert("ユーザー登録が完了しました。");
+      },
+      onError: () => {
+        alert("ユーザー登録に失敗しました。");
+      },
+    }
+  );
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    const { email, password } = e.target.elements;
-    console.log(email, password);
+    const { name, email, password } = e.target.elements;
+    console.log(name.value, email.value, password.value);
 
     try {
-      await auth.createUserWithEmailAndPassword(email.value, password.value);
-      navigate("/");
+      auth
+        .createUserWithEmailAndPassword(email.value, password.value)
+        .then((result) => {
+          result.user?.updateProfile({
+            displayName: name.value,
+          });
+        })
+        .then(() => {
+          excute({
+            variables: {
+              name: name.value,
+              email: email.value,
+            },
+          });
+        })
+        .then(() => {
+          navigate("/");
+        });
     } catch (error: any) {
       switch (error.code) {
         default:
@@ -38,7 +59,7 @@ export const Register = () => {
         <div>
           <div className="flex justify-center mb-4 text-center">
             <div>
-              <div className="flex-none order-none h-10 text-3xl not-italic font-medium text-black  w-28 grow-0">
+              <div className="flex-none order-none h-10 text-3xl not-italic font-medium text-black w-28 grow-0">
                 Goths
               </div>
 
@@ -46,18 +67,18 @@ export const Register = () => {
             </div>
           </div>
 
-          {/* <div>
-            <div className="text-sm text-gray-500">ユーザー名</div>
-            <div className="my-1">
-              <input
-                type="name"
-                id="name"
-                name="name"
-                className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-80 "
-              ></input>
-            </div>
-          </div> */}
           <form onSubmit={handleSubmit}>
+            <div>
+              <div className="text-sm text-gray-500">ユーザー名</div>
+              <div className="my-1">
+                <input
+                  type="name"
+                  id="name"
+                  name="name"
+                  className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-80 "
+                />
+              </div>
+            </div>
             <div>
               <div className="mt-2 text-sm text-center text-red-500 break-all w-80">
                 {error && error}
@@ -68,7 +89,6 @@ export const Register = () => {
                   type="email"
                   id="email"
                   name="email"
-                  onChange={handleEmailChange}
                   className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-80 "
                 ></input>
               </div>
@@ -81,7 +101,6 @@ export const Register = () => {
                   type="password"
                   id="password"
                   name="password"
-                  onChange={handlePasswordChange}
                   className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-80 "
                 ></input>
               </div>

@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { CREATE_BLOG } from "../../queries/queries";
+import { CREATE_BLOG } from "../../queries";
 import { CreateBlogMutation } from "../../types/generated/graphql.tsx/graphql";
 import { useToast } from "../Loading/useToast";
 import { TextInput } from "../textInput/TextInput";

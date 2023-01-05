@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Form } from "../Articles/blogArticle";
-import { GET_BLOG } from "../../queries/queries";
+import { GET_BLOG } from "../../queries";
 import {
   adminBlogState,
   blogChoiceState,
@@ -96,15 +96,15 @@ export const AdminBlogsId = () => {
         <BlogHeader blogTitle={blogData?.Blog[0].title} />
       </div>
 
-      <div className="flex justify-between flex-wrap ">
+      <div className="flex justify-start w-screen ">
         <div>
           <Sidebar />
         </div>
 
-        <div className="w-2/5 flex justify-center mr-96 mt-4">
+        <div className="flex justify-center w-3/4 mt-4 gap-y-8 ">
           {/* ゴリ押しだから改善の余地あり */}
           <div>
-            <div>
+            <div className="flex flex-col gap-y-6">
               {blogData?.Blog[0].Articles.map((x: any) => (
                 <div key={x.id}>
                   <Link
@@ -114,14 +114,14 @@ export const AdminBlogsId = () => {
                       text: x.text,
                     }}
                   >
-                    <h2 className="text-2xl mt-8">{x.title}</h2>
+                    <h2 className="mt-8 text-2xl">{x.title}</h2>
                   </Link>
 
                   <div className="flex justify-between my-2">
                     <h3 className="text-gray-500">
                       {blogData.Blog[0].blog_users[0].User.name}
                     </h3>
-                    <h3 className="text-gray-500 mr-5">
+                    <h3 className="mr-5 text-gray-500">
                       {formatJst(x.createdAt)}
                     </h3>
                   </div>
@@ -131,11 +131,11 @@ export const AdminBlogsId = () => {
               ))}
             </div>
 
-            <div className="flex justify-center my-10">
+            <div className="flex justify-center my-14">
               <button
                 onClick={onClickFetchBlog}
                 type="submit"
-                className="bg-emerald-700 text-white text-sm py-2  px-4  font-medium rounded"
+                className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
               >
                 さらに読み込む
               </button>

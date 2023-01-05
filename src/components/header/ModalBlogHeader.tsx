@@ -4,7 +4,7 @@ import React, { Fragment, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useAuthContext } from "../../AuthContext";
-import { GET_BLOGS_MODAL } from "../../queries/queries";
+import { GET_BLOGS_MODAL } from "../../queries";
 
 import { blogChoiceState, blogIdState } from "../Atom/BlogChoiceAtom";
 

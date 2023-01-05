@@ -12,7 +12,7 @@ let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 const createApolloClient = () => {
   return new ApolloClient({
     link: new HttpLink({
-      uri: "https://wata-blog.hasura.app/v1/graphql",
+      uri: process.env.REACT_APP_URL,
     }),
     cache: new InMemoryCache(),
   });

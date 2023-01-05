@@ -4,11 +4,7 @@ import { Form } from "../../pages/Articles/blogArticle";
 import { Header } from "../header/SearchHeader";
 
 import { Link, useLocation, useParams } from "react-router-dom";
-import {
-  GET_ARTICLES,
-  GET_SEARCH_ARTICLES,
-  GET_USER,
-} from "../../queries/queries";
+import { GET_ARTICLES, GET_SEARCH_ARTICLES, GET_USER } from "../../queries";
 import { formatJst } from "../FormatJst/FormatJst";
 import { Loading } from "../Loading/Loading";
 

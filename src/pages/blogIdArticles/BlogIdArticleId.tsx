@@ -8,7 +8,7 @@ import {
   GET_FAVORITES_ARTICLES,
   UPDATE_ARTICLE_LIKE,
   UPDATE_FAVORITES_ARTICLES,
-} from "../../queries/queries";
+} from "../../queries";
 import { Loading } from "../../components/Loading/Loading";
 import { formatJst } from "../../components/FormatJst/FormatJst";
 import {

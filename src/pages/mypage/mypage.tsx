@@ -1,7 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { type } from "@testing-library/user-event/dist/type";
 import React, { FormEvent, useEffect, useState } from "react";
-import { GET_USER, UPDATE_USER } from "../../queries/queries";
+import { GET_USER, UPDATE_USER } from "../../queries";
 import { UpdateUserMutation } from "../../types/generated/graphql.tsx/graphql";
 import { Header } from "../../components/header/SearchHeader";
 import { Loading } from "../../components/Loading/Loading";
@@ -154,10 +154,14 @@ export const UserForm = () => {
       try {
         await updata_users_by_pk({
           variables: {
-            id: userDate?.User[0].id,
-            name: username ? username : userDate?.User[0].name,
-            email: email ? email : userDate?.User[0].email,
+            id: userDate?.User[0]?.id,
+            name: username ? username : userDate?.User[0]?.name,
+            email: email ? email : userDate?.User[0]?.email,
           },
+        });
+        await user?.updateProfile({
+          displayName: username ? username : userDate?.User[0]?.name,
+          email: email ? email : userDate?.User[0]?.email,
         });
         toastSucceeded();
         // alert("変更が保存されました");
@@ -180,7 +184,7 @@ export const UserForm = () => {
             <div className="mb-5">
               <p className="mb-2 text-gray-500">ユーザー名</p>
               <input
-                defaultValue={userDate?.User[0].name}
+                defaultValue={userDate?.User[0]?.name}
                 value={username ? username : userDate?.User[0].name}
                 onChange={(e: any) => setUsername(e.target.value)}
                 className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-96 "
@@ -190,8 +194,8 @@ export const UserForm = () => {
             <div className="my-6">
               <p className="mb-2 text-gray-500">メールアドレス</p>
               <input
-                defaultValue={userDate?.User[0].email}
-                value={email ? email : userDate?.User[0].email}
+                defaultValue={userDate?.User[0]?.email}
+                value={email ? email : userDate?.User[0]?.email}
                 onChange={(e: any) => setEmail(e.target.value)}
                 className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-96"
               />

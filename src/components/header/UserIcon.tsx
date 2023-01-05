@@ -4,7 +4,7 @@ import { Fragment, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../AuthContext";
 import { auth } from "../../firebaseConfig";
-import { GET_USER, GET_USER_BLOGS } from "../../queries/queries";
+import { GET_USER, GET_USER_BLOGS } from "../../queries";
 
 export default function UserIcon() {
   const { user } = useAuthContext();
@@ -24,9 +24,10 @@ export default function UserIcon() {
     auth.signOut();
     navigate("/authentication");
   };
+
   return (
     <div className="text-right ">
-      <Menu as="div" className="relative inline-block text-left">
+      <Menu as="div" className="relative z-20 inline-block text-left">
         <div>
           <Menu.Button className="inline-flex justify-center w-full text-sm font-medium text-white rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none ">
             <svg
@@ -70,7 +71,11 @@ export default function UserIcon() {
                       >
                         ユーザー名
                       </p>
-                      <p>{userDate?.User[0]?.name}</p>
+                      <p>
+                        {userDate?.User[0]?.name
+                          ? userDate?.User[0]?.name
+                          : user?.displayName}
+                      </p>
                     </button>
                   )}
                 </Menu.Item>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { useAuthContext } from "../../AuthContext";
-import { GET_BLOGS, GET_USER, GET_USER_BLOGS } from "../../queries/queries";
+import { GET_BLOGS, GET_USER, GET_USER_BLOGS } from "../../queries";
 
 import { blogChoiceState } from "../Atom/BlogChoiceAtom";
 import { CreateNewBlog } from "../CreateNewBlog/CreateNewBlog";
@@ -182,9 +182,9 @@ export const AdminBlogs = () => {
             </button>
           </div>
           {page === "Myブログ" ? (
-            <div>
+            <div className="flex flex-col justify-start gap-y-6">
               {blogData?.Blog.map((x: any) => (
-                <div key={x.id} className="flex justify-between mt-10">
+                <div key={x.id} className="flex justify-between mt-8">
                   <div>
                     <h2>{x.title}</h2>
                     <h3>{x.blog_users[0].User.name}</h3>
@@ -244,7 +244,7 @@ export const AdminBlogs = () => {
               ))}
             </div>
           )}
-          <div className="flex justify-center my-10">
+          <div className="flex justify-center my-16">
             <button
               onClick={onClickFetchBlog}
               type="submit"

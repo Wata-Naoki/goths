@@ -1,7 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { CREATE_ARTICLE, GET_BLOG_USER } from "../../queries/queries";
+import { CREATE_ARTICLE, GET_BLOG_USER } from "../../queries";
 
 import {
   BlogUserQuery,
@@ -85,7 +85,7 @@ export const AdminBlogsIdArticlesCreate = () => {
           <Sidebar />
         </div>
 
-        <div className="w-4/5 mt-16 mr-12">
+        <div className="w-4/5 mt-10 mr-12">
           <form onSubmit={handleSubmit}>
             <div className="flex justify-center mt-5 ">
               <div className="w-2/5 ">

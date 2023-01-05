@@ -2,7 +2,7 @@ import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components/header/SearchHeader";
-import { GET_ARTICLES, GET_BLOGS } from "../../queries/queries";
+import { GET_ARTICLES, GET_BLOGS } from "../../queries";
 import { Loading } from "../../components/Loading/Loading";
 import { useAuthContext } from "../../AuthContext";
 import { formatJst } from "../../components/FormatJst/FormatJst";
@@ -174,7 +174,7 @@ function BlogArticle() {
                     <p>{x.text}</p>
                   </div>
                 ))}
-                <div className="flex justify-center mb-10">
+                <div className="flex justify-center mt-10 mb-10 mr-4">
                   <button
                     onClick={onClickFetch}
                     type="submit"
@@ -220,7 +220,7 @@ function BlogArticle() {
                   </div>
                 ))}
 
-                <div className="flex justify-center mb-10">
+                <div className="flex justify-center mt-10 mb-10 mr-4">
                   <button
                     onClick={onClickFetchBlog}
                     type="submit"

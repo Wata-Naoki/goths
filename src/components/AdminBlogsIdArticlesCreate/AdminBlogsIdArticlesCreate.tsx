@@ -8,8 +8,6 @@ import {
   CreateArticleOneMutation,
 } from "../../types/generated/graphql.tsx/graphql";
 import { BlogHeader } from "../header/BlogHeader";
-import { Header } from "../header/SearchHeader";
-import { Loading } from "../Loading/Loading";
 import { useToast } from "../Loading/useToast";
 import { Quote } from "../Quote/Quote";
 import { Sidebar } from "../sidebar/navbar";

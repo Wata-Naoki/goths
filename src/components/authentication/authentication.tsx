@@ -16,7 +16,10 @@ export const Authentication = () => {
       await auth
         .signInWithEmailAndPassword(email.value, password.value)
         .then(() => {
-          navigate("/");
+          if (user.email) {
+            navigate("/");
+            window.location.href = `/`;
+          }
         });
     } catch (error: any) {
       switch (error.code) {
@@ -40,7 +43,10 @@ export const Authentication = () => {
     try {
       await auth.signInWithPopup(provider);
       console.log(user, "ログインしました。");
-      navigate("/");
+      if (user.email) {
+        navigate("/");
+        window.location.href = `/`;
+      }
     } catch (error: any) {
       console.log(error);
       setError(error.message);

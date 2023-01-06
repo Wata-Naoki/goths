@@ -9,14 +9,14 @@ import {
   UPDATE_ARTICLE_LIKE,
   UPDATE_FAVORITES_ARTICLES,
 } from "../../queries";
-import { Loading } from "../../components/Loading/Loading";
-import { formatJst } from "../../components/FormatJst/FormatJst";
+import { Loading } from "../../components/loading/Loading";
+import { formatJst } from "../../components/formatJst/FormatJst";
 import {
   GetFavoritesArticlesQuery,
   UpdateArticleLikeMutation,
 } from "../../types/generated/graphql.tsx/graphql";
-import { useToast } from "../../components/Loading/useToast";
-import { SectionLoading } from "../../components/Loading/SectionLoading";
+import { useToast } from "../../components/loading/useToast";
+import { SectionLoading } from "../../components/loading/SectionLoading";
 import { useAuthContext } from "../../AuthContext";
 
 const BLOGIDARTICLESID_QUERY = gql`

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { Manage } from "../../pages/Articles/blogArticle";
-import { blogIdState } from "../Atom/BlogChoiceAtom";
+import { Manage } from "../../pages/articles/blogArticle";
+import { blogIdState } from "../../atom/BlogChoiceAtom";
 import { ModalBlogHeader } from "./ModalBlogHeader";
 import { useModalState } from "./useModalState";
 import UserIcon from "./UserIcon";
@@ -15,7 +15,7 @@ export const BlogHeader = ({ blogTitle }: any) => {
   const { isOpen, setIsOpen, closeModal, openModal } = useModalState();
   return (
     <>
-      <div className="flex justify-between w-screen mx-5 my-4 ">
+      <div className="flex justify-between w-screen px-3 my-4 ">
         <div>
           {/* 1 */}
           <Link to="/admin/blogs">
@@ -29,7 +29,7 @@ export const BlogHeader = ({ blogTitle }: any) => {
         <div>
           {/* 2 */}
 
-          <div className="flex justify-center w-full ml-20">
+          <div className="flex justify-center w-11/12 ">
             <ModalBlogHeader
               blogTitle={blogTitle}
               isOpen={isOpen}

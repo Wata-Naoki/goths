@@ -2,9 +2,9 @@ import { gql, useMutation } from "@apollo/client";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
 import { useParams } from "react-router-dom";
-import { auth } from "../../firebaseConfig";
-import { CREATE_USER_ONE } from "../../queries";
-import { useToast } from "../Loading/useToast";
+import { auth } from "../../../firebaseConfig";
+import { CREATE_USER_ONE } from "../../../queries";
+import { useToast } from "../../loading/useToast";
 
 // const USER_ADD = gql`
 //   mutation UserAdd($input: input!) {

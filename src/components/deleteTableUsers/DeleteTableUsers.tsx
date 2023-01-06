@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 
 import { DELETE_USER_ONE } from "../../queries";
 import { DeleteUserOneMutation } from "../../types/generated/graphql.tsx/graphql";
-import { Loading } from "../Loading/Loading";
-import { useToast } from "../Loading/useToast";
+import { Loading } from "../loading/Loading";
+import { useToast } from "../loading/useToast";
 
 type Props = {
   //onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;

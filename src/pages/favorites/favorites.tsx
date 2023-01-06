@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import { Link, useParams } from "react-router-dom";
-import { Form } from "../Articles/blogArticle";
+import { Form } from "../articles/blogArticle";
 import { Header } from "../../components/header/SearchHeader";
 import { useAuthContext } from "../../AuthContext";
 import {
@@ -13,8 +13,9 @@ import {
   GetFavoritesArticlesQuery,
   GetUserQuery,
 } from "../../types/generated/graphql.tsx/graphql";
-import { Loading } from "../../components/Loading/Loading";
-import { formatJst } from "../../components/FormatJst/FormatJst";
+import { Loading } from "../../components/loading/Loading";
+import { formatJst } from "../../components/formatJst/FormatJst";
+import { Pagination } from "../../components/ui/pagination/pagination";
 
 // const FAVORITES_QUERY = gql`
 //   query favoriteArticles {
@@ -130,13 +131,7 @@ const Favorites = () => {
             </div>
 
             <div className="flex justify-center my-10">
-              <button
-                type="button"
-                onClick={onClickFetchBlog}
-                className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
-              >
-                さらに読み込む
-              </button>
+              <Pagination onClickFetchBlog={onClickFetchBlog} />
             </div>
           </div>
         </div>

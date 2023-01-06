@@ -1,6 +1,6 @@
 
 import { createContext, useState, useContext, useEffect } from 'react';
-import { Loading } from './components/Loading/Loading';
+import { Loading } from './components/loading/Loading';
 import { auth } from './firebaseConfig';
 import { useMutation } from '@apollo/client';
 import { CREATE_ADMIN_USER_ONE } from './queries';
@@ -33,19 +33,21 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribed = auth.onAuthStateChanged((user) => {
             setUser(user)
-            console.log(user)
-            console.log(user?.email, ' ', user?.displayName)
+            // console.log(user)
+            // console.log(user?.email, ' ', user?.displayName)
         })
         unsubscribed()
+        setLoading(false)
+    }, [])
+
+    useEffect(() => {
         execute({
             variables: {
                 email: user?.email,
                 name: user?.displayName,
             }
         })
-        setLoading(false)
-    }, [])
-
+    }, [user])
 
 
     if (loading) {

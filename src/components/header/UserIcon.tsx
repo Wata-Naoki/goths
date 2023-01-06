@@ -1,6 +1,6 @@
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../AuthContext";
 import { auth } from "../../firebaseConfig";
@@ -9,16 +9,20 @@ import { GET_USER, GET_USER_BLOGS } from "../../queries";
 export default function UserIcon() {
   const { user } = useAuthContext();
 
+  const [login, setLogin] = useState<boolean>(false);
+
   const [excute, { data: userDate, loading: userLoading, error: userError }] =
     useLazyQuery(GET_USER, { variables: { email: user?.email } });
   useEffect(() => {
-    excute();
-  }, [excute, user]);
+    if (user?.email) excute();
+    console.log(userDate);
+  }, [user]);
   const {
     data: blogData,
     error: blogError,
     loading: blogLoading,
   } = useQuery(GET_USER_BLOGS, { variables: { email: user?.email } });
+  console.log(blogData);
   const navigate = useNavigate();
   const handleLogout = () => {
     auth.signOut();
@@ -56,13 +60,13 @@ export default function UserIcon() {
         >
           <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="">
-              <Link to={`/admin/blogs/${blogData?.Blog[0]?.id}`}>
+              <Link to={`/admin/blogs`}>
                 <Menu.Item>
                   {({ active }) => (
                     <button
                       className={`${
                         active ? "bg-green-700 text-white" : "text-gray-900"
-                      } group flex flex-col w-full   rounded-md px-2 py-2 text-sm`}
+                      } group flex flex-col w-full rounded-md px-2 py-2 text-sm`}
                     >
                       <p
                         className={`${

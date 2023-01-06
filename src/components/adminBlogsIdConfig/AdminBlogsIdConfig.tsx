@@ -7,12 +7,12 @@ import {
   DeleteBlogOneMutation,
   UpdateBlogOneMutation,
 } from "../../types/generated/graphql.tsx/graphql";
-import { blogChoiceState } from "../Atom/BlogChoiceAtom";
-import BlogDeleteButton from "../deletButton/BlogDeleteButton";
+import { blogChoiceState } from "../../atom/BlogChoiceAtom";
+import BlogDeleteButton from "../ui/deletButton/BlogDeleteButton";
 import { BlogHeader } from "../header/BlogHeader";
 import { Header } from "../header/SearchHeader";
-import { Loading } from "../Loading/Loading";
-import { useToast } from "../Loading/useToast";
+import { Loading } from "../loading/Loading";
+import { useToast } from "../loading/useToast";
 import { Sidebar } from "../sidebar/navbar";
 
 // const DELETE_BLOG = gql`

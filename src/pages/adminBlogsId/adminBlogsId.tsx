@@ -1,14 +1,8 @@
 import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
 import { Form } from "../articles/blogArticle";
 import { GET_BLOG } from "../../queries";
-import {
-  adminBlogState,
-  blogChoiceState,
-  blogIdState,
-} from "../../atom/BlogChoiceAtom";
 import { BlogHeader } from "../../components/header/BlogHeader";
 import { Header } from "../../components/header/SearchHeader";
 import { Loading } from "../../components/loading/Loading";
@@ -39,22 +33,6 @@ export const AdminBlogsId = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   //const [adminBlogFlag, setAdminBlogFlag] = useRecoilState(adminBlogState);
-
-  // const adminBlogFlag = useRecoilValue(adminBlogState);
-  /* .filter((x: any) => x.blog === blogState) */
-  // const [blogIdStateValue, setBlogIdStateValue] = useRecoilState(blogIdState);
-
-  // const targetBlog = [
-  //   data?.adminArticlesByBlog.data
-  //     .filter((x: any) => x.mockMyBlogs.id === id)
-  //     .filter((x: any) => x.blog === blogState),
-  // ];
-  // console.log(targetBlog);
-  // setBlogIdStateValue(window.location.pathname);
-  // console.log(blogIdStateValue);
-
-  // console.log(data);
-  // console.log(id);
 
   const [numblog, setNumBlog] = useState<number>(1);
   const [

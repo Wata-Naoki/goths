@@ -66,7 +66,7 @@ export default function UserIcon() {
                     <button
                       className={`${
                         active ? "bg-green-700 text-white" : "text-gray-900"
-                      } group flex flex-col w-full   rounded-md px-2 py-2 text-sm`}
+                      } group flex flex-col w-full rounded-md px-2 py-2 text-sm`}
                     >
                       <p
                         className={`${

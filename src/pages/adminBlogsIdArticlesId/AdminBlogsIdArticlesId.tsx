@@ -4,17 +4,14 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { GET_ARTICLE, UPDATE_DELETE_ARTICLE } from "../../queries";
 import { UpdateDeleteArticleMutation } from "../../types/generated/graphql.tsx/graphql";
-import {
-  adminBlogState,
-  blogIdArticleEditState,
-} from "../../components/Atom/BlogChoiceAtom";
-import DeleteButton from "../../components/deletButton/atricleDeleteButton";
+
+import DeleteButton from "../../components/ui/deletButton/atricleDeleteButton";
 
 import { BlogHeader } from "../../components/header/BlogHeader";
 import { Header } from "../../components/header/SearchHeader";
-import { Loading } from "../../components/Loading/Loading";
+import { Loading } from "../../components/loading/Loading";
 import { Sidebar } from "../../components/sidebar/navbar";
-import { formatJst } from "../../components/FormatJst/FormatJst";
+import { formatJst } from "../../components/formatJst/FormatJst";
 
 const ADMINBLOGSIDARTICLESID_QUERY = gql`
   query adminArticle {
@@ -152,13 +149,13 @@ export const AdminBlogsIdArticlesId = () => {
         <BlogHeader />
       </div>
 
-      <div className="flex justify-between flex-wrap ">
-        <div className="w-1/4">
+      <div className="flex justify-start w-screen">
+        <div className="w-1/3">
           <Sidebar />
         </div>
 
-        <div className="w-3/4 ">
-          <div className="flex justify-center w-3/5 ml-52 mb-10">
+        <div className="w-6/12">
+          <div className="flex items-center justify-center pr-32 mb-10">
             {/* ここも割とゴリ押し感強め */}
 
             <div>
@@ -170,7 +167,7 @@ export const AdminBlogsIdArticlesId = () => {
                     <div className="flex flex-wrap items-stretch mr-2">
                       <div className="relative flex items-center ">
                         <svg
-                          className="h-5 w-5 text-white absolute ml-2"
+                          className="absolute w-5 h-5 ml-2 text-white"
                           viewBox="0 0 24 24"
                           stroke-width="2"
                           stroke="currentColor"
@@ -188,7 +185,7 @@ export const AdminBlogsIdArticlesId = () => {
 
                       <button
                         type="submit"
-                        className=" bg-emerald-700 text-white text-sm py-2  pr-4 pl-8  font-medium rounded-md"
+                        className="py-2 pl-8 pr-4 text-sm font-medium text-white rounded-md bg-emerald-700"
                       >
                         編集
                       </button>
@@ -208,8 +205,8 @@ export const AdminBlogsIdArticlesId = () => {
 
               <div>
                 <div>
-                  <h2 className="text-2xl mt-8">{data?.Article[0].title}</h2>
-                  <div className="flex justify-between mb-5">
+                  <h2 className="mt-8 text-2xl">{data?.Article[0].title}</h2>
+                  <div className="flex justify-between my-5">
                     <h3 className="text-gray-500">
                       {data?.Article[0].User.name}
                     </h3>
@@ -227,7 +224,7 @@ export const AdminBlogsIdArticlesId = () => {
               <div className="flex justify-end text-gray-500">
                 <div>
                   <svg
-                    className="h-5 w-5 text-gray-500"
+                    className="w-5 h-5 text-gray-500"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

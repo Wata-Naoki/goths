@@ -7,12 +7,12 @@ import {
   GetArticleQuery,
   UpdateArticleMutation,
 } from "../../types/generated/graphql.tsx/graphql";
-import { blogIdArticleEditState } from "../../components/Atom/BlogChoiceAtom";
+import { blogIdArticleEditState } from "../../atom/BlogChoiceAtom";
 import { BlogHeader } from "../../components/header/BlogHeader";
 import { Header } from "../../components/header/SearchHeader";
-import { Loading } from "../../components/Loading/Loading";
+import { Loading } from "../../components/loading/Loading";
 import { Sidebar } from "../../components/sidebar/navbar";
-import { useToast } from "../../components/Loading/useToast";
+import { useToast } from "../../components/loading/useToast";
 
 export const AdminBlogsIdEditors = () => {
   const articleEditValue = useRecoilValue(blogIdArticleEditState);
@@ -87,17 +87,17 @@ export const AdminBlogsIdEditors = () => {
         <BlogHeader />
       </div>
 
-      <div className="flex justify-start w-full  ">
+      <div className="flex justify-start w-full ">
         <div className="w-1/5">
           <Sidebar />
         </div>
 
-        <div className="w-4/5 mt-16 mr-12">
+        <div className="w-4/5 pr-16 mt-10 mr-12">
           <form onSubmit={handleSubmit}>
             <div className="flex justify-center mt-5 ">
               <div className="w-2/5 ">
                 <div>
-                  <div className="text-sm text-gray-500 mb-2">タイトル</div>
+                  <div className="mb-2 text-sm text-gray-500">タイトル</div>
                   <div className="my-1">
                     <input
                       type="text"
@@ -106,14 +106,14 @@ export const AdminBlogsIdEditors = () => {
                       value={title}
                       onChange={handleTitleChange}
                       name="title"
-                      className="ml-2 pl-4 py-1 pr-4 text-left border border-slate-300 rounded focus:outline-0   w-full "
+                      className="w-full py-1 pl-4 pr-4 ml-2 text-left border rounded border-slate-300 focus:outline-0 "
                     ></input>
                   </div>
                 </div>
 
                 <div>
-                  <div className="text-sm text-gray-500 mt-8">概要</div>
-                  <div className="my-1 w-full">
+                  <div className="mt-8 text-sm text-gray-500">概要</div>
+                  <div className="w-full my-1">
                     <textarea
                       rows={1}
                       id=""
@@ -121,14 +121,14 @@ export const AdminBlogsIdEditors = () => {
                       defaultValue={data?.Article[0].text}
                       value={text}
                       onChange={handleTextChange}
-                      className="text-sm whitespace-normal text-left border border-slate-300 rounded focus:outline-0 pl-4 pt-2 pr-4 pb-24 w-full "
+                      className="w-full pt-2 pb-24 pl-4 pr-4 text-sm text-left whitespace-normal border rounded border-slate-300 focus:outline-0 "
                     ></textarea>
                   </div>
                 </div>
 
                 <div>
-                  <div className="text-sm text-gray-500 mt-8">内容</div>
-                  <div className="my-1 w-full">
+                  <div className="mt-8 text-sm text-gray-500">内容</div>
+                  <div className="w-full my-1">
                     <textarea
                       rows={4}
                       id=""
@@ -140,12 +140,12 @@ export const AdminBlogsIdEditors = () => {
                       }
                       value={allText}
                       onChange={handleAllTextChange}
-                      className="text-sm whitespace-normal text-left border border-slate-300 rounded focus:outline-0 pl-4 pt-2 pr-4 pb-24 w-full "
+                      className="w-full pt-2 pb-24 pl-4 pr-4 text-sm text-left whitespace-normal border rounded border-slate-300 focus:outline-0 "
                     ></textarea>
                   </div>
                 </div>
 
-                <div className="flex justify-center mt-10 items-center">
+                <div className="flex items-center justify-center mt-10">
                   <div>
                     <div className="flex flex-wrap items-stretch ">
                       <div className="relative flex items-center ">

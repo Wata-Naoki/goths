@@ -2,10 +2,10 @@ import React from "react";
 
 export const Loading = () => {
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center gap-4">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-4">
       Loading...
       <div className="flex justify-center">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-green-800 border-t-transparent"></div>
+        <div className="w-10 h-10 border-4 border-green-800 rounded-full animate-spin border-t-transparent"></div>
       </div>
     </div>
   );

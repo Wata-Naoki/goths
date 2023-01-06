@@ -1,33 +1,30 @@
 import React, { useContext, useEffect } from "react";
 import { useQuery, gql, useLazyQuery } from "@apollo/client";
-import { Form } from "../../pages/Articles/blogArticle";
+import { Form } from "../../pages/articles/blogArticle";
 import { Header } from "../header/SearchHeader";
 
 import { Link, useLocation, useParams } from "react-router-dom";
 import { GET_ARTICLES, GET_SEARCH_ARTICLES, GET_USER } from "../../queries";
-import { formatJst } from "../FormatJst/FormatJst";
-import { Loading } from "../Loading/Loading";
+import { formatJst } from "../formatJst/FormatJst";
+import { Loading } from "../loading/Loading";
+import { Pagination } from "../ui/pagination/pagination";
 
-const SEARCHE_QUERY = gql`
-  query search {
-    search {
-      mockSearch {
-        title
-        users
-        createAt
-        text
-      }
-    }
-  }
-`;
+// mswのmock
+// const SEARCHE_QUERY = gql`
+//   query search {
+//     search {
+//       mockSearch {
+//         title
+//         users
+//         createAt
+//         text
+//       }
+//     }
+//   }
+// `;
 
 const Searches = () => {
-  const { data, loading, error } = useQuery(GET_ARTICLES);
-
   const { text } = useParams();
-  const location = useLocation();
-  // console.log(location.state.text);
-  // const [search, setSearch] = React.useState<string>(location.state.text);
   const [pageNum, setPageNum] = React.useState<number>(1);
 
   const [
@@ -41,10 +38,13 @@ const Searches = () => {
     variables: { _iregex: text, limit: pageNum },
   });
 
+  const onClickFetchBlog = () => {
+    setPageNum((prev) => prev + 1);
+  };
+
   useEffect(() => {
     excute();
   }, [text, pageNum]);
-  console.log(searchResultData);
   return (
     <>
       <div>
@@ -81,15 +81,7 @@ const Searches = () => {
               )}
             </div>
             <div className="flex justify-center mt-10">
-              <button
-                type="button"
-                onClick={() => {
-                  setPageNum(pageNum + 1);
-                }}
-                className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
-              >
-                さらに読み込む
-              </button>
+              <Pagination onClickFetchBlog={onClickFetchBlog} />
             </div>
           </div>
         </div>

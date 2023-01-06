@@ -28,13 +28,13 @@ export const Quote = () => {
       <div className="flex flex-wrap items-stretch ">
         <div className="relative flex items-center">
           <button
-            className="bg-green-700 px-2  py-2  rounded-full"
+            className="px-2 py-2 bg-green-700 rounded-full"
             onClick={() => {
               openModal();
             }}
           >
             <svg
-              className="h-6 w-6 text-white"
+              className="w-6 h-6 text-white"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -69,7 +69,7 @@ export const Quote = () => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <div className="flex items-center justify-center min-h-full p-4 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -79,7 +79,7 @@ export const Quote = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -88,7 +88,7 @@ export const Quote = () => {
                       <div>
                         <div className="">Quote</div>
 
-                        <div className="mt-4 text-sm text-gray-500 px-10">
+                        <div className="px-10 mt-4 text-sm text-gray-500">
                           {error && "Error"}
                           {!posts ? (
                             "loading"
@@ -101,40 +101,41 @@ export const Quote = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="mt-2 flex justify-between w-full">
+                    <div className="flex justify-between w-full mt-2">
                       <button
                         type="button"
-                        className="w-1/2 mr-4 inline-flex justify-center rounded-md border border-inherit bg-white px-4 py-2 text-sm font-medium text-black hover:bg-gray-50 focus:outline-none "
+                        className="inline-flex justify-center w-1/2 px-4 py-2 mr-4 text-sm font-medium text-black bg-white border rounded-md border-inherit hover:bg-gray-50 focus:outline-none "
                         onClick={closeModal}
                       >
                         Close
                       </button>
-
-                      <div className="relative flex items-center hover:bg-green-600">
-                        <svg
-                          className="h-5 w-5 text-white absolute ml-14 mb-0.5 hover:bg-green-600"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
-                          />
-                        </svg>
-                      </div>
                       <CopyToClipboard
                         text={`${posts.content}\n${posts.author}`}
                       >
-                        <button
-                          type="button"
-                          className="w-1/2 justify-center rounded-md border border-inherit bg-green-700 pl-3 py-2 text-sm font-medium text-white hover:bg-green-600 focus:outline-none "
+                        <div
+                          className="flex items-center w-1/2 bg-green-700 border rounded-md cursor-pointer hover:bg-green-600 border-inherit focus:outline-none"
                           onClick={closeModal}
                         >
-                          コピー
-                        </button>
+                          <div>
+                            <svg
+                              className="h-5 w-5 text-white ml-14 mb-0.5 hover:bg-green-600"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+                              />
+                            </svg>
+                          </div>
+
+                          <button className="py-2 pl-1 text-sm font-medium text-white ">
+                            コピー
+                          </button>
+                        </div>
                       </CopyToClipboard>
                     </div>
                   </Dialog.Title>

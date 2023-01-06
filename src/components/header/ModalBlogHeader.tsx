@@ -6,7 +6,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { useAuthContext } from "../../AuthContext";
 import { GET_BLOGS_MODAL } from "../../queries";
 
-import { blogChoiceState, blogIdState } from "../Atom/BlogChoiceAtom";
+import { blogChoiceState, blogIdState } from "../../atom/BlogChoiceAtom";
 
 // const BLOG_CHOICE_QUERY = gql`
 //   query blogChoice {
@@ -41,10 +41,10 @@ export const ModalBlogHeader = ({
   return (
     <>
       <div
-        className="flex items-center justify-center mt-2 cursor-pointer"
+        className="flex items-center justify-end mt-2 ml-10 cursor-pointer w-96"
         onClick={openModal}
       >
-        <div>{titleState?.title}</div>
+        <div className="whitespace-pre-wrap">{titleState?.title}</div>
 
         <div className="mx-2">
           <svg

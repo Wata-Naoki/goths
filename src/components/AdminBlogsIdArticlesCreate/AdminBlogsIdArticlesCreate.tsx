@@ -8,8 +8,8 @@ import {
   CreateArticleOneMutation,
 } from "../../types/generated/graphql.tsx/graphql";
 import { BlogHeader } from "../header/BlogHeader";
-import { useToast } from "../Loading/useToast";
-import { Quote } from "../Quote/Quote";
+import { useToast } from "../loading/useToast";
+import { Quote } from "../quote/Quote";
 import { Sidebar } from "../sidebar/navbar";
 
 export const AdminBlogsIdArticlesCreate = () => {
@@ -131,7 +131,10 @@ export const AdminBlogsIdArticlesCreate = () => {
 
                 <div className="flex items-center justify-center mt-10">
                   <div>
-                    <div className="flex flex-wrap items-stretch ">
+                    <button
+                      className="flex flex-wrap items-stretch "
+                      type="submit"
+                    >
                       <div className="relative flex items-center ">
                         <svg
                           className="h-4 w-4 text-white absolute ml-2.5"
@@ -148,13 +151,10 @@ export const AdminBlogsIdArticlesCreate = () => {
                         </svg>
                       </div>
 
-                      <button
-                        type="submit"
-                        className=" bg-emerald-700 text-white text-sm py-1.5  pr-4 pl-8  font-medium rounded"
-                      >
+                      <div className=" bg-emerald-700 text-white text-sm py-1.5  pr-4 pl-8  font-medium rounded">
                         作成
-                      </button>
-                    </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>

@@ -5,11 +5,12 @@ import { useRecoilState } from "recoil";
 import { useAuthContext } from "../../AuthContext";
 import { GET_BLOGS, GET_USER, GET_USER_BLOGS } from "../../queries";
 
-import { blogChoiceState } from "../Atom/BlogChoiceAtom";
-import { CreateNewBlog } from "../CreateNewBlog/CreateNewBlog";
+import { blogChoiceState } from "../../atom/BlogChoiceAtom";
+import { CreateNewBlog } from "../createNewBlog/CreateNewBlog";
 import { Header } from "../header/SearchHeader";
-import { Loading } from "../Loading/Loading";
-import { Modal } from "../modal/Modal";
+import { Loading } from "../loading/Loading";
+import { Modal } from "../ui/modal/Modal";
+import { Pagination } from "../ui/pagination/pagination";
 
 const ARTICLESBYMYBLOG_QUERY = gql`
   query myBlogsByUser {
@@ -245,13 +246,7 @@ export const AdminBlogs = () => {
             </div>
           )}
           <div className="flex justify-center my-16">
-            <button
-              onClick={onClickFetchBlog}
-              type="submit"
-              className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
-            >
-              さらに読み込む
-            </button>
+            <Pagination onClickFetchBlog={onClickFetchBlog} />
           </div>
         </div>
       </div>

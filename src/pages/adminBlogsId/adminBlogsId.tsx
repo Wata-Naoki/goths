@@ -2,18 +2,19 @@ import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Form } from "../Articles/blogArticle";
+import { Form } from "../articles/blogArticle";
 import { GET_BLOG } from "../../queries";
 import {
   adminBlogState,
   blogChoiceState,
   blogIdState,
-} from "../../components/Atom/BlogChoiceAtom";
+} from "../../atom/BlogChoiceAtom";
 import { BlogHeader } from "../../components/header/BlogHeader";
 import { Header } from "../../components/header/SearchHeader";
-import { Loading } from "../../components/Loading/Loading";
+import { Loading } from "../../components/loading/Loading";
 import { Sidebar } from "../../components/sidebar/navbar";
-import { formatJst } from "../../components/FormatJst/FormatJst";
+import { formatJst } from "../../components/formatJst/FormatJst";
+import { Pagination } from "../../components/ui/pagination/pagination";
 
 const ADMINARTICLESBYBLOG_QUERY = gql`
   query adminArticlesByBlog {
@@ -97,27 +98,30 @@ export const AdminBlogsId = () => {
       </div>
 
       <div className="flex justify-start w-screen ">
-        <div>
+        <div className="w-1/4">
           <Sidebar />
         </div>
 
-        <div className="flex justify-center w-3/4 mt-4 gap-y-8 ">
+        <div className="flex justify-center w-6/12 px-12 mt-4 ml-12 gap-y-8">
           {/* ゴリ押しだから改善の余地あり */}
-          <div>
+          <div className="w-full">
             <div className="flex flex-col gap-y-6">
               {blogData?.Blog[0].Articles.map((x: any) => (
                 <div key={x.id}>
                   <Link
+                    className="w-full"
                     to={`/admin/blogs/${id}/articles/${x.id}`}
                     /* onClick={() => {setBlogIdStateValue(`/admin/blogs/${id}/articles/${x.id}`)}} */ state={{
                       title: x.title,
                       text: x.text,
                     }}
                   >
-                    <h2 className="mt-8 text-2xl">{x.title}</h2>
+                    <h2 className="w-4/5 mt-8 text-2xl whitespace-pre-wrap ">
+                      {x.title}
+                    </h2>
                   </Link>
 
-                  <div className="flex justify-between my-2">
+                  <div className="flex justify-between w-full pr-10 my-5">
                     <h3 className="text-gray-500">
                       {blogData.Blog[0].blog_users[0].User.name}
                     </h3>
@@ -132,13 +136,7 @@ export const AdminBlogsId = () => {
             </div>
 
             <div className="flex justify-center my-14">
-              <button
-                onClick={onClickFetchBlog}
-                type="submit"
-                className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
-              >
-                さらに読み込む
-              </button>
+              <Pagination onClickFetchBlog={onClickFetchBlog} />
             </div>
           </div>
         </div>

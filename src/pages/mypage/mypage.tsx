@@ -4,9 +4,9 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { GET_USER, UPDATE_USER } from "../../queries";
 import { UpdateUserMutation } from "../../types/generated/graphql.tsx/graphql";
 import { Header } from "../../components/header/SearchHeader";
-import { Loading } from "../../components/Loading/Loading";
+import { Loading } from "../../components/loading/Loading";
 import { useAuthContext } from "../../AuthContext";
-import { useToast } from "../../components/Loading/useToast";
+import { useToast } from "../../components/loading/useToast";
 
 const Mypage = () => {
   // console.log(data);
@@ -210,10 +210,13 @@ export const UserForm = () => {
               />
             </div> */}
 
-            <div className="flex flex-wrap items-stretch my-12">
-              <div className="relative flex items-center ">
+            <button
+              className="flex items-center justify-center px-3 my-12 rounded bg-emerald-700"
+              type="submit"
+            >
+              <div className="flex items-center ">
                 <svg
-                  className="h-4 w-4 text-white absolute ml-1.5"
+                  className="h-4 w-4 text-white  ml-1.5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -227,13 +230,10 @@ export const UserForm = () => {
                 </svg>
               </div>
 
-              <button
-                type="submit"
-                className=" bg-emerald-700 text-white text-sm py-1.5  px-4 pl-6  font-medium rounded"
-              >
+              <div className=" text-white text-sm py-1.5 ml-1  pr-1.5  font-medium ">
                 保存
-              </button>
-            </div>
+              </div>
+            </button>
           </form>
         </div>
       </div>

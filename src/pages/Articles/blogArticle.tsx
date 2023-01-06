@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components/header/SearchHeader";
 import { GET_ARTICLES, GET_BLOGS } from "../../queries";
-import { Loading } from "../../components/Loading/Loading";
+import { Loading } from "../../components/loading/Loading";
 import { useAuthContext } from "../../AuthContext";
-import { formatJst } from "../../components/FormatJst/FormatJst";
+import { formatJst } from "../../components/formatJst/FormatJst";
 
 export const BLOGS_QUERY = gql`
   query blogs {

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import { Link, useParams } from "react-router-dom";
 import { Header } from "../../components/header/SearchHeader";
-import { Form } from "../Articles/blogArticle";
-import { blogChoiceState } from "../../components/Atom/BlogChoiceAtom";
+import { Form } from "../articles/blogArticle";
+import { blogChoiceState } from "../../atom/BlogChoiceAtom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { GET_ARTICLE, GET_BLOG_ARTICLES } from "../../queries";
-import { Loading } from "../../components/Loading/Loading";
-import { formatJst } from "../../components/FormatJst/FormatJst";
+import { Loading } from "../../components/loading/Loading";
+import { formatJst } from "../../components/formatJst/FormatJst";
+import { Pagination } from "../../components/ui/pagination/pagination";
 
 const BLOGIDARTICLES_QUERY = gql`
   query articlesByBlog($blogId: String!) {
@@ -81,7 +82,7 @@ const BlogIdArticle = () => {
         <div className="w-2/5">
           <div className="">
             <div className="flex justify-center ">
-              <h3 className="text-2xl text-gray-500">
+              <h3 className="text-xl text-gray-800">
                 {blogArticlesData?.Blog[0].title}
               </h3>
               {/* <h3>{blogState}</h3> */}
@@ -102,13 +103,7 @@ const BlogIdArticle = () => {
               </div>
             ))}
             <div className="flex justify-center my-10">
-              <button
-                onClick={onClickFetchBlog}
-                type="submit"
-                className="bg-emerald-700 text-white text-sm py-2  px-4  font-medium rounded"
-              >
-                さらに読み込む
-              </button>
+              <Pagination onClickFetchBlog={onClickFetchBlog} />
             </div>
           </div>
         </div>

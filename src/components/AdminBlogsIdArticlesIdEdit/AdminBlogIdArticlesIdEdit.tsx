@@ -1,8 +1,8 @@
 import React from "react";
-import { AddButton } from "../AddButton/AddButton";
+import { AddButton } from "../ui/addButton/AddButton";
 import { BlogHeader } from "../header/BlogHeader";
 import { Sidebar } from "../sidebar/navbar";
-import { UserTable1 } from "../UserTable/UserTable";
+import { UserTable1 } from "../userTable/UserTable";
 
 export const AdminBlogIdArticlesIdEdit = () => {
   return (
@@ -15,7 +15,7 @@ export const AdminBlogIdArticlesIdEdit = () => {
         <div className="w-1/5">
           <Sidebar />
         </div>
-        <div className="flex justify-center w-4/5 h-full mt-5 ml-24">
+        <div className="flex justify-center w-5/6 h-full pr-20 mt-5 ">
           <div className="w-3/4">
             <div className="flex items-center justify-end mt-10">
               <div>

@@ -33,7 +33,6 @@ export const AdminBlogsIdConfig = () => {
   const { data, loading, error } = useQuery(GET_BLOG_ONE, {
     variables: { id: blogId },
   });
-  console.log(data);
   const { toastLoading, toastSucceeded, toastFailed } = useToast();
 
   const [

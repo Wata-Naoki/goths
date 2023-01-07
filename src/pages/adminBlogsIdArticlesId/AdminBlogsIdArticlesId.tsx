@@ -55,7 +55,6 @@ export const AdminBlogsIdArticlesId = () => {
   const { data, loading, error } = useQuery(GET_ARTICLE, {
     variables: { id: articleId },
   });
-  console.log(data);
 
   const [update_Article_by_pk, { loading: deleteLoading, error: deleteError }] =
     useMutation<UpdateDeleteArticleMutation>(UPDATE_DELETE_ARTICLE);
@@ -118,30 +117,18 @@ export const AdminBlogsIdArticlesId = () => {
 
   // useEffect(() => {
   //   execute({ variables: { id: articleId } });
-  //   // console.log(id);
-  //   // console.log(blogArticlesData);
   // }, [articleId, execute]);
-  // console.log(blogArticleData);
 
-  /* console.log(loading);
-  console.log(error); */
-
-  // console.log(data);
-  // console.log(articleId);
-  // console.log(articleId);
   // const targetArticle = data?.adminArticle.data.find(
   //   (x: any) => x.id === articleId
   // );
   // const [articleEditValue, setArticleEditValue] = useRecoilState(
   //   blogIdArticleEditState
   // );
-  // console.log(articleEditValue);
   // setArticleEditValue(targetArticle);
 
   // const [deleteArticle, { loading: delloading, error: delerror }] =
   //   useMutation(DELETE_ARTICLE);
-
-  // console.log(result);
 
   return (
     <>
@@ -163,11 +150,12 @@ export const AdminBlogsIdArticlesId = () => {
                 <div>
                   <Link
                     to={`/admin/blogs/${blogId}/articles/${articleId}/edit`}
+                    className="cursor-pointer"
                   >
-                    <div className="flex flex-wrap items-stretch mr-2">
-                      <div className="relative flex items-center ">
+                    <div className="flex items-center justify-center py-2 pr-4 mr-2 rounded-md focus:outline-none focus-visible:ring-opacity-75 hover:bg-emerald-600 bg-emerald-700">
+                      <div className="flex items-center ">
                         <svg
-                          className="absolute w-5 h-5 ml-2 text-white"
+                          className="w-5 h-5 ml-2 text-white "
                           viewBox="0 0 24 24"
                           stroke-width="2"
                           stroke="currentColor"
@@ -183,12 +171,9 @@ export const AdminBlogsIdArticlesId = () => {
                         </svg>
                       </div>
 
-                      <button
-                        type="submit"
-                        className="py-2 pl-8 pr-4 text-sm font-medium text-white rounded-md bg-emerald-700"
-                      >
+                      <div className="ml-1 text-sm font-medium text-white ">
                         編集
-                      </button>
+                      </div>
                     </div>
                   </Link>
                 </div>

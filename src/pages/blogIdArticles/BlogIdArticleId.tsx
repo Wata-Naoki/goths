@@ -83,10 +83,8 @@ const BlogIdArticleId = () => {
   // useEffect(() => {
   //   if (!favoriteData?.Article.find((x) => x.id === articleId)) {
   //     like.current = true;
-  //     console.log(like.current);
   //   } else {
   //     like.current = false;
-  //     console.log(like.current);
   //   }
   // }, [like]);
 
@@ -128,8 +126,6 @@ const BlogIdArticleId = () => {
   if (articeDataLoading) {
     return <Loading />;
   }
-
-  console.log(articleData);
 
   return (
     <>

@@ -107,7 +107,12 @@ export const ModalBlogHeader = ({
 
                                   {data?.Blog.map((x: any, index: number) => (
                                     <tr key={index}>
-                                      <td className="py-4 pl-2 hover:bg-gray-100">
+                                      <td
+                                        className="py-4 pl-2 cursor-pointer hover:bg-gray-100"
+                                        onClick={() => {
+                                          handleLink(x.id);
+                                        }}
+                                      >
                                         <div className="flex justify-start">
                                           <div
                                             className={`relative flex items-center pr-4 ml-4  ${
@@ -130,14 +135,9 @@ export const ModalBlogHeader = ({
                                             </svg>
                                           </div>
                                           <div className="ml-6 ">
-                                            <button
-                                              className="focus:outline-none"
-                                              onClick={() => {
-                                                handleLink(x.id);
-                                              }}
-                                            >
+                                            <div className="focus:outline-none">
                                               {x.title}
-                                            </button>
+                                            </div>
                                           </div>
                                         </div>
                                       </td>

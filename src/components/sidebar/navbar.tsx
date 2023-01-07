@@ -1,11 +1,7 @@
 import { Link, useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { blogIdState } from "../../atom/BlogChoiceAtom";
 
 export const Sidebar = () => {
   const { id } = useParams();
-  const blogIdStateValue = useRecoilValue(blogIdState);
-  // console.log(blogIdStateValue);
   const redirectToGoogle = () => {
     window.location.href = "https://www.google.com/?hl=ja";
   };

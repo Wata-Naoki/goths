@@ -11,7 +11,6 @@ export const Authentication = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const { email, password } = e.target.elements;
-    console.log(email, password);
     try {
       await auth
         .signInWithEmailAndPassword(email.value, password.value)
@@ -42,7 +41,6 @@ export const Authentication = () => {
   const handleLogin = async (event: any) => {
     try {
       await auth.signInWithPopup(provider);
-      console.log(user, "ログインしました。");
       if (user.email) {
         navigate("/");
         window.location.href = `/`;

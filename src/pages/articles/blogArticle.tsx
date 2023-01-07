@@ -47,7 +47,6 @@ function BlogArticle() {
   } = useQuery(BLOGS_QUERY);
   const { user } = useAuthContext();
 
-  // console.log(data);
   const [page, setPage] = useState<"新着記事" | "新着ブログ">("新着記事");
 
   const handleChange = (e: any) => {
@@ -72,7 +71,6 @@ function BlogArticle() {
 
   const onClickFetch = () => {
     setNum(num + 1);
-    //console.log(num);
   };
 
   useEffect(() => {
@@ -90,7 +88,6 @@ function BlogArticle() {
 
   const onClickFetchBlog = () => {
     setNumBlog(numblog + 1);
-    //console.log(num);
   };
 
   useEffect(() => {
@@ -98,9 +95,6 @@ function BlogArticle() {
       variables: { limit: numblog },
     });
   }, [executeBlog, numblog]);
-  console.log(blogData);
-
-  // console.log(articeData.Article[0]);
 
   if (articleLoading || blogLoading) {
     return <Loading />;
@@ -241,7 +235,6 @@ function BlogArticle() {
 export const Manage = () => {
   function handleSubmit(e: any) {
     e.preventDefault();
-    // console.log("You clicked submit.");
   }
   return (
     <>
@@ -278,7 +271,6 @@ export const Manage = () => {
 export const Form = () => {
   function handleSubmit(e: any) {
     e.preventDefault();
-    // console.log("You clicked submit.");
   }
   return (
     <>

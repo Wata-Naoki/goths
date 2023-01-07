@@ -15,14 +15,12 @@ export default function UserIcon() {
     useLazyQuery(GET_USER, { variables: { email: user?.email } });
   useEffect(() => {
     if (user?.email) excute();
-    console.log(userDate);
   }, [user]);
   const {
     data: blogData,
     error: blogError,
     loading: blogLoading,
   } = useQuery(GET_USER_BLOGS, { variables: { email: user?.email } });
-  console.log(blogData);
   const navigate = useNavigate();
   const handleLogout = () => {
     auth.signOut();

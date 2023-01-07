@@ -9,7 +9,6 @@ import { useAuthContext } from "../../AuthContext";
 import { useToast } from "../../components/loading/useToast";
 
 const Mypage = () => {
-  // console.log(data);
   const month = [
     "1月",
     "2月",
@@ -126,7 +125,6 @@ export const UserForm = () => {
     error: userError,
   } = useQuery(GET_USER, { variables: { email: user?.email } });
 
-  console.log(userDate);
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [gitToken, setGitToken] = useState("");

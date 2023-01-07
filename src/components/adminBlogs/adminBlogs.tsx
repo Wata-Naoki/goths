@@ -58,7 +58,6 @@ export const AdminBlogs = () => {
   const { loading, error, data } = useQuery(ARTICLESBYBLOG_QUERY);
   const { user } = useAuthContext();
 
-  // console.log(data);
   const [page, setPage] = useState<"Myブログ" | "編集者ブログ">("Myブログ");
 
   const pageColor = "text-green-700 underline underline-offset-8 decoration-1";
@@ -70,7 +69,6 @@ export const AdminBlogs = () => {
   } = useQuery(BLOG_CHOICE_QUERY); */
 
   const [blogState, setBlogState] = useRecoilState(blogChoiceState);
-  // console.log(blogState)
 
   const [numblog, setNumBlog] = useState<number>(2);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -79,7 +77,6 @@ export const AdminBlogs = () => {
     executeBlog,
     { data: blogData, error: blogError, loading: blogLoading, refetch },
   ] = useLazyQuery(GET_USER_BLOGS);
-  console.log(blogData);
 
   const {
     data: userData,
@@ -87,24 +84,17 @@ export const AdminBlogs = () => {
     error: userError,
   } = useQuery(GET_USER, { variables: { email: user.email } });
 
-  // console.log(userData?.User[0]?.id);
-
   const onClickFetchBlog = () => {
     setNumBlog(numblog + 1);
-    //console.log(num);
   };
 
   useEffect(() => {
     // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
-    console.log(user.email);
     executeBlog({
       variables: { email: user?.email, limit: numblog },
     });
     // }
   }, [executeBlog, numblog]);
-  // console.log(blogData);
-
-  // console.log(articeData.Article[0]);
 
   if (blogLoading) {
     return <Loading />;

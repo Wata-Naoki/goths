@@ -16,9 +16,7 @@ export const Header = () => {
   const [text, setText] = useState("");
   const navigate = useNavigate();
 
-  // console.log(`text:${text}`);
   const blogIdStateValue = useRecoilValue(blogIdState);
-  // console.log(blogIdStateValue)
 
   return (
     <>

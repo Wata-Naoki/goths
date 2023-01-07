@@ -33,7 +33,6 @@ import DeleteTableUsers from "../deleteTableUsers/DeleteTableUsers";
 
 export const UserTable1 = () => {
   // const { loading, error, data } = useQuery(ADMIN_TABLE_USERS_QUERY);
-  // console.log(data);
 
   const { id } = useParams();
   const { data, loading, error } = useQuery<GetBlogEditorsQuery>(

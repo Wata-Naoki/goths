@@ -22,8 +22,6 @@ export const AdminBlogsIdArticlesCreate = () => {
   const { data, loading } = useQuery<BlogUserQuery>(GET_BLOG_USER, {
     variables: { id: id },
   });
-  // console.log(data?.blog_user[0].user_id);
-  // console.log(id);
 
   const [insert_Article_one, { loading: articleLoading, error }] =
     useMutation<CreateArticleOneMutation>(CREATE_ARTICLE, {
@@ -44,7 +42,6 @@ export const AdminBlogsIdArticlesCreate = () => {
 
   const handleAllTextChange = (e: any) => {
     setAllText(e.target.value);
-    //console.log(allText);
   };
 
   const handleSubmit = async (e: any) => {

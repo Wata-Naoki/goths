@@ -18,10 +18,13 @@ const DeleteButton: React.FC<Props> = ({ onClick }) => {
 
   return (
     <>
-      <div className="flex flex-wrap items-stretch ">
-        <div className="relative flex items-center">
+      <button
+        className="flex items-center justify-center py-2 pr-4 bg-red-500 rounded-md hover:bg-red-400 focus:outline-none focus-visible:ring-opacity-75"
+        onClick={openModal}
+      >
+        <div className="flex items-center ">
           <svg
-            className="h-5 w-5 text-white absolute ml-2 "
+            className="w-5 h-5 ml-2 text-white "
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -34,15 +37,8 @@ const DeleteButton: React.FC<Props> = ({ onClick }) => {
             />
           </svg>
         </div>
-        <button
-          type="button"
-          onClick={openModal}
-          className="rounded-md bg-red-500   pr-4 pl-8 py-2 text-sm font-medium text-white hover:bg-red-400 focus:outline-none  focus-visible:ring-opacity-75"
-        >
-          削除
-          
-        </button>
-      </div>
+        <div className="ml-1 text-sm font-medium text-white ">削除</div>
+      </button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -59,7 +55,7 @@ const DeleteButton: React.FC<Props> = ({ onClick }) => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <div className="flex items-center justify-center min-h-full p-4 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -69,16 +65,16 @@ const DeleteButton: React.FC<Props> = ({ onClick }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    <div className="flex  ">
+                    <div className="flex ">
                       <div className="mr-3">
-                        <div className="bg-red-100 px-2  py-2  rounded-full">
+                        <div className="px-2 py-2 bg-red-100 rounded-full">
                           <svg
-                            className="h-6 w-6 text-red-500"
+                            className="w-6 h-6 text-red-500"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
@@ -103,17 +99,17 @@ const DeleteButton: React.FC<Props> = ({ onClick }) => {
                         </div>
                       </div>
                     </div>
-                    <div className="mt-4 flex justify-end">
+                    <div className="flex justify-end mt-4">
                       <button
                         type="button"
-                        className="mr-4 inline-flex justify-center rounded-md border border-inherit bg-white px-4 py-2 text-sm font-medium text-black hover:bg-gray-50 focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
+                        className="inline-flex justify-center px-4 py-2 mr-4 text-sm font-medium text-black bg-white border rounded-md border-inherit hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                         onClick={closeModal}
                       >
                         Cancel
                       </button>
                       <button
                         type="button"
-                        className="inline-flex justify-center rounded-md border border-inherit bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
+                        className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-500 border rounded-md border-inherit hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                         onClick={(e) => {
                           closeModal();
                           if (onClick) {
@@ -133,6 +129,6 @@ const DeleteButton: React.FC<Props> = ({ onClick }) => {
       </Transition>
     </>
   );
-}
+};
 
 export default DeleteButton;

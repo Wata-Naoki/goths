@@ -60,8 +60,6 @@ const Favorites = () => {
     variables: { email: user?.email },
   });
 
-  console.log(userData);
-
   const [
     excute,
     {
@@ -74,24 +72,18 @@ const Favorites = () => {
 
   useEffect(() => {
     // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
-    console.log(user.email);
     if (userData) {
       excute({ variables: { id: userData?.User[0]?.id, limit: numblog } });
     }
   }, [numblog, userData]);
 
-  // console.log(data);
-  // console.log(id, articleId);
   const onClickFetchBlog = () => {
     setNumBlog(numblog + 1);
-    //console.log(num);
   };
 
   if (favoriteLoading) {
     return <Loading />;
   }
-
-  console.log(favoriteData);
 
   return (
     <>

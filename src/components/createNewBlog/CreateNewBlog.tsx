@@ -49,12 +49,6 @@ export const CreateNewBlog: React.FC<Props> = ({
     setIsModalOpen(false);
   };
 
-  //setIsModalOpen(false)
-  // { variables: { user_id: userId, title: "test" }
-  // console.log(userId);
-  // useEffect(() => {
-  //   console.log(title);
-  // }, [title]);
   return (
     <>
       <div className="flex flex-col flex-wrap items-center px-16 py-8 gap-x-4 gap-y-8">

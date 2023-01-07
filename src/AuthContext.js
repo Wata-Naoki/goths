@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
         CREATE_ADMIN_USER_ONE,
         {
             onCompleted: () => {
-                alert("ユーザー登録が完了しました。");
+                console.log("ユーザー登録が完了しました。");
             },
             onError: () => {
                 console.log("ユーザー登録に失敗しました。");
@@ -33,8 +33,6 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribed = auth.onAuthStateChanged((user) => {
             setUser(user)
-            // console.log(user)
-            // console.log(user?.email, ' ', user?.displayName)
         })
         unsubscribed()
         setLoading(false)

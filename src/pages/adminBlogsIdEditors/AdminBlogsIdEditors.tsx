@@ -27,7 +27,6 @@ export const AdminBlogsIdEditors = () => {
   } = useQuery<GetArticleQuery>(GET_ARTICLE, {
     variables: { id: articleId },
   });
-  //console.log(data);
 
   const [title, setTitle] = useState();
   const [text, setText] = useState();

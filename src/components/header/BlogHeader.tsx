@@ -6,7 +6,6 @@ import { useModalState } from "./useModalState";
 import UserIcon from "./UserIcon";
 
 export const BlogHeader = ({ blogTitle }: any) => {
-  const { isOpen, setIsOpen, closeModal, openModal } = useModalState();
   return (
     <>
       <div className="flex justify-between w-screen px-3 my-4 ">
@@ -20,13 +19,7 @@ export const BlogHeader = ({ blogTitle }: any) => {
 
         <div>
           <div className="flex justify-center w-11/12 ">
-            <ModalBlogHeader
-              blogTitle={blogTitle}
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
-              closeModal={closeModal}
-              openModal={openModal}
-            />
+            <ModalBlogHeader />
           </div>
         </div>
 

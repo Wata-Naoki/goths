@@ -32,9 +32,6 @@ const BlogIdArticle = () => {
     variables: { blogId: id },
   }); */
   const blogState = useRecoilValue(blogChoiceState);
-  // console.log(blogState);
-  // console.log(data);
-  // console.log(id);
 
   // if (id) {
   //   const { data: blogArticlesData, loading: blogArticlesLoading } = useQuery(
@@ -46,7 +43,6 @@ const BlogIdArticle = () => {
 
   const onClickFetchBlog = () => {
     setNumBlog(numblog + 1);
-    //console.log(num);
   };
 
   const [
@@ -61,12 +57,8 @@ const BlogIdArticle = () => {
   useEffect(() => {
     if (id) {
       execute({ variables: { id: id, limit: numblog } });
-      // console.log(id);
-      // console.log(blogArticlesData);
     }
   }, [execute, id, numblog]);
-
-  //console.log(blogArticlesData);
 
   if (blogArticlesLoading) {
     return <Loading />;

@@ -16,9 +16,7 @@ export const Header = () => {
   const [text, setText] = useState("");
   const navigate = useNavigate();
 
-  // console.log(`text:${text}`);
   const blogIdStateValue = useRecoilValue(blogIdState);
-  // console.log(blogIdStateValue)
 
   return (
     <>
@@ -39,17 +37,16 @@ export const Header = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 onClick={() => {
                   if (text) {
                     window.location.href = `/search/${text}`;
                   }
                 }}
               >
-                {" "}
-                <circle cx="11" cy="11" r="8" />{" "}
+                <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
             </div>
@@ -82,9 +79,9 @@ export const Header = () => {
                       stroke="currentColor"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
                       />
                     </svg>

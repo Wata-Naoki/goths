@@ -62,7 +62,7 @@ const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
       <button
         type="button"
         onClick={openModal}
-        className="  text-sm font-medium   "
+        className="text-sm font-medium "
       >
         削除
       </button>
@@ -82,7 +82,7 @@ const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <div className="flex items-center justify-center min-h-full p-4 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -92,26 +92,25 @@ const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                   <Dialog.Title
                     as="h3"
-                    className=" text-lg font-medium leading-6 text-gray-900"
+                    className="text-lg font-medium leading-6 text-gray-900 "
                   >
-                    <div className="flex  ">
+                    <div className="flex ">
                       <div className="mr-3">
-                        <div className="bg-red-100 px-2  py-2  rounded-full">
+                        <div className="px-2 py-2 bg-red-100 rounded-full">
                           <svg
-                            className="h-6 w-6 text-red-500"
+                            className="w-6 h-6 text-red-500"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           >
-                            {" "}
-                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />{" "}
-                            <line x1="12" y1="9" x2="12" y2="13" />{" "}
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                            <line x1="12" y1="9" x2="12" y2="13" />
                             <line x1="12" y1="17" x2="12.01" y2="17" />
                           </svg>
                         </div>
@@ -120,7 +119,7 @@ const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
                       <div>
                         <div>編集者削除</div>
 
-                        <div className="mt-2 text-sm text-gray-500  ">
+                        <div className="mt-2 text-sm text-gray-500 ">
                           <p>
                             削除された編集者はブログ記事の編集ができなくなります。
                           </p>
@@ -128,17 +127,17 @@ const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
                         </div>
                       </div>
                     </div>
-                    <div className="mt-4 flex justify-end">
+                    <div className="flex justify-end mt-4">
                       <button
                         type="button"
-                        className="mr-4 inline-flex justify-center rounded-md border border-inherit bg-white px-4 py-2 text-sm font-medium text-black hover:bg-gray-50 focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
+                        className="inline-flex justify-center px-4 py-2 mr-4 text-sm font-medium text-black bg-white border rounded-md border-inherit hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                         onClick={closeModal}
                       >
                         Cancel
                       </button>
                       <button
                         type="button"
-                        className="inline-flex justify-center rounded-md border border-inherit bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
+                        className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-500 border rounded-md border-inherit hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                         onClick={async () => {
                           closeModal();
                           await handleDelete();

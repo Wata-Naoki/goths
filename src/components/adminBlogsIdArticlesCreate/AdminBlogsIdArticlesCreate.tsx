@@ -22,8 +22,6 @@ export const AdminBlogsIdArticlesCreate = () => {
   const { data, loading } = useQuery<BlogUserQuery>(GET_BLOG_USER, {
     variables: { id: id },
   });
-  // console.log(data?.blog_user[0].user_id);
-  // console.log(id);
 
   const [insert_Article_one, { loading: articleLoading, error }] =
     useMutation<CreateArticleOneMutation>(CREATE_ARTICLE, {
@@ -44,7 +42,6 @@ export const AdminBlogsIdArticlesCreate = () => {
 
   const handleAllTextChange = (e: any) => {
     setAllText(e.target.value);
-    //console.log(allText);
   };
 
   const handleSubmit = async (e: any) => {
@@ -83,7 +80,7 @@ export const AdminBlogsIdArticlesCreate = () => {
           <Sidebar />
         </div>
 
-        <div className="w-4/5 mt-10 mr-12">
+        <div className="w-4/5 mt-5 mr-12">
           <form onSubmit={handleSubmit}>
             <div className="flex justify-center mt-5 ">
               <div className="w-2/5 ">
@@ -143,9 +140,9 @@ export const AdminBlogsIdArticlesCreate = () => {
                           stroke="currentColor"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                           />
                         </svg>

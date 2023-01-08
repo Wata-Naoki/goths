@@ -9,7 +9,6 @@ import { useAuthContext } from "../../AuthContext";
 import { useToast } from "../../components/loading/useToast";
 
 const Mypage = () => {
-  // console.log(data);
   const month = [
     "1月",
     "2月",
@@ -126,7 +125,6 @@ export const UserForm = () => {
     error: userError,
   } = useQuery(GET_USER, { variables: { email: user?.email } });
 
-  console.log(userDate);
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [gitToken, setGitToken] = useState("");
@@ -222,9 +220,9 @@ export const UserForm = () => {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
                   />
                 </svg>

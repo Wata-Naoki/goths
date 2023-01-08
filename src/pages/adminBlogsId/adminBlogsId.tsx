@@ -40,11 +40,8 @@ export const AdminBlogsId = () => {
     { data: blogData, error: blogError, loading: blogLoading, refetch },
   ] = useLazyQuery(GET_BLOG);
 
-  console.log(blogData);
-
   const onClickFetchBlog = () => {
     setNumBlog(numblog + 1);
-    //console.log(num);
   };
 
   useEffect(() => {
@@ -63,7 +60,6 @@ export const AdminBlogsId = () => {
 
     // }
   }, [executeBlog, numblog, id]);
-  console.log(id);
 
   if (blogLoading) {
     return <Loading />;

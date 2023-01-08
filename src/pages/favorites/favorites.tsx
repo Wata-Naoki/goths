@@ -4,15 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import { Form } from "../articles/blogArticle";
 import { Header } from "../../components/header/SearchHeader";
 import { useAuthContext } from "../../AuthContext";
-import {
-  GET_FAVORITES_ARTICLES,
-  GET_USER,
-  GET_USER_BLOGS,
-} from "../../queries";
-import {
-  GetFavoritesArticlesQuery,
-  GetUserQuery,
-} from "../../types/generated/graphql.tsx/graphql";
+import { GET_USER, GET_USER_BLOGS } from "../../queries";
+import { GetUserQuery } from "../../types/generated/graphql.tsx/graphql";
 import { Loading } from "../../components/loading/Loading";
 import { formatJst } from "../../components/formatJst/FormatJst";
 import { Pagination } from "../../components/ui/pagination/pagination";
@@ -60,38 +53,30 @@ const Favorites = () => {
     variables: { email: user?.email },
   });
 
-  console.log(userData);
-
-  const [
-    excute,
-    {
-      data: favoriteData,
-      error: favoriteError,
-      loading: favoriteLoading,
-      refetch: refetchFavorite,
-    },
-  ] = useLazyQuery<GetFavoritesArticlesQuery>(GET_FAVORITES_ARTICLES);
+  // const [
+  //   excute,
+  //   {
+  //     data: favoriteData,
+  //     error: favoriteError,
+  //     loading: favoriteLoading,
+  //     refetch: refetchFavorite,
+  //   },
+  // ] = useLazyQuery<GetFavoritesArticlesQuery>(GET_FAVORITES_ARTICLES);
 
   useEffect(() => {
     // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
-    console.log(user.email);
     if (userData) {
-      excute({ variables: { id: userData?.User[0]?.id, limit: numblog } });
+      // excute({ variables: { id: userData?.User[0]?.id, limit: numblog } });
     }
   }, [numblog, userData]);
 
-  // console.log(data);
-  // console.log(id, articleId);
   const onClickFetchBlog = () => {
     setNumBlog(numblog + 1);
-    //console.log(num);
   };
 
-  if (favoriteLoading) {
-    return <Loading />;
-  }
-
-  console.log(favoriteData);
+  // if (favoriteLoading) {
+  //   return <Loading />;
+  // }
 
   return (
     <>
@@ -107,7 +92,7 @@ const Favorites = () => {
             </div>
 
             <div>
-              {favoriteData?.Article?.map((x: any) => (
+              {/* {favoriteData?.Article?.map((x: any) => (
                 <div key={x.id}>
                   <div className="my-8">
                     <Link
@@ -127,7 +112,7 @@ const Favorites = () => {
                     <p>{x.text}</p>
                   </div>
                 </div>
-              ))}
+              ))} */}
             </div>
 
             <div className="flex justify-center my-10">

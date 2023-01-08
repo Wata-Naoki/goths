@@ -284,27 +284,27 @@ export const GET_BLOGS_MODAL = gql`
   }
 `;
 
-export const UPDATE_ARTICLE_LIKE = gql`
-  mutation UpdateArticleLike(
-    $id: uuid!
-    $like: Int!
-    $user_favorite_articles_id: uuid
-    $status: Boolean
-  ) {
-    update_Article_by_pk(
-      pk_columns: { id: $id }
-      _set: {
-        like: $like
-        user_favorite_articles_id: $user_favorite_articles_id
-        status: $status
-      }
-    ) {
-      like
-      title
-      status
-    }
-  }
-`;
+// export const UPDATE_ARTICLE_LIKE = gql`
+//   mutation UpdateArticleLike(
+//     $id: uuid!
+//     $like: Int!
+//     $user_favorite_articles_id: uuid
+//     $status: Boolean
+//   ) {
+//     update_Article_by_pk(
+//       pk_columns: { id: $id }
+//       _set: {
+//         like: $like
+//         user_favorite_articles_id: $user_favorite_articles_id
+//         status: $status
+//       }
+//     ) {
+//       like
+//       title
+//       status
+//     }
+//   }
+// `;
 
 export const GET_SEARCH_ARTICLES = gql`
   query GetSearchArticles($_iregex: String!, $limit: Int) {
@@ -333,45 +333,45 @@ export const CREATE_BLOG = gql`
 `;
 
 // ex) uuid = "1bf773a5-9c62-43bc-b5ce-43633fdb3b14"
-export const GET_FAVORITES_ARTICLES = gql`
-  query GetFavoritesArticles($id: uuid!, $limit: Int) {
-    Article(
-      where: { user_favorite_articles_id: { _eq: $id }, status: { _eq: true } }
-      limit: $limit
-      order_by: { createdAt: desc }
-    ) {
-      id
-      title
-      Blog {
-        title
-      }
-      createdAt
-      text
-    }
-  }
-`;
+// export const GET_FAVORITES_ARTICLES = gql`
+//   query GetFavoritesArticles($id: uuid!, $limit: Int) {
+//     Article(
+//       where: { user_favorite_articles_id: { _eq: $id }, status: { _eq: true } }
+//       limit: $limit
+//       order_by: { createdAt: desc }
+//     ) {
+//       id
+//       title
+//       Blog {
+//         title
+//       }
+//       createdAt
+//       text
+//     }
+//   }
+// `;
 
 // ex) uuid = "21aefd7e-8ea4-478d-b1ba-99fc4779116c" String = "user1-1@gmail.com"
 //user_favorite_articles_idはEmail
-export const UPDATE_FAVORITES_ARTICLES = gql`
-  mutation UpdateFavoriteArticles(
-    $id: uuid!
-    $user_favorite_articles_id: uuid
-    $status: Boolean
-  ) {
-    update_Article_by_pk(
-      pk_columns: { id: $id }
-      _set: {
-        user_favorite_articles_id: $user_favorite_articles_id
-        status: $status
-      }
-    ) {
-      id
-      user_favorite_articles_id
-      title
-    }
-  }
-`;
+// export const UPDATE_FAVORITES_ARTICLES = gql`
+//   mutation UpdateFavoriteArticles(
+//     $id: uuid!
+//     $user_favorite_articles_id: uuid
+//     $status: Boolean
+//   ) {
+//     update_Article_by_pk(
+//       pk_columns: { id: $id }
+//       _set: {
+//         user_favorite_articles_id: $user_favorite_articles_id
+//         status: $status
+//       }
+//     ) {
+//       id
+//       user_favorite_articles_id
+//       title
+//     }
+//   }
+// `;
 
 //ex) uuid = "84eebb47-a9c1-488c-90bb-2143b4890ec6"
 export const DELETE_FAVORITE_ARTICLE = gql`
@@ -390,6 +390,27 @@ export const CREATE_ADMIN_USER_ONE = gql`
       name
       email
       createdAt
+    }
+  }
+`;
+
+//お気に入り記事の取得
+export const GET_USER_FAVORITES_ARTICLES = gql`
+  query GetUserFavoritesArticles($_eq1: uuid!) {
+    Article(where: { user_favorite_article_ids: { user_id: { _eq: $_eq1 } } }) {
+      text
+      id
+    }
+  }
+`;
+
+// お気に入り記事の追加
+export const CREATE_USER_FAVORITES_ARTICLES = gql`
+  mutation CreateUserFavoriteArticles($article_id: uuid!, $user_id: uuid!) {
+    insert_user_favorite_article_id_one(
+      object: { article_id: $article_id, user_id: $user_id }
+    ) {
+      id
     }
   }
 `;

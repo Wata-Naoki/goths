@@ -23,7 +23,6 @@ export const Register = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const { name, email, password } = e.target.elements;
-    console.log(name.value, email.value, password.value);
 
     try {
       auth

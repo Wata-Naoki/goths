@@ -33,7 +33,6 @@ export const AdminBlogsIdConfig = () => {
   const { data, loading, error } = useQuery(GET_BLOG_ONE, {
     variables: { id: blogId },
   });
-  console.log(data);
   const { toastLoading, toastSucceeded, toastFailed } = useToast();
 
   const [
@@ -145,31 +144,29 @@ export const AdminBlogsIdConfig = () => {
 
             <div className="flex items-center justify-center mt-10 focus:outline-none focus-visible:ring-opacity-75">
               <div>
-                <div className="flex flex-wrap items-stretch ">
-                  <div className="relative flex items-center ">
+                <div
+                  className="flex rounded cursor-pointer bg-emerald-700"
+                  onClick={handleUpdate}
+                >
+                  <div className="flex items-center ">
                     <svg
-                      className="h-4 w-4 text-white absolute ml-2.5 "
+                      className="h-4 w-4 text-white  ml-2.5 "
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     >
-                      {" "}
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />{" "}
-                      <polyline points="7 10 12 15 17 10" />{" "}
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
                       <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
                   </div>
 
-                  <button
-                    type="button"
-                    className=" bg-emerald-700 text-white text-sm py-1.5  pr-4 pl-8  font-medium rounded "
-                    onClick={handleUpdate}
-                  >
+                  <div className="  text-white text-sm py-1.5  pr-4 pl-2  font-medium  ">
                     保存
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>

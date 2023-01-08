@@ -55,44 +55,9 @@ export const AdminBlogsIdArticlesId = () => {
   const { data, loading, error } = useQuery(GET_ARTICLE, {
     variables: { id: articleId },
   });
-  console.log(data);
 
   const [update_Article_by_pk, { loading: deleteLoading, error: deleteError }] =
     useMutation<UpdateDeleteArticleMutation>(UPDATE_DELETE_ARTICLE);
-
-  // const deleteArticle = async () => {
-  //   delete_blog_user_by_pk({ variables: { id: articleId } });
-  // };
-
-  // const [delete_Article_by_pk] = useMutation(DELETE_ARTICLE, {
-  //   update(cache, { data: { delete_Article_by_pk } }) {
-  //     cache.modify({
-  //       fields: {
-  //         Article(existingArticle, { readField }) {
-  //           return existingArticle.filter((article: any) => {
-  //             articleId !== readField("id", article)
-  //           });
-  //         },
-  //       },
-  //     });
-  //   },
-  // });
-
-  /* 
-  const [delete_users_by_pk] = useMutation<DeleteUserMutation>(DELETE_USER, {
-    update(cache, { data: { delete_users_by_pk } }) {
-      cache.modify({
-        fields: {
-          users(existingUsers, { readField }) {
-            return existingUsers.filter((user) => {
-              delete_users_by_pk !== readField('id', user)
-            })
-          },
-        },
-      })
-    },
-  })
-  */
 
   const handleChange = async () => {
     if (articleId) {
@@ -116,33 +81,6 @@ export const AdminBlogsIdArticlesId = () => {
     return <div>"エラーが発生しました。"</div>;
   }
 
-  // useEffect(() => {
-  //   execute({ variables: { id: articleId } });
-  //   // console.log(id);
-  //   // console.log(blogArticlesData);
-  // }, [articleId, execute]);
-  // console.log(blogArticleData);
-
-  /* console.log(loading);
-  console.log(error); */
-
-  // console.log(data);
-  // console.log(articleId);
-  // console.log(articleId);
-  // const targetArticle = data?.adminArticle.data.find(
-  //   (x: any) => x.id === articleId
-  // );
-  // const [articleEditValue, setArticleEditValue] = useRecoilState(
-  //   blogIdArticleEditState
-  // );
-  // console.log(articleEditValue);
-  // setArticleEditValue(targetArticle);
-
-  // const [deleteArticle, { loading: delloading, error: delerror }] =
-  //   useMutation(DELETE_ARTICLE);
-
-  // console.log(result);
-
   return (
     <>
       <div>
@@ -150,45 +88,42 @@ export const AdminBlogsIdArticlesId = () => {
       </div>
 
       <div className="flex justify-start w-screen">
-        <div className="w-1/3">
+        <div className="w-1/4">
           <Sidebar />
         </div>
 
         <div className="w-6/12">
-          <div className="flex items-center justify-center pr-32 mb-10">
+          <div className="flex items-center justify-center w-full pl-24 pr-20 my-10 mb-10 ml-12">
             {/* ここも割とゴリ押し感強め */}
 
-            <div>
-              <div className="flex justify-end my-10">
+            <div className="flex flex-col w-full">
+              <div className="flex justify-end w-full ">
                 <div>
                   <Link
                     to={`/admin/blogs/${blogId}/articles/${articleId}/edit`}
+                    className="cursor-pointer"
                   >
-                    <div className="flex flex-wrap items-stretch mr-2">
-                      <div className="relative flex items-center ">
+                    <div className="flex items-center justify-center py-2 pr-4 mr-2 rounded-md focus:outline-none focus-visible:ring-opacity-75 hover:bg-emerald-600 bg-emerald-700">
+                      <div className="flex items-center ">
                         <svg
-                          className="absolute w-5 h-5 ml-2 text-white"
+                          className="w-5 h-5 ml-2 text-white "
                           viewBox="0 0 24 24"
-                          stroke-width="2"
+                          strokeWidth="2"
                           stroke="currentColor"
                           fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         >
-                          {" "}
-                          <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                          <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />{" "}
-                          <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />{" "}
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
+                          <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
                           <line x1="16" y1="5" x2="19" y2="8" />
                         </svg>
                       </div>
 
-                      <button
-                        type="submit"
-                        className="py-2 pl-8 pr-4 text-sm font-medium text-white rounded-md bg-emerald-700"
-                      >
+                      <div className="ml-1 text-sm font-medium text-white ">
                         編集
-                      </button>
+                      </div>
                     </div>
                   </Link>
                 </div>
@@ -204,9 +139,9 @@ export const AdminBlogsIdArticlesId = () => {
               </div>
 
               <div>
-                <div>
+                <div className="flex flex-col w-full gap-y-6">
                   <h2 className="mt-8 text-2xl">{data?.Article[0].title}</h2>
-                  <div className="flex justify-between my-5">
+                  <div className="flex justify-between w-full my-5">
                     <h3 className="text-gray-500">
                       {data?.Article[0].User.name}
                     </h3>
@@ -216,12 +151,12 @@ export const AdminBlogsIdArticlesId = () => {
                     </h3>
                   </div>
 
-                  <p className="mb-8">{data?.Article[0].all_text}</p>
-                  <p className="mb-8">{data?.Article[0].all_text}</p>
-                  <p className="mb-8">{data?.Article[0].all_text}</p>
+                  <div className="flex flex-col w-full gap-y-6">
+                    <p className="">{data?.Article[0].all_text}</p>
+                  </div>
                 </div>
               </div>
-              <div className="flex justify-end text-gray-500">
+              <div className="flex justify-end mt-5 text-gray-500">
                 <div>
                   <svg
                     className="w-5 h-5 text-gray-500"
@@ -230,20 +165,20 @@ export const AdminBlogsIdArticlesId = () => {
                     stroke="currentColor"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
                     />
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
                     />
                   </svg>
-                </div>{" "}
-                <div>32</div>
+                </div>
+                <div></div>
               </div>
             </div>
           </div>

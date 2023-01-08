@@ -2,9 +2,8 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 import { Loading } from './components/loading/Loading';
 import { auth } from './firebaseConfig';
-import { useMutation } from '@apollo/client';
-import { CREATE_ADMIN_USER_ONE } from './queries';
-
+import { useLazyQuery, useMutation } from '@apollo/client';
+import { CREATE_ADMIN_USER_ONE, GET_USER } from './queries';
 
 const AuthContext = createContext();
 
@@ -12,10 +11,12 @@ export const useAuthContext = () => {
     return useContext(AuthContext)
 }
 
-
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState('')
     const [loading, setLoading] = useState(true)
+
+    // GetUserのqueryを実行する
+    const [executeUser, { data: userData, error: userError, loading: userLoading }] = useLazyQuery(GET_USER);
     const [execute, { error: adminError, loading: adminLoading }] = useMutation(
         CREATE_ADMIN_USER_ONE,
         {
@@ -27,7 +28,6 @@ export const AuthProvider = ({ children }) => {
             },
         }
     );
-
     const value = { user, loading }
 
     useEffect(() => {
@@ -39,16 +39,25 @@ export const AuthProvider = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        execute({
+        // ユーザーが存在するか確認する
+        executeUser({
             variables: {
                 email: user?.email,
-                name: user?.displayName,
             }
         })
+        // ユーザーが存在しない場合は、ユーザーを作成する
+        if (!userData) {
+            execute({
+                variables: {
+                    email: user?.email,
+                    name: user?.displayName,
+                }
+            })
+        }
     }, [user])
 
 
-    if (loading) {
+    if (loading || userLoading || adminLoading) {
         return <Loading />;
     } else {
         return <AuthContext.Provider value={value}>

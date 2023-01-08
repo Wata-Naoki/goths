@@ -2,19 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { useQuery, gql, useMutation, useLazyQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { Header } from "../../components/header/SearchHeader";
-import {
-  DELETE_FAVORITE_ARTICLE,
-  GET_ARTICLE,
-  GET_FAVORITES_ARTICLES,
-  UPDATE_ARTICLE_LIKE,
-  UPDATE_FAVORITES_ARTICLES,
-} from "../../queries";
+import { DELETE_FAVORITE_ARTICLE, GET_ARTICLE } from "../../queries";
 import { Loading } from "../../components/loading/Loading";
 import { formatJst } from "../../components/formatJst/FormatJst";
-import {
-  GetFavoritesArticlesQuery,
-  UpdateArticleLikeMutation,
-} from "../../types/generated/graphql.tsx/graphql";
+
 import { useToast } from "../../components/loading/useToast";
 import { SectionLoading } from "../../components/loading/SectionLoading";
 import { useAuthContext } from "../../AuthContext";
@@ -39,20 +30,19 @@ const BlogIdArticleId = () => {
   const { loading, error, data } = useQuery(BLOGIDARTICLESID_QUERY);
   const { articleId } = useParams();
   const { user } = useAuthContext();
-  const [
-    excute,
-    {
-      data: favoriteData,
-      error: favoriteError,
-      loading: favoriteLoading,
-      refetch: refetchFavorite,
-    },
-  ] = useLazyQuery<GetFavoritesArticlesQuery>(GET_FAVORITES_ARTICLES);
+  // const [
+  //   excute,
+  //   {
+  //     data: favoriteData,
+  //     error: favoriteError,
+  //     loading: favoriteLoading,
+  //     refetch: refetchFavorite,
+  //   },
+  // ] = useLazyQuery<GetFavoritesArticlesQuery>(GET_FAVORITES_ARTICLES);
 
   useEffect(() => {
     // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
-
-    excute({ variables: { email: user?.email } });
+    // excute({ variables: { email: user?.email } });
   }, [user.email]);
 
   const {
@@ -66,19 +56,19 @@ const BlogIdArticleId = () => {
   ); */
   const { toastLoading, toastSucceeded, toastFailed } = useToast();
 
-  const [update_Article_by_pk, { loading: likeLoading, error: likeError }] =
-    useMutation<UpdateArticleLikeMutation>(UPDATE_ARTICLE_LIKE, {
-      onCompleted: () => {
-        console.log("いいねしました");
-        refetch();
-        refetchFavorite();
-        toastSucceeded();
-      },
-      onError: () => {
-        console.log("いいねできませんでした");
-        toastFailed();
-      },
-    });
+  // const [update_Article_by_pk, { loading: likeLoading, error: likeError }] =
+  //   useMutation<UpdateArticleLikeMutation>(UPDATE_ARTICLE_LIKE, {
+  //     onCompleted: () => {
+  //       console.log("いいねしました");
+  //       refetch();
+  //       refetchFavorite();
+  //       toastSucceeded();
+  //     },
+  //     onError: () => {
+  //       console.log("いいねできませんでした");
+  //       toastFailed();
+  //     },
+  //   });
 
   // useEffect(() => {
   //   if (!favoriteData?.Article.find((x) => x.id === articleId)) {
@@ -92,40 +82,39 @@ const BlogIdArticleId = () => {
     //favoriteDataにarticleIdがあるかどうかで処理を分ける
     toastLoading();
 
-    if (!favoriteData?.Article?.find((x) => x.id === articleId)) {
-      //likeの値が変わったら、update_Article_by_pkを実行する
+    // if (!favoriteData?.Article?.find((x) => x.id === articleId)) {
+    //   //likeの値が変わったら、update_Article_by_pkを実行する
 
-      //
-      await update_Article_by_pk({
-        variables: {
-          id: articleId,
-          like: articleData?.Article[0].like + 1,
-          user_favorite_articles_id: user?.email,
-          status: true,
-        },
-      });
-    } else {
-      await update_Article_by_pk({
-        variables: {
-          id: articleId,
-          like: articleData?.Article[0].like - 1,
-          status: false,
-        },
-      });
+    //   //
+    //   await update_Article_by_pk({
+    //     variables: {
+    //       id: articleId,
+    //       like: articleData?.Article[0].like + 1,
+    //       // user_favorite_articles_id: user?.email,
+    //       status: true,
+    //     },
+    //   });
+    // } else {
+    //   await update_Article_by_pk({
+    //     variables: {
+    //       id: articleId,
+    //       like: articleData?.Article[0].like - 1,
+    //       status: false,
+    //     },
+    //   });
 
-      //TODO: addではなく、deleteを実行する
-      // await add_favorites({
-      //   variables: {
-      //     id: articleId,
-      //     status: false,
-      //   },
-      // });
-    }
+    //   //TODO: addではなく、deleteを実行する
+    //   // await add_favorites({
+    //   //   variables: {
+    //   //     id: articleId,
+    //   //     status: false,
+    //   //   },
+    //   // });
   };
 
-  if (articeDataLoading) {
-    return <Loading />;
-  }
+  // if (articeDataLoading) {
+  //   return <Loading />;
+  // }
 
   return (
     <>
@@ -155,7 +144,7 @@ const BlogIdArticleId = () => {
                 className="flex items-center"
                 onClick={() => handleLike()}
               >
-                <div>
+                {/* <div>
                   <svg
                     className={`w-5 h-5   ${
                       favoriteData?.Article?.find((x) => x.id === articleId)
@@ -179,7 +168,7 @@ const BlogIdArticleId = () => {
                       d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
                     />
                   </svg>
-                </div>
+                </div> */}
                 <div>{articleData?.Article[0]?.like}</div>
               </button>
               {/* <div>{targetArticle?.tags}</div> */}

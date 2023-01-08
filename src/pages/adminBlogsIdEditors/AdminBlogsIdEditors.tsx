@@ -87,11 +87,11 @@ export const AdminBlogsIdEditors = () => {
       </div>
 
       <div className="flex justify-start w-full ">
-        <div className="w-1/5">
+        <div className="w-1/6">
           <Sidebar />
         </div>
 
-        <div className="w-4/5 pr-16 mt-10 mr-12">
+        <div className="w-4/5 pr-20 mt-5 mr-12">
           <form onSubmit={handleSubmit}>
             <div className="flex justify-center mt-5 ">
               <div className="w-2/5 ">
@@ -146,8 +146,11 @@ export const AdminBlogsIdEditors = () => {
 
                 <div className="flex items-center justify-center mt-10">
                   <div>
-                    <div className="flex flex-wrap items-stretch ">
-                      <div className="relative flex items-center ">
+                    <button
+                      className="flex items-center justify-center rounded bg-emerald-700"
+                      type="submit"
+                    >
+                      <div className="flex items-center ">
                         <svg
                           className="h-4 w-4 text-white absolute ml-2.5 "
                           viewBox="0 0 24 24"
@@ -163,13 +166,10 @@ export const AdminBlogsIdEditors = () => {
                         </svg>
                       </div>
 
-                      <button
-                        type="submit"
-                        className=" bg-emerald-700 text-white text-sm py-1.5  pr-4 pl-8  font-medium rounded"
-                      >
+                      <div className="  text-white text-sm py-1.5  pr-4 pl-8  font-medium ">
                         保存
-                      </button>
-                    </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>

@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { GET_BLOG_EDITORS } from "../../queries";
 import { GetBlogEditorsQuery } from "../../types/generated/graphql.tsx/graphql";
 import DeleteTableUsers from "../deleteTableUsers/DeleteTableUsers";
+import { Loading } from "../loading/Loading";
+import { SectionLoading } from "../loading/SectionLoading";
 
 // const ADMIN_TABLE_USERS_QUERY = gql`
 //   query adminTableUsers {
@@ -41,6 +43,8 @@ export const UserTable1 = () => {
       variables: { blog_id: id },
     }
   );
+
+  if (loading) return <SectionLoading />;
 
   return (
     <div className="flex flex-col">

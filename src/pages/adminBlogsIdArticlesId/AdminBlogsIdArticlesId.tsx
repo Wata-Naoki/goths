@@ -59,40 +59,6 @@ export const AdminBlogsIdArticlesId = () => {
   const [update_Article_by_pk, { loading: deleteLoading, error: deleteError }] =
     useMutation<UpdateDeleteArticleMutation>(UPDATE_DELETE_ARTICLE);
 
-  // const deleteArticle = async () => {
-  //   delete_blog_user_by_pk({ variables: { id: articleId } });
-  // };
-
-  // const [delete_Article_by_pk] = useMutation(DELETE_ARTICLE, {
-  //   update(cache, { data: { delete_Article_by_pk } }) {
-  //     cache.modify({
-  //       fields: {
-  //         Article(existingArticle, { readField }) {
-  //           return existingArticle.filter((article: any) => {
-  //             articleId !== readField("id", article)
-  //           });
-  //         },
-  //       },
-  //     });
-  //   },
-  // });
-
-  /* 
-  const [delete_users_by_pk] = useMutation<DeleteUserMutation>(DELETE_USER, {
-    update(cache, { data: { delete_users_by_pk } }) {
-      cache.modify({
-        fields: {
-          users(existingUsers, { readField }) {
-            return existingUsers.filter((user) => {
-              delete_users_by_pk !== readField('id', user)
-            })
-          },
-        },
-      })
-    },
-  })
-  */
-
   const handleChange = async () => {
     if (articleId) {
       try {
@@ -115,21 +81,6 @@ export const AdminBlogsIdArticlesId = () => {
     return <div>"エラーが発生しました。"</div>;
   }
 
-  // useEffect(() => {
-  //   execute({ variables: { id: articleId } });
-  // }, [articleId, execute]);
-
-  // const targetArticle = data?.adminArticle.data.find(
-  //   (x: any) => x.id === articleId
-  // );
-  // const [articleEditValue, setArticleEditValue] = useRecoilState(
-  //   blogIdArticleEditState
-  // );
-  // setArticleEditValue(targetArticle);
-
-  // const [deleteArticle, { loading: delloading, error: delerror }] =
-  //   useMutation(DELETE_ARTICLE);
-
   return (
     <>
       <div>
@@ -137,16 +88,16 @@ export const AdminBlogsIdArticlesId = () => {
       </div>
 
       <div className="flex justify-start w-screen">
-        <div className="w-1/3">
+        <div className="w-1/4">
           <Sidebar />
         </div>
 
         <div className="w-6/12">
-          <div className="flex items-center justify-center pr-32 mb-10">
+          <div className="flex items-center justify-center w-full pl-24 pr-20 my-10 mb-10 ml-12">
             {/* ここも割とゴリ押し感強め */}
 
-            <div>
-              <div className="flex justify-end my-10">
+            <div className="flex flex-col w-full">
+              <div className="flex justify-end w-full ">
                 <div>
                   <Link
                     to={`/admin/blogs/${blogId}/articles/${articleId}/edit`}
@@ -188,9 +139,9 @@ export const AdminBlogsIdArticlesId = () => {
               </div>
 
               <div>
-                <div>
+                <div className="flex flex-col w-full gap-y-6">
                   <h2 className="mt-8 text-2xl">{data?.Article[0].title}</h2>
-                  <div className="flex justify-between my-5">
+                  <div className="flex justify-between w-full my-5">
                     <h3 className="text-gray-500">
                       {data?.Article[0].User.name}
                     </h3>
@@ -200,12 +151,12 @@ export const AdminBlogsIdArticlesId = () => {
                     </h3>
                   </div>
 
-                  <p className="mb-8">{data?.Article[0].all_text}</p>
-                  <p className="mb-8">{data?.Article[0].all_text}</p>
-                  <p className="mb-8">{data?.Article[0].all_text}</p>
+                  <div className="flex flex-col w-full gap-y-6">
+                    <p className="">{data?.Article[0].all_text}</p>
+                  </div>
                 </div>
               </div>
-              <div className="flex justify-end text-gray-500">
+              <div className="flex justify-end mt-5 text-gray-500">
                 <div>
                   <svg
                     className="w-5 h-5 text-gray-500"
@@ -227,7 +178,7 @@ export const AdminBlogsIdArticlesId = () => {
                     />
                   </svg>
                 </div>
-                <div>32</div>
+                <div></div>
               </div>
             </div>
           </div>

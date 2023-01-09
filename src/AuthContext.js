@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
             },
         }
     );
-    const value = { user, loading }
+    const value = { user, loading, userData }
 
     useEffect(() => {
         const unsubscribed = auth.onAuthStateChanged((user) => {

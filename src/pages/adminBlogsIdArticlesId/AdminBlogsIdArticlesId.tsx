@@ -1,14 +1,9 @@
-import { gql, useQuery, useMutation, useLazyQuery } from "@apollo/client";
-import React, { useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { Link, useParams } from "react-router-dom";
 import { GET_ARTICLE, UPDATE_DELETE_ARTICLE } from "../../queries";
 import { UpdateDeleteArticleMutation } from "../../types/generated/graphql.tsx/graphql";
-
 import DeleteButton from "../../components/ui/deletButton/atricleDeleteButton";
-
 import { BlogHeader } from "../../components/header/BlogHeader";
-import { Header } from "../../components/header/SearchHeader";
 import { Loading } from "../../components/loading/Loading";
 import { Sidebar } from "../../components/sidebar/navbar";
 import { formatJst } from "../../components/formatJst/FormatJst";
@@ -40,17 +35,6 @@ const ADMINBLOGSIDARTICLESID_QUERY = gql`
 
 export const AdminBlogsIdArticlesId = () => {
   const { id: blogId, articleId } = useParams();
-  const navigate = useNavigate();
-  // const [adminBlogFlag, setAdminBlogFlag] = useRecoilState(adminBlogState);
-
-  const [
-    execute,
-    {
-      data: blogArticleData,
-      error: blogArticlesError,
-      loading: blogArticlesLoading,
-    },
-  ] = useLazyQuery(GET_ARTICLE);
 
   const { data, loading, error } = useQuery(GET_ARTICLE, {
     variables: { id: articleId },
@@ -152,14 +136,16 @@ export const AdminBlogsIdArticlesId = () => {
                   </div>
 
                   <div className="flex flex-col w-full gap-y-6">
-                    <p className="">{data?.Article[0].all_text}</p>
+                    <p className="whitespace-pre-wrap">
+                      {data?.Article[0].all_text}
+                    </p>
                   </div>
                 </div>
               </div>
               <div className="flex justify-end mt-5 text-gray-500">
                 <div>
-                  <svg
-                    className="w-5 h-5 text-gray-500"
+                  {/*  <svg
+                    className="w-5 h-5 text-black"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -176,7 +162,7 @@ export const AdminBlogsIdArticlesId = () => {
                       strokeWidth="2"
                       d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
                     />
-                  </svg>
+                  </svg> */}
                 </div>
                 <div></div>
               </div>

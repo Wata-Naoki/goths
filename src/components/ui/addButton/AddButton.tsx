@@ -68,15 +68,32 @@ export const AddButton = () => {
 
   return (
     <>
-      <div className="flex flex-wrap items-stretch ">
-        <div className="relative flex items-center">
-          <button
-            onClick={openModal}
-            className="px-2 py-1 bg-green-700 rounded-full"
+      <div
+        className="flex flex-wrap items-stretch px-1 py-1 rounded cursor-pointer bg-emerald-700"
+        onClick={openModal}
+      >
+        <div className="z-10 flex items-center ">
+          <svg
+            className="h-5 w-5  text-white   ml-3 mb-0.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            追加
-          </button>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+            />
+          </svg>
         </div>
+
+        <button
+          type="button"
+          className="z-0 py-1 pl-2 pr-2 text-sm font-medium text-white "
+        >
+          追加
+        </button>
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>

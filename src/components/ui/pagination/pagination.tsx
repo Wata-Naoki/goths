@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const QUERY_PARAM_NAME = "_p";
 
 type Props = {
   onClickFetchBlog?: () => void;
@@ -11,9 +14,22 @@ export const Pagination: React.FC<Props> = ({
   setNextPageNum,
   pageNum,
 }) => {
+  // TODO: クエリーパラメータを使ってページネーションを実装する
+  // const search = useLocation().search;
+  // const navigate = useNavigate();
+  // const urlPageNumber = new URLSearchParams(search).get(QUERY_PARAM_NAME);
+  // const [currentPage, setCurrentPage] = React.useState(
+  //   Number(urlPageNumber) || 1
+  // );
+  // ここでurlのクエリパラメータを監視して、変更があったらcurrentPageを変更する
+  // useEffect(() => {
+  //   setCurrentPage(Number(urlPageNumber) || 1);
+  // }, [urlPageNumber]);
   const handleOnClick = () => {
     onClickFetchBlog && onClickFetchBlog();
     pageNum && setNextPageNum && setNextPageNum(pageNum + 1);
+    // navigate(`?${QUERY_PARAM_NAME}=${currentPage + 1}`);
+    // setCurrentPage((prev) => prev + 1);
   };
   return (
     <button

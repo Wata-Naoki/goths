@@ -332,47 +332,6 @@ export const CREATE_BLOG = gql`
   }
 `;
 
-// ex) uuid = "1bf773a5-9c62-43bc-b5ce-43633fdb3b14"
-// export const GET_FAVORITES_ARTICLES = gql`
-//   query GetFavoritesArticles($id: uuid!, $limit: Int) {
-//     Article(
-//       where: { user_favorite_articles_id: { _eq: $id }, status: { _eq: true } }
-//       limit: $limit
-//       order_by: { createdAt: desc }
-//     ) {
-//       id
-//       title
-//       Blog {
-//         title
-//       }
-//       createdAt
-//       text
-//     }
-//   }
-// `;
-
-// ex) uuid = "21aefd7e-8ea4-478d-b1ba-99fc4779116c" String = "user1-1@gmail.com"
-//user_favorite_articles_idはEmail
-// export const UPDATE_FAVORITES_ARTICLES = gql`
-//   mutation UpdateFavoriteArticles(
-//     $id: uuid!
-//     $user_favorite_articles_id: uuid
-//     $status: Boolean
-//   ) {
-//     update_Article_by_pk(
-//       pk_columns: { id: $id }
-//       _set: {
-//         user_favorite_articles_id: $user_favorite_articles_id
-//         status: $status
-//       }
-//     ) {
-//       id
-//       user_favorite_articles_id
-//       title
-//     }
-//   }
-// `;
-
 //ex) uuid = "84eebb47-a9c1-488c-90bb-2143b4890ec6"
 export const DELETE_FAVORITE_ARTICLE = gql`
   mutation deleteFavoriteArticles($id: uuid!) {
@@ -394,12 +353,40 @@ export const CREATE_ADMIN_USER_ONE = gql`
   }
 `;
 
+// gql`
+//   fragment GetUserFavoritesArticles on Article {
+//     id
+//     text
+//     title
+//     status
+//     like
+//     createdAt
+//     updatedAt
+//     all_text
+//     Blog {
+//       title
+//     }
+//   }
+// `;
+
 //お気に入り記事の取得
 export const GET_USER_FAVORITES_ARTICLES = gql`
-  query GetUserFavoritesArticles($_eq1: uuid!) {
-    Article(where: { user_favorite_article_ids: { user_id: { _eq: $_eq1 } } }) {
-      text
+  query GetUserFavoritesArticles($id: uuid!, $limit: Int) {
+    Article(
+      where: { user_favorite_article_ids: { user_id: { _eq: $id } } }
+      limit: $limit
+    ) {
       id
+      text
+      title
+      status
+      like
+      createdAt
+      updatedAt
+      all_text
+      Blog {
+        title
+      }
     }
   }
 `;
@@ -411,6 +398,23 @@ export const CREATE_USER_FAVORITES_ARTICLES = gql`
       object: { article_id: $article_id, user_id: $user_id }
     ) {
       id
+    }
+  }
+`;
+export const DELETE_USER_FAVORITES_ARTICLES = gql`
+  mutation DeleteUserFavoriteArticles($id: uuid!) {
+    delete_user_favorite_article_id_by_pk(id: $id) {
+      id
+    }
+  }
+`;
+
+export const GET_USER_FAVORITES_ARTICLE_TABLE = gql`
+  query UserFavoriteArticleId($id: uuid!) {
+    user_favorite_article_id(where: { user_id: { _eq: $id } }) {
+      id
+      user_id
+      article_id
     }
   }
 `;

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import { Link, useParams } from "react-router-dom";
 import { Header } from "../../components/header/SearchHeader";
-import { Form } from "../articles/blogArticle";
 import { blogChoiceState } from "../../atom/BlogChoiceAtom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { GET_ARTICLE, GET_BLOG_ARTICLES } from "../../queries";

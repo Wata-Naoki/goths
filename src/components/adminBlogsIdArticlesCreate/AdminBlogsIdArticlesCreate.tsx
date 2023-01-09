@@ -2,7 +2,6 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { CREATE_ARTICLE, GET_BLOG_USER } from "../../queries";
-
 import {
   BlogUserQuery,
   CreateArticleOneMutation,

@@ -4,16 +4,11 @@ import { AdminBlogsId } from "./pages/adminBlogsId/adminBlogsId";
 import { AdminBlogsIdArticlesCreate } from "./components/adminBlogsIdArticlesCreate/AdminBlogsIdArticlesCreate";
 import { AdminBlogsIdArticlesId } from "./pages/adminBlogsIdArticlesId/AdminBlogsIdArticlesId";
 import { AdminBlogsIdConfig } from "./components/adminBlogsIdConfig/AdminBlogsIdConfig";
-import BlogArticle from "./pages/articles/blogArticle";
 import BlogIdArticleId from "./pages/blogIdArticles/BlogIdArticleId";
 import Favorites from "./pages/favorites/favorites";
-import { FormComponent } from "./pages/form/FormComponent";
 import Mypage from "./pages/mypage/mypage";
 import Searches from "./components/search/serches";
 import { AdminBlogIdArticlesIdEdit } from "./components/adminBlogsIdArticlesIdEdit/AdminBlogIdArticlesIdEdit";
-import { ResultSearch } from "./components/search/ResultSearch";
-import { Nologin } from "./components/base/nologin";
-import { Login } from "./components/base/login";
 import { Register } from "./components/authentication/resister";
 import { Authentication } from "./components/authentication/authentication";
 import { RecoilRoot } from "recoil";
@@ -21,6 +16,7 @@ import BlogIdArticle from "./pages/blogIdArticle/BlogIdArticle";
 import { AuthProvider } from "./AuthContext";
 import { ToastContainerWrapper } from "./components/loading/ToastContainerWrapper";
 import { AdminBlogsIdEditors } from "./pages/adminBlogsIdEditors/AdminBlogsIdEditors";
+import { BlogArticle } from "./pages/articles/blogArticle";
 
 function App() {
   return (
@@ -28,9 +24,6 @@ function App() {
       <RecoilRoot>
         <Router>
           <Routes>
-            <Route path="/form" element={<FormComponent />} />
-            <Route path="/nologin" element={<Nologin />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/authentication" element={<Authentication />} />
             <Route path="/" element={<BlogArticle />} />

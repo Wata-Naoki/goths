@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from "react";
-import { useQuery, gql, useLazyQuery } from "@apollo/client";
-import { Form } from "../../pages/articles/blogArticle";
+import React, { useEffect } from "react";
+import { useLazyQuery } from "@apollo/client";
 import { Header } from "../header/SearchHeader";
 
-import { Link, useLocation, useParams } from "react-router-dom";
-import { GET_ARTICLES, GET_SEARCH_ARTICLES, GET_USER } from "../../queries";
+import { Link, useParams } from "react-router-dom";
+import { GET_SEARCH_ARTICLES } from "../../queries";
 import { formatJst } from "../formatJst/FormatJst";
 import { Loading } from "../loading/Loading";
 import { Pagination } from "../ui/pagination/pagination";

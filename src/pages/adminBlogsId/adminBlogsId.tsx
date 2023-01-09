@@ -1,7 +1,6 @@
 import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { Form } from "../articles/blogArticle";
 import { GET_BLOG } from "../../queries";
 import { BlogHeader } from "../../components/header/BlogHeader";
 import { Header } from "../../components/header/SearchHeader";
@@ -90,7 +89,7 @@ export const AdminBlogsId = () => {
                       text: x.text,
                     }}
                   >
-                    <h2 className="w-4/5 mt-8 text-2xl whitespace-pre-wrap ">
+                    <h2 className="w-full mt-8 text-2xl whitespace-pre-wrap ">
                       {x.title}
                     </h2>
                   </Link>
@@ -104,7 +103,7 @@ export const AdminBlogsId = () => {
                     </h3>
                   </div>
 
-                  <p>{x.text}</p>
+                  <p className="whitespace-pre-wrap">{x.text}</p>
                 </div>
               ))}
             </div>

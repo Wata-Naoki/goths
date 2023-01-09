@@ -19,30 +19,7 @@ export const AdminBlogIdArticlesIdEdit = () => {
           <div className="w-3/4">
             <div className="flex items-center justify-end mt-10">
               <div>
-                <div className="flex flex-wrap items-stretch ">
-                  <div className="relative z-10 flex items-center ">
-                    <svg
-                      className="h-5 w-5  text-white  absolute ml-3 mb-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
-                      />
-                    </svg>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="z-0 py-1 pl-8 pr-2 text-sm font-medium text-white rounded bg-emerald-700"
-                  >
-                    <AddButton />
-                  </button>
-                </div>
+                <AddButton />
               </div>
             </div>
 

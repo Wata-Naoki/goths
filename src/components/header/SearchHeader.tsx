@@ -1,11 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import App from "../../App";
-import { Manage } from "../../pages/articles/blogArticle";
-
-/* import { Manage } from "../../pages/Articles/blogArticle";
- */
 import { ResultSearch } from "../search/ResultSearch";
 import Searches from "../search/serches";
 import { blogIdState } from "../../atom/BlogChoiceAtom";

@@ -1,34 +1,19 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import { DELETE_BLOG_ONE, GET_BLOG_ONE, UPDATE_BLOG_ONE } from "../../queries";
 import {
   DeleteBlogOneMutation,
   UpdateBlogOneMutation,
 } from "../../types/generated/graphql.tsx/graphql";
-import { blogChoiceState } from "../../atom/BlogChoiceAtom";
 import BlogDeleteButton from "../ui/deletButton/BlogDeleteButton";
 import { BlogHeader } from "../header/BlogHeader";
-import { Header } from "../header/SearchHeader";
 import { Loading } from "../loading/Loading";
 import { useToast } from "../loading/useToast";
 import { Sidebar } from "../sidebar/navbar";
 
-// const DELETE_BLOG = gql`
-//   mutation DeleteBlog($blog: ID!) {
-//     DeleteBlog(blog: $blog) {
-//       mockAdminBlogsArticles {
-//         blog
-//       }
-//     }
-//   }
-// `;
-
 export const AdminBlogsIdConfig = () => {
   const { id: blogId } = useParams();
-  const navigate = useNavigate();
-  // const blogState = useRecoilValue(blogChoiceState);
   const [title, setTitle] = useState();
   const { data, loading, error } = useQuery(GET_BLOG_ONE, {
     variables: { id: blogId },
@@ -89,18 +74,13 @@ export const AdminBlogsIdConfig = () => {
       try {
         await delete_Blog_by_pk({ variables: { id: blogId } });
         alert("ブログを削除しました");
-        //toastSucceeded();
-
         window.location.href = `/admin/blogs`;
-
         // alert("変更が保存されました");
         // navigate(-1);
       } catch (err: any) {
         console.log(err);
         toastFailed();
-
         //window.location.href = `/admin/blogs`;
-
         // alert(err.message);
       }
     }

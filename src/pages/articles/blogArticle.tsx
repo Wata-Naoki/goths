@@ -6,67 +6,17 @@ import { GET_ARTICLES, GET_BLOGS } from "../../queries";
 import { Loading } from "../../components/loading/Loading";
 import { useAuthContext } from "../../AuthContext";
 import { formatJst } from "../../components/formatJst/FormatJst";
+import { Pagination } from "../../components/ui/pagination/pagination";
 
-export const BLOGS_QUERY = gql`
-  query blogs {
-    blogs {
-      articles {
-        title
-        users
-        createAt
-        text
-      }
-    }
-  }
-`;
-
-const ARTICLES_QUERY = gql`
-  query posts($first: Int!, $page: int!) {
-    posts(first: $first, page: $page) {
-      articles {
-        title
-        users
-        createAt
-        text
-      }
-    }
-  }
-`;
-
-function BlogArticle() {
-  const { loading, error, data, fetchMore } = useQuery(ARTICLES_QUERY, {
-    variables: {
-      first: 0,
-      page: 10,
-    },
-  });
-  const {
-    loading: blogoading,
-    error: blogrror,
-    data: blogdata,
-  } = useQuery(BLOGS_QUERY);
+export const BlogArticle = () => {
   const { user } = useAuthContext();
-
   const [page, setPage] = useState<"新着記事" | "新着ブログ">("新着記事");
-
-  const handleChange = (e: any) => {
-    fetchMore({
-      variables: {
-        page: data?.posts.data.length,
-      },
-    });
-  };
   const navigate = useNavigate();
-
-  // let num = 1
-
-  // const { data: articeData } = useQuery(GET_ARTICLES, {variables: {limit: num}});
-
   const [num, setNum] = useState(2);
 
   const [
     execute,
-    { data: articeData, error: articleError, loading: articleLoading },
+    { data: articleData, error: articleError, loading: articleLoading },
   ] = useLazyQuery(GET_ARTICLES);
 
   const onClickFetch = () => {
@@ -149,7 +99,7 @@ function BlogArticle() {
 
             {page === "新着記事" ? (
               <div>
-                {articeData?.Article.map((x: any) => (
+                {articleData?.Article.map((x: any) => (
                   <div key={x.id} className="my-8">
                     <Link
                       to={`/blogs/articles/${x.id}`}
@@ -169,13 +119,7 @@ function BlogArticle() {
                   </div>
                 ))}
                 <div className="flex justify-center mt-10 mb-10 mr-4">
-                  <button
-                    onClick={onClickFetch}
-                    type="submit"
-                    className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
-                  >
-                    さらに読み込む
-                  </button>
+                  <Pagination onClickFetchBlog={onClickFetch} />
                 </div>
               </div>
             ) : (
@@ -214,13 +158,7 @@ function BlogArticle() {
                 ))}
 
                 <div className="flex justify-center mt-10 mb-10 mr-4">
-                  <button
-                    onClick={onClickFetchBlog}
-                    type="submit"
-                    className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
-                  >
-                    さらに読み込む
-                  </button>
+                  <Pagination onClickFetchBlog={onClickFetchBlog} />
                 </div>
               </div>
             )}
@@ -229,60 +167,4 @@ function BlogArticle() {
       </div>
     );
   }
-}
-
-export const Manage = () => {
-  function handleSubmit(e: any) {
-    e.preventDefault();
-  }
-  return (
-    <>
-      <div className="flex flex-wrap items-stretch ">
-        <div className="relative flex items-center ">
-          <svg
-            className="h-4 w-4 text-white absolute ml-1.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
-            />
-          </svg>
-        </div>
-
-        <form onSubmit={handleSubmit}>
-          <button
-            type="submit"
-            className="bg-emerald-700 text-white text-sm py-1.5  px-4 pl-6  font-medium rounded"
-          >
-            管理画面
-          </button>
-        </form>
-      </div>
-    </>
-  );
 };
-
-export const Form = () => {
-  function handleSubmit(e: any) {
-    e.preventDefault();
-  }
-  return (
-    <>
-      {/* <form onSubmit={handleSubmit}> */}
-      <button
-        type="submit"
-        className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
-      >
-        さらに読み込む
-      </button>
-      {/* </form> */}
-    </>
-  );
-};
-
-export default BlogArticle;

@@ -82,7 +82,7 @@ const BlogIdArticleId = () => {
           console.log("お気に入りに追加しました");
           refetch();
           refetchFavorite();
-          toastSucceeded();
+          // toastSucceeded();
         },
         onError: () => {
           console.log("お気に入りに追加できませんでした");
@@ -100,7 +100,7 @@ const BlogIdArticleId = () => {
           console.log("お気に入りから削除しました");
           refetch();
           refetchFavorite();
-          toastSucceeded();
+          // toastSucceeded();
         },
         onError: () => {
           console.log("お気に入りから削除できませんでした");
@@ -110,7 +110,7 @@ const BlogIdArticleId = () => {
     );
 
   const handleLottie = async (id: any) => {
-    toastLoading();
+    // toastLoading();
 
     setLottieState({
       isStopped: !lottieState.isStopped,

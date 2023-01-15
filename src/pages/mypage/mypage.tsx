@@ -77,7 +77,7 @@ const Mypage = () => {
                     </th>
 
                     <tr>
-                      {[0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1].map(
+                      {[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].map(
                         (x: any, index) => (
                           <td className="px-6 py-4 ">
                             <div key={index} className="flex justify-center">

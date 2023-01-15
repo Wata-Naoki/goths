@@ -2,7 +2,7 @@ import React from "react";
 import { AddButton } from "../ui/addButton/AddButton";
 import { BlogHeader } from "../header/BlogHeader";
 import { Sidebar } from "../sidebar/navbar";
-import { UserTable1 } from "../userTable/UserTable";
+import { UserTable } from "../userTable/UserTable";
 
 export const AdminBlogIdArticlesIdEdit = () => {
   return (
@@ -26,7 +26,7 @@ export const AdminBlogIdArticlesIdEdit = () => {
             <div>
               <div className="my-1 mt-10">
                 <div>
-                  <UserTable1 />
+                  <UserTable />
                 </div>
               </div>
             </div>

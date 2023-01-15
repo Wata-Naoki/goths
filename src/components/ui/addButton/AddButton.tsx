@@ -1,9 +1,10 @@
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { Dialog, Transition } from "@headlessui/react";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAuthContext } from "../../../AuthContext";
 import { auth } from "../../../firebaseConfig";
-import { CREATE_USER_ONE } from "../../../queries";
+import { CREATE_USER_ONE, GET_ALL_USERS } from "../../../queries";
 import { useToast } from "../../loading/useToast";
 
 // const USER_ADD = gql`
@@ -17,11 +18,16 @@ type UserState = { name: string; email: string; password: string };
 
 export const AddButton = () => {
   const { id } = useParams();
+  const { user } = useAuthContext();
+  const [currentUser, setCurrentUser] = useState<string>("");
   const [userState, setUserState] = useState<UserState>({
     name: "",
     email: "",
     password: "",
   });
+  //TODO: 全ユーザーを取得。その中に同じメールアドレスがあるかどうかを確認する。あるなら、更新。ないなら、新規作成。更新のmutationの作成をする。
+  const { error: userError, data: userData } = useQuery(GET_ALL_USERS);
+
   const [insert_User_one, { loading, error }] = useMutation(CREATE_USER_ONE, {
     onCompleted: () => {
       toastSucceeded();
@@ -33,6 +39,7 @@ export const AddButton = () => {
   const { toastLoading, toastSucceeded, toastFailed } = useToast();
 
   const handleSubmit = async () => {
+    setCurrentUser(user);
     toastLoading();
     if (id && userState.name && userState.email && userState.password) {
       try {

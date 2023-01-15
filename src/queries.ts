@@ -418,3 +418,12 @@ export const GET_USER_FAVORITES_ARTICLE_TABLE = gql`
     }
   }
 `;
+
+export const GET_ALL_USERS = gql`
+  query GetAllUser {
+    User {
+      id
+      email
+    }
+  }
+`;

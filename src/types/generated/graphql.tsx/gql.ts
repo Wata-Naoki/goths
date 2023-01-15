@@ -30,6 +30,7 @@ const documents = {
     "\n  mutation CreateUserFavoriteArticles($article_id: uuid!, $user_id: uuid!) {\n    insert_user_favorite_article_id_one(\n      object: { article_id: $article_id, user_id: $user_id }\n    ) {\n      id\n    }\n  }\n": types.CreateUserFavoriteArticlesDocument,
     "\n  mutation DeleteUserFavoriteArticles($id: uuid!) {\n    delete_user_favorite_article_id_by_pk(id: $id) {\n      id\n    }\n  }\n": types.DeleteUserFavoriteArticlesDocument,
     "\n  query UserFavoriteArticleId($id: uuid!) {\n    user_favorite_article_id(where: { user_id: { _eq: $id } }) {\n      id\n      user_id\n      article_id\n    }\n  }\n": types.UserFavoriteArticleIdDocument,
+    "\n  query GetAllUser {\n    User {\n      id\n      email\n    }\n  }\n": types.GetAllUserDocument,
 };
 
 export function graphql(source: "\n  query GetArticles($limit: Int) {\n    Article(order_by: { createdAt: desc }, limit: $limit) {\n      id\n      title\n      text\n      status\n      createdAt\n      updatedAt\n      Blog {\n        title\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetArticles($limit: Int) {\n    Article(order_by: { createdAt: desc }, limit: $limit) {\n      id\n      title\n      text\n      status\n      createdAt\n      updatedAt\n      Blog {\n        title\n      }\n    }\n  }\n"];
@@ -59,6 +60,7 @@ export function graphql(source: "\n  query GetUserFavoritesArticles($id: uuid!, 
 export function graphql(source: "\n  mutation CreateUserFavoriteArticles($article_id: uuid!, $user_id: uuid!) {\n    insert_user_favorite_article_id_one(\n      object: { article_id: $article_id, user_id: $user_id }\n    ) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation CreateUserFavoriteArticles($article_id: uuid!, $user_id: uuid!) {\n    insert_user_favorite_article_id_one(\n      object: { article_id: $article_id, user_id: $user_id }\n    ) {\n      id\n    }\n  }\n"];
 export function graphql(source: "\n  mutation DeleteUserFavoriteArticles($id: uuid!) {\n    delete_user_favorite_article_id_by_pk(id: $id) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation DeleteUserFavoriteArticles($id: uuid!) {\n    delete_user_favorite_article_id_by_pk(id: $id) {\n      id\n    }\n  }\n"];
 export function graphql(source: "\n  query UserFavoriteArticleId($id: uuid!) {\n    user_favorite_article_id(where: { user_id: { _eq: $id } }) {\n      id\n      user_id\n      article_id\n    }\n  }\n"): (typeof documents)["\n  query UserFavoriteArticleId($id: uuid!) {\n    user_favorite_article_id(where: { user_id: { _eq: $id } }) {\n      id\n      user_id\n      article_id\n    }\n  }\n"];
+export function graphql(source: "\n  query GetAllUser {\n    User {\n      id\n      email\n    }\n  }\n"): (typeof documents)["\n  query GetAllUser {\n    User {\n      id\n      email\n    }\n  }\n"];
 
 export function graphql(source: string): unknown;
 export function graphql(source: string) {

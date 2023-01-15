@@ -33,7 +33,7 @@ import { SectionLoading } from "../loading/SectionLoading";
 //   }
 // `;
 
-export const UserTable1 = () => {
+export const UserTable = () => {
   // const { loading, error, data } = useQuery(ADMIN_TABLE_USERS_QUERY);
 
   const { id } = useParams();

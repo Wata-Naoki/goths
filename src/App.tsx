@@ -9,14 +9,14 @@ import Favorites from "./pages/favorites/favorites";
 import Mypage from "./pages/mypage/mypage";
 import Searches from "./components/search/serches";
 import { AdminBlogIdArticlesIdEdit } from "./components/adminBlogsIdArticlesIdEdit/AdminBlogIdArticlesIdEdit";
-import { Register } from "./components/authentication/resister";
-import { Authentication } from "./components/authentication/authentication";
 import { RecoilRoot } from "recoil";
 import BlogIdArticle from "./pages/blogIdArticle/BlogIdArticle";
 import { AuthProvider } from "./AuthContext";
 import { ToastContainerWrapper } from "./components/loading/ToastContainerWrapper";
 import { AdminBlogsIdEditors } from "./pages/adminBlogsIdEditors/AdminBlogsIdEditors";
 import { BlogArticle } from "./pages/articles/blogArticle";
+import { Register } from "./components/authentication/Resister";
+import { Authentication } from "./components/authentication/Authentication";
 
 function App() {
   return (

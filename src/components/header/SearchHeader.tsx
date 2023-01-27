@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { ResultSearch } from "../search/ResultSearch";
 import Searches from "../search/serches";
 import { Loading } from "../loading/Loading";
-import UserIcon from "./UserIcon";
+import { UserIcon } from "./UserIcon";
 
 export const Header = () => {
   const [text, setText] = useState("");

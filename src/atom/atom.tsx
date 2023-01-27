@@ -5,7 +5,7 @@ type User = {
   name?: string;
 };
 
-export const localStorageUserState = atom<User | DefaultValue>({
+export const localStorageUserState = atom<any | DefaultValue>({
   key: "userStateKey",
   default: { email: "", name: "" },
   effects_UNSTABLE: [localStorageEffect("localStorage_key")],

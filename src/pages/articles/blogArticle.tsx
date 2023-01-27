@@ -4,18 +4,15 @@ import React, { useEffect, useState } from "react";
 import { Header } from "../../components/header/SearchHeader";
 import { GET_ARTICLES, GET_BLOGS } from "../../queries";
 import { Loading } from "../../components/loading/Loading";
-import { useAuthContext } from "../../AuthContext";
 import { formatJst } from "../../components/formatJst/FormatJst";
 import { Pagination } from "../../components/ui/pagination/pagination";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 export const BlogArticle = () => {
-  const { user } = useAuthContext();
   const [page, setPage] = useState<"新着記事" | "新着ブログ">("新着記事");
   const navigate = useNavigate();
   const [num, setNum] = useState(2);
   const { userValue, setUserValue } = useLocalStorage();
-  console.log(userValue);
 
   const [
     execute,
@@ -53,7 +50,7 @@ export const BlogArticle = () => {
     return <Loading />;
   }
 
-  if (!user) {
+  if (!userValue) {
     navigate("/authentication");
     return (
       <>

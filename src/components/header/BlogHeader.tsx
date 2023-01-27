@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ModalBlogHeader } from "./ModalBlogHeader";
-import UserIcon from "./UserIcon";
+import { UserIcon } from "./UserIcon";
 
 export const BlogHeader = ({ blogTitle }: any) => {
   return (

@@ -3,7 +3,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { GET_BLOG_EDITORS } from "../../queries";
 import { GetBlogEditorsQuery } from "../../types/generated/graphql.tsx/graphql";
-import DeleteTableUsers from "../deleteTableUsers/DeleteTableUsers";
+import { DeleteTableUsers } from "../deleteTableUsers/DeleteTableUsers";
+
 import { Loading } from "../loading/Loading";
 import { SectionLoading } from "../loading/SectionLoading";
 

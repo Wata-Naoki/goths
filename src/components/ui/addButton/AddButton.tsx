@@ -58,13 +58,13 @@ export const AddButton = () => {
 
   let [isOpen, setIsOpen] = useState(false);
 
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false);
-  }
+  };
 
-  function openModal() {
+  const openModal = () => {
     setIsOpen(true);
-  }
+  };
 
   return (
     <>

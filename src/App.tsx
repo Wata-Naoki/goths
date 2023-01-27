@@ -4,9 +4,6 @@ import { AdminBlogsId } from "./pages/adminBlogsId/adminBlogsId";
 import { AdminBlogsIdArticlesCreate } from "./components/adminBlogsIdArticlesCreate/AdminBlogsIdArticlesCreate";
 import { AdminBlogsIdArticlesId } from "./pages/adminBlogsIdArticlesId/AdminBlogsIdArticlesId";
 import { AdminBlogsIdConfig } from "./components/adminBlogsIdConfig/AdminBlogsIdConfig";
-import BlogIdArticleId from "./pages/blogIdArticles/BlogIdArticleId";
-import Favorites from "./pages/favorites/favorites";
-import Mypage from "./pages/mypage/mypage";
 import Searches from "./components/search/serches";
 import { AdminBlogIdArticlesIdEdit } from "./components/adminBlogsIdArticlesIdEdit/AdminBlogIdArticlesIdEdit";
 import { Register } from "./components/authentication/resister";
@@ -17,6 +14,9 @@ import { AuthProvider } from "./AuthContext";
 import { ToastContainerWrapper } from "./components/loading/ToastContainerWrapper";
 import { AdminBlogsIdEditors } from "./pages/adminBlogsIdEditors/AdminBlogsIdEditors";
 import { BlogArticle } from "./pages/articles/blogArticle";
+import { Mypage } from "./pages/mypage/mypage";
+import { BlogIdArticleId } from "./pages/blogIdArticles/BlogIdArticleId";
+import { Favorites } from "./pages/favorites/favorites";
 
 function App() {
   return (

@@ -4,13 +4,13 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 export const Quote = () => {
   let [isOpen, setIsOpen] = useState(false);
 
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false);
-  }
+  };
 
-  function openModal() {
+  const openModal = () => {
     setIsOpen(true);
-  }
+  };
 
   const [posts, setPosts] = useState<any>({});
   const [error, setError] = useState<string>("");

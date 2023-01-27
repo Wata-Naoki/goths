@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { useAuthContext } from "../../AuthContext";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { GET_BLOGS, GET_USER, GET_USER_BLOGS } from "../../queries";
 
 import { CreateNewBlog } from "../createNewBlog/CreateNewBlog";
@@ -55,7 +56,7 @@ export const AdminBlogs = () => {
     data: myblogdata,
   } = useQuery(ARTICLESBYMYBLOG_QUERY);
   const { loading, error, data } = useQuery(ARTICLESBYBLOG_QUERY);
-  const { user } = useAuthContext();
+  const { userValue, setUserValue } = useLocalStorage();
 
   const [page, setPage] = useState<"Myブログ" | "編集者ブログ">("Myブログ");
 
@@ -79,7 +80,7 @@ export const AdminBlogs = () => {
     data: userData,
     loading: userLoading,
     error: userError,
-  } = useQuery(GET_USER, { variables: { email: user.email } });
+  } = useQuery(GET_USER, { variables: { email: userValue.email } });
 
   const onClickFetchBlog = () => {
     setNumBlog(numblog + 1);
@@ -88,7 +89,7 @@ export const AdminBlogs = () => {
   useEffect(() => {
     // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
     executeBlog({
-      variables: { email: user?.email, limit: numblog },
+      variables: { email: userValue?.email, limit: numblog },
     });
     // }
   }, [executeBlog, numblog]);

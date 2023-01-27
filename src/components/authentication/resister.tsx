@@ -44,7 +44,7 @@ export const Register = () => {
         name: name.value,
         email: email.value,
       });
-      console.log("userValue", userValue);
+
       navigate("/");
       window.location.href = "/";
     } catch (error: any) {

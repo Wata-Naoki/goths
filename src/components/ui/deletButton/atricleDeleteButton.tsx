@@ -8,13 +8,13 @@ type Props = {
 const DeleteButton: React.FC<Props> = ({ onClick }) => {
   let [isOpen, setIsOpen] = useState(false);
 
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false);
-  }
+  };
 
-  function openModal() {
+  const openModal = () => {
     setIsOpen(true);
-  }
+  };
 
   return (
     <>

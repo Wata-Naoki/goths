@@ -7,9 +7,7 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 export const Authentication = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const { user } = useAuthContext();
   const { userValue, setUserValue } = useLocalStorage();
-  console.log(userValue);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -48,7 +46,7 @@ export const Authentication = () => {
       // await auth.signInWithPopup(provider)
       const result = await auth.signInWithPopup(provider);
       const currentUser = result.user;
-      console.log(currentUser);
+
       if (currentUser?.email) {
         setUserValue({ email: currentUser?.email });
         navigate("/");

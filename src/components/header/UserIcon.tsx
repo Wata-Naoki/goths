@@ -4,21 +4,22 @@ import { Fragment, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../AuthContext";
 import { auth } from "../../firebaseConfig";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { GET_USER, GET_USER_BLOGS } from "../../queries";
 
-export default function UserIcon() {
-  const { user } = useAuthContext();
+export const UserIcon = () => {
+  const { userValue, setUserValue } = useLocalStorage();
 
   const [excute, { data: userDate, loading: userLoading, error: userError }] =
-    useLazyQuery(GET_USER, { variables: { email: user?.email } });
+    useLazyQuery(GET_USER, { variables: { email: userValue?.email } });
   useEffect(() => {
-    if (user?.email) excute();
-  }, [user]);
+    if (userValue?.email) excute();
+  }, [userValue]);
   const {
     data: blogData,
     error: blogError,
     loading: blogLoading,
-  } = useQuery(GET_USER_BLOGS, { variables: { email: user?.email } });
+  } = useQuery(GET_USER_BLOGS, { variables: { email: userValue?.email } });
   const navigate = useNavigate();
   const handleLogout = () => {
     auth.signOut();
@@ -73,7 +74,7 @@ export default function UserIcon() {
                       <p>
                         {userDate?.User[0]?.name
                           ? userDate?.User[0]?.name
-                          : user?.displayName}
+                          : userValue?.displayName}
                       </p>
                     </button>
                   )}
@@ -114,4 +115,4 @@ export default function UserIcon() {
       </Menu>
     </div>
   );
-}
+};

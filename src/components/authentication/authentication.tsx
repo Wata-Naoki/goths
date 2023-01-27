@@ -2,34 +2,39 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../AuthContext";
 import { auth, provider } from "../../firebaseConfig";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 export const Authentication = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const { user } = useAuthContext();
+  const { userValue, setUserValue } = useLocalStorage();
+  console.log(userValue);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const { email, password } = e.target.elements;
     try {
-      await auth
-        .signInWithEmailAndPassword(email.value, password.value)
-        .then(() => {
-          if (user.email) {
-            navigate("/");
-            window.location.href = `/`;
-          }
-        });
+      const result = await auth.signInWithEmailAndPassword(
+        email.value,
+        password.value
+      );
+      const currentUser = result.user;
+      if (currentUser?.email) {
+        setUserValue({ email: currentUser?.email });
+        navigate("/");
+        window.location.href = `/`;
+      }
     } catch (error: any) {
       switch (error.code) {
         case "auth/invalid-email":
           setError("正しいメールアドレスの形式で入力してください。");
           break;
         case "auth/user-not-found":
-          setError("メールアドレスかパスワードに誤りがあります。");
+          setError("ユーザーが見つかりません。");
           break;
         case "auth/wrong-password":
-          setError("メールアドレスかパスワードに誤りがあります。");
+          setError("パスワードが間違っています。");
           break;
         default:
           setError("メールアドレスかパスワードに誤りがあります。");
@@ -40,14 +45,18 @@ export const Authentication = () => {
 
   const handleLogin = async (event: any) => {
     try {
-      await auth.signInWithPopup(provider);
-      if (user.email) {
+      // await auth.signInWithPopup(provider)
+      const result = await auth.signInWithPopup(provider);
+      const currentUser = result.user;
+      console.log(currentUser);
+      if (currentUser?.email) {
+        setUserValue({ email: currentUser?.email });
         navigate("/");
         window.location.href = `/`;
       }
     } catch (error: any) {
       console.log(error);
-      setError(error.message);
+      setError("ログインに失敗しました。");
     }
   };
   return (

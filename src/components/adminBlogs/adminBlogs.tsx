@@ -5,7 +5,6 @@ import { useRecoilState } from "recoil";
 import { useAuthContext } from "../../AuthContext";
 import { GET_BLOGS, GET_USER, GET_USER_BLOGS } from "../../queries";
 
-import { blogChoiceState } from "../../atom/BlogChoiceAtom";
 import { CreateNewBlog } from "../createNewBlog/CreateNewBlog";
 import { Header } from "../header/SearchHeader";
 import { Loading } from "../loading/Loading";
@@ -67,8 +66,6 @@ export const AdminBlogs = () => {
     error: blogError,
     data: blogData,
   } = useQuery(BLOG_CHOICE_QUERY); */
-
-  const [blogState, setBlogState] = useRecoilState(blogChoiceState);
 
   const [numblog, setNumBlog] = useState<number>(2);
   const [isModalOpen, setIsModalOpen] = useState(false);

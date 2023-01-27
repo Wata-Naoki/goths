@@ -26,7 +26,7 @@ export const ModalBlogHeader = () => {
     variables: { email: user?.email },
   });
   const { id } = useParams();
-  const titleState = data?.Blog.find((blog: any) => blog.id === id);
+  const titleState = data?.Blog?.find((blog: any) => blog.id === id);
   const handleLink = (id: any) => {
     window.location.href = `/admin/blogs/${id}`;
   };
@@ -68,7 +68,7 @@ export const ModalBlogHeader = () => {
                         タイトル
                       </th>
 
-                      {data?.Blog.map((x: any, index: number) => (
+                      {data?.Blog?.map((x: any, index: number) => (
                         <tr key={index}>
                           <td
                             className="py-4 pl-2 cursor-pointer hover:bg-gray-100"
@@ -96,7 +96,7 @@ export const ModalBlogHeader = () => {
                               </div>
                               <div className="ml-6 ">
                                 <div className="focus:outline-none">
-                                  {x.title}
+                                  {x?.title}
                                 </div>
                               </div>
                             </div>

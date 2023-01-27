@@ -7,7 +7,6 @@ import {
   GetArticleQuery,
   UpdateArticleMutation,
 } from "../../types/generated/graphql.tsx/graphql";
-import { blogIdArticleEditState } from "../../atom/BlogChoiceAtom";
 import { BlogHeader } from "../../components/header/BlogHeader";
 import { Header } from "../../components/header/SearchHeader";
 import { Loading } from "../../components/loading/Loading";
@@ -15,7 +14,6 @@ import { Sidebar } from "../../components/sidebar/navbar";
 import { useToast } from "../../components/loading/useToast";
 
 export const AdminBlogsIdEditors = () => {
-  const articleEditValue = useRecoilValue(blogIdArticleEditState);
   const { toastLoading, toastSucceeded, toastFailed } = useToast();
 
   const { id: blogId, articleId } = useParams();

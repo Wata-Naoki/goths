@@ -12,7 +12,7 @@ type Props = {
   //onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
   id: string;
 };
-const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
+export const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
   const { id } = useParams();
   let [isOpen, setIsOpen] = useState(false);
   const { toastLoading, toastSucceeded, toastFailed } = useToast();
@@ -42,13 +42,13 @@ const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
     }
   };
 
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false);
-  }
+  };
 
-  function openModal() {
+  const openModal = () => {
     setIsOpen(true);
-  }
+  };
 
   /* if (deleteLoading) {
     return <Loading />;
@@ -156,4 +156,3 @@ const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
     </>
   );
 };
-export default DeleteTableUsers;

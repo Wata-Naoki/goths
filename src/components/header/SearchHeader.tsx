@@ -3,15 +3,12 @@ import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { ResultSearch } from "../search/ResultSearch";
 import Searches from "../search/serches";
-import { blogIdState } from "../../atom/BlogChoiceAtom";
 import { Loading } from "../loading/Loading";
-import UserIcon from "./UserIcon";
+import { UserIcon } from "./UserIcon";
 
 export const Header = () => {
   const [text, setText] = useState("");
   const navigate = useNavigate();
-
-  const blogIdStateValue = useRecoilValue(blogIdState);
 
   return (
     <>

@@ -2,13 +2,15 @@ import { useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebaseConfig";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { CREATE_ADMIN_USER_ONE } from "../../queries";
 
 export const Register = () => {
   const navigate = useNavigate();
   const [error, setError] = useState<string>("");
+  const { userValue, setUserValue } = useLocalStorage();
 
-  const [excute, { error: adminError, loading: adminLoading }] = useMutation(
+  const [execute, { error: adminError, loading: adminLoading }] = useMutation(
     CREATE_ADMIN_USER_ONE,
     {
       onCompleted: () => {
@@ -20,29 +22,31 @@ export const Register = () => {
     }
   );
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const { name, email, password } = e.target.elements;
 
     try {
-      auth
-        .createUserWithEmailAndPassword(email.value, password.value)
-        .then((result) => {
-          result.user?.updateProfile({
-            displayName: name.value,
-          });
-        })
-        .then(() => {
-          excute({
-            variables: {
-              name: name.value,
-              email: email.value,
-            },
-          });
-        })
-        .then(() => {
-          navigate("/");
-        });
+      const result = await auth.createUserWithEmailAndPassword(
+        email.value,
+        password.value
+      );
+      await result.user?.updateProfile({
+        displayName: name.value,
+      });
+      await execute({
+        variables: {
+          name: name.value,
+          email: email.value,
+        },
+      });
+      setUserValue({
+        name: name.value,
+        email: email.value,
+      });
+
+      navigate("/");
+      window.location.href = "/";
     } catch (error: any) {
       switch (error.code) {
         default:

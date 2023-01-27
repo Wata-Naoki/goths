@@ -31,7 +31,6 @@ export const AdminBlogsId = () => {
   // const { loading, error, data } = useQuery(ADMINARTICLESBYBLOG_QUERY);
   const { id } = useParams();
   const navigate = useNavigate();
-  //const [adminBlogFlag, setAdminBlogFlag] = useRecoilState(adminBlogState);
 
   const [numblog, setNumBlog] = useState<number>(1);
   const [

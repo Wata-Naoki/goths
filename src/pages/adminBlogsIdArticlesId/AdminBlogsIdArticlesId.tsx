@@ -7,6 +7,7 @@ import { BlogHeader } from "../../components/header/BlogHeader";
 import { Loading } from "../../components/loading/Loading";
 import { Sidebar } from "../../components/sidebar/navbar";
 import { formatJst } from "../../components/formatJst/FormatJst";
+import { useToast } from "../../components/loading/useToast";
 
 const ADMINBLOGSIDARTICLESID_QUERY = gql`
   query adminArticle {
@@ -36,21 +37,31 @@ const ADMINBLOGSIDARTICLESID_QUERY = gql`
 export const AdminBlogsIdArticlesId = () => {
   const { id: blogId, articleId } = useParams();
 
+  //toast
+  const { toastLoading, toastSucceeded, toastFailed } = useToast();
+
   const { data, loading, error } = useQuery(GET_ARTICLE, {
     variables: { id: articleId },
   });
 
   const [update_Article_by_pk, { loading: deleteLoading, error: deleteError }] =
-    useMutation<UpdateDeleteArticleMutation>(UPDATE_DELETE_ARTICLE);
+    useMutation<UpdateDeleteArticleMutation>(UPDATE_DELETE_ARTICLE, {
+      onCompleted: () => {
+        // toastSucceeded();
+      },
+      onError: () => {
+        toastFailed();
+      },
+    });
 
   const handleChange = async () => {
+    // toastLoading();
     if (articleId) {
       try {
         await update_Article_by_pk({
           variables: { id: articleId, status: false },
         });
         //await setAdminBlogFlag(!adminBlogFlag);
-        alert("変更が保存されました");
         // navigate(-1);
       } catch (err: any) {
         alert(err.message);

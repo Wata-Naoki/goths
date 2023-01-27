@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Link, useParams } from "react-router-dom";
 import { useAuthContext } from "../../AuthContext";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { GET_BLOGS_MODAL } from "../../queries";
 import { BlogChoiceModal } from "../ui/modal/BlogChoiceModal";
 import { useModalState } from "./useModalState";
@@ -19,14 +20,17 @@ import { useModalState } from "./useModalState";
 // `;
 
 export const ModalBlogHeader = () => {
-  const { user } = useAuthContext();
+  const { userValue, setUserValue } = useLocalStorage();
+  const { id } = useParams();
+
   const { isOpen, closeModal, openModal } = useModalState();
 
   const { loading, error, data } = useQuery(GET_BLOGS_MODAL, {
-    variables: { email: user?.email },
+    variables: { email: userValue.email },
   });
-  const { id } = useParams();
-  const titleState = data?.Blog.find((blog: any) => blog.id === id);
+  // TODO: バックエンドのvariablesのidから取得したデータを使って、選択したブログのタイトルを表示する.
+  const titleState = data?.Blog?.find((blog: any) => blog?.id === id);
+
   const handleLink = (id: any) => {
     window.location.href = `/admin/blogs/${id}`;
   };
@@ -68,7 +72,7 @@ export const ModalBlogHeader = () => {
                         タイトル
                       </th>
 
-                      {data?.Blog.map((x: any, index: number) => (
+                      {data?.Blog?.map((x: any, index: number) => (
                         <tr key={index}>
                           <td
                             className="py-4 pl-2 cursor-pointer hover:bg-gray-100"
@@ -96,7 +100,7 @@ export const ModalBlogHeader = () => {
                               </div>
                               <div className="ml-6 ">
                                 <div className="focus:outline-none">
-                                  {x.title}
+                                  {x?.title}
                                 </div>
                               </div>
                             </div>

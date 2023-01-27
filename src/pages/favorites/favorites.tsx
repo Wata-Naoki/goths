@@ -11,11 +11,13 @@ import {
 import { formatJst } from "../../components/formatJst/FormatJst";
 import { Pagination } from "../../components/ui/pagination/pagination";
 import { ArticleLoading } from "../../components/loading/ArticleLoading";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
-const Favorites = () => {
+export const Favorites = () => {
   const { id, articleId } = useParams();
-  const { user } = useAuthContext();
+
   const [numblog, setNumBlog] = useState<number>(2);
+  const { userValue, setUserValue } = useLocalStorage();
 
   const [
     executeUserFavorite,
@@ -33,7 +35,7 @@ const Favorites = () => {
     loading: userDataLoading,
     refetch: userDataRefetch,
   } = useQuery<GetUserQuery>(GET_USER, {
-    variables: { email: user?.email },
+    variables: { email: userValue?.email },
   });
 
   useEffect(() => {
@@ -104,5 +106,3 @@ const Favorites = () => {
     </>
   );
 };
-
-export default Favorites;

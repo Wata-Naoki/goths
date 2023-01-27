@@ -19,7 +19,7 @@ import {
 } from "../../types/generated/graphql.tsx/graphql";
 import { ArticleLoading } from "../../components/loading/ArticleLoading";
 
-const BlogIdArticleId = () => {
+export const BlogIdArticleId = () => {
   const { articleId } = useParams();
   const { user, userData } = useAuthContext();
 
@@ -138,9 +138,7 @@ const BlogIdArticleId = () => {
     }
   };
 
-  console.log(favoriteData);
-
-  // ifndでfavoriteDataがあるかどうかを判定する
+  // findでfavoriteDataがあるかどうかを判定する
 
   //loading
   if (articleDataLoading) return <ArticleLoading />;
@@ -204,5 +202,3 @@ const BlogIdArticleId = () => {
     </>
   );
 };
-
-export default BlogIdArticleId;

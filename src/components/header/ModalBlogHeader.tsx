@@ -1,5 +1,6 @@
-import { useQuery } from "@apollo/client";
-import { Link, useParams } from "react-router-dom";
+import { useLazyQuery, useQuery } from "@apollo/client";
+import { useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../../AuthContext";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { GET_BLOGS_MODAL } from "../../queries";
@@ -22,18 +23,22 @@ import { useModalState } from "./useModalState";
 export const ModalBlogHeader = () => {
   const { userValue, setUserValue } = useLocalStorage();
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const { isOpen, closeModal, openModal } = useModalState();
 
-  const { loading, error, data } = useQuery(GET_BLOGS_MODAL, {
-    variables: { email: userValue.email },
+  const [execute, { loading, error, data }] = useLazyQuery(GET_BLOGS_MODAL, {
+    variables: { email: userValue.email, id: id },
   });
   // TODO: バックエンドのvariablesのidから取得したデータを使って、選択したブログのタイトルを表示する.
   const titleState = data?.Blog?.find((blog: any) => blog?.id === id);
 
-  const handleLink = (id: any) => {
-    window.location.href = `/admin/blogs/${id}`;
+  const handleLink = (id: string) => {
+    // window.location.href = `/admin/blogs/${id}`;
+    navigate(`/admin/blogs/${id}`);
   };
+  useEffect(() => {
+    execute();
+  }, [id]);
 
   return (
     <>
@@ -41,7 +46,7 @@ export const ModalBlogHeader = () => {
         className="flex items-center justify-end mt-2 ml-10 cursor-pointer w-96"
         onClick={openModal}
       >
-        <div className="whitespace-pre-wrap">{titleState?.title}</div>
+        <div className="whitespace-pre-wrap">{data?.Blog_by_pk?.title}</div>
 
         <div className="mx-2">
           <svg
@@ -72,18 +77,18 @@ export const ModalBlogHeader = () => {
                         タイトル
                       </th>
 
-                      {data?.Blog?.map((x: any, index: number) => (
+                      {data?.Blog?.map((blog: any, index: number) => (
                         <tr key={index}>
                           <td
                             className="py-4 pl-2 cursor-pointer hover:bg-gray-100"
                             onClick={() => {
-                              handleLink(x.id);
+                              handleLink(blog.id);
                             }}
                           >
                             <div className="flex justify-start">
                               <div
                                 className={`relative flex items-center pr-4 ml-4  ${
-                                  id === x.id ? "visible " : "invisible"
+                                  id === blog.id ? "visible " : "invisible"
                                 }`}
                               >
                                 <svg
@@ -100,7 +105,7 @@ export const ModalBlogHeader = () => {
                               </div>
                               <div className="ml-6 ">
                                 <div className="focus:outline-none">
-                                  {x?.title}
+                                  {blog?.title}
                                 </div>
                               </div>
                             </div>

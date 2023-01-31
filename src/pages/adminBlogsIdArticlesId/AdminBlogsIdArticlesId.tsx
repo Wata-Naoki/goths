@@ -87,8 +87,8 @@ export const AdminBlogsIdArticlesId = () => {
           <Sidebar />
         </div>
 
-        <div className="w-6/12">
-          <div className="flex items-center justify-center w-full pl-24 pr-20 my-10 mb-10 ml-12">
+        <div className="w-7/12 2xl:ml-36">
+          <div className="flex items-center justify-center w-full max-w-3xl pl-24 pr-20 my-10 mb-10 2xl:ml-48 ">
             {/* ここも割とゴリ押し感強め */}
 
             <div className="flex flex-col w-full">
@@ -124,8 +124,8 @@ export const AdminBlogsIdArticlesId = () => {
                 </div>
                 <div>
                   <DeleteButton
-                    onClick={async () => {
-                      await handleChange();
+                    onClick={() => {
+                      handleChange();
                       window.location.href = `/admin/blogs/${blogId}`;
                       //navigate(`/admin/blogs/${blogId}`);
                     }}

@@ -103,7 +103,7 @@ export const AdminBlogs = () => {
       <Header />
 
       <div className="flex justify-center w-full ">
-        <div className="w-1/3">
+        <div className="w-1/3 2xl:my-10 2xl:w-1/5">
           <div>
             <div className="flex justify-between">
               <div>ブログ管理</div>
@@ -158,7 +158,7 @@ export const AdminBlogs = () => {
               Myブログ
             </button>
 
-            <button
+            {/* <button
               onClick={() => {
                 setPage("編集者ブログ");
               }}
@@ -167,10 +167,10 @@ export const AdminBlogs = () => {
               }`}
             >
               編集者ブログ
-            </button>
+            </button> */}
           </div>
           {page === "Myブログ" ? (
-            <div className="flex flex-col justify-start gap-y-6">
+            <div className="flex flex-col justify-start mt-10 gap-y-6 2xl:gap-y-12">
               {blogData?.Blog.map((x: any) => (
                 <div key={x.id} className="flex justify-between mt-8">
                   <div>

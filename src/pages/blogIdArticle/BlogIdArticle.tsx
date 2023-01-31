@@ -67,7 +67,7 @@ const BlogIdArticle = () => {
       </div>
 
       <div className="flex justify-center">
-        <div className="w-2/5">
+        <div className="w-2/5 max-w-3xl 2xl:w-1/4">
           <div className="">
             <div className="flex justify-center ">
               <h3 className="text-xl text-gray-800">
@@ -76,9 +76,9 @@ const BlogIdArticle = () => {
               {/* <h3>{blogState}</h3> */}
             </div>
             {blogArticlesData?.Blog[0].Articles.map((x: any) => (
-              <div key={x.id}>
-                <Link to={`/blogs/articles/${x.id}`}>
-                  <h2 className="mt-8 text-2xl">{x.title}</h2>
+              <div key={x.id} className="my-12 2xl:my-16">
+                <Link to={`/blogs/articles/${x?.id}`} className="mt-8 text-2xl">
+                  {x.title}
                 </Link>
 
                 <div className="flex justify-between my-2 text-gray-500">

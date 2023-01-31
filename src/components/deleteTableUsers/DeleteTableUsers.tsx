@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { DELETE_USER_ONE } from "../../queries";
@@ -11,8 +11,14 @@ import { useToast } from "../loading/useToast";
 type Props = {
   //onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
   id: string;
+  refetch(): Promise<any>;
+  dataCount: number | undefined;
 };
-export const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
+export const DeleteTableUsers: React.FC<Props> = ({
+  id: userId,
+  refetch,
+  dataCount,
+}) => {
   const { id } = useParams();
   let [isOpen, setIsOpen] = useState(false);
   const { toastLoading, toastSucceeded, toastFailed } = useToast();
@@ -21,6 +27,7 @@ export const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
     useMutation<DeleteUserOneMutation>(DELETE_USER_ONE, {
       onCompleted: () => {
         toastSucceeded();
+        refetch();
       },
       onError: () => {
         toastFailed();
@@ -31,16 +38,21 @@ export const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
     if (userId) {
       try {
         await delete_User_by_pk({ variables: { id: userId } });
-        toastSucceeded();
+
         // alert("変更が保存されました");
         // navigate(-1);
-        window.location.href = `/admin/blogs/${id}/editors`;
+        // window.location.href = `/admin/blogs/${id}/editors`;
       } catch (err: any) {
         toastFailed();
         //alert(err.message);
       }
     }
   };
+  useEffect(() => {
+    if (!dataCount) {
+      window.location.href = `/authentication`;
+    }
+  }, [dataCount]);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -50,9 +62,9 @@ export const DeleteTableUsers: React.FC<Props> = ({ id: userId }) => {
     setIsOpen(true);
   };
 
-  /* if (deleteLoading) {
+  if (deleteLoading) {
     return <Loading />;
-  } */
+  }
   if (deleteError) {
     return <div>"エラーが発生しました。"</div>;
   }

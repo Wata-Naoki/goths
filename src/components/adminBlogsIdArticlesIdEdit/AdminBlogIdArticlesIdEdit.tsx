@@ -15,9 +15,9 @@ export const AdminBlogIdArticlesIdEdit = () => {
         <div className="w-1/5">
           <Sidebar />
         </div>
-        <div className="flex justify-center w-5/6 h-full pr-20 mt-5 ">
-          <div className="w-3/4">
-            <div className="flex items-center justify-end mt-10">
+        <div className="flex justify-center w-4/5 h-full pr-20 mt-5 lg:pr-32">
+          <div className="w-3/4 max-w-6xl">
+            <div className="flex items-center justify-end w-full mt-10">
               <div>
                 <AddButton />
               </div>

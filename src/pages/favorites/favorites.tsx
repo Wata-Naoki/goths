@@ -63,7 +63,7 @@ export const Favorites = () => {
       </div>
 
       <div className="flex justify-center">
-        <div className="w-2/5">
+        <div className="w-2/5 2xl:w-1/4">
           <div>
             <div className="flex justify-center">
               <div>お気に入り</div>
@@ -74,13 +74,13 @@ export const Favorites = () => {
               <>
                 <div>
                   {userFavoriteData?.Article?.map((x: any) => (
-                    <div key={x.id}>
+                    <div key={x.id} className="2xl:my-16">
                       <div className="my-8">
                         <Link
                           to={`/blogs/articles/${x.id}`}
-                          className="hover:text-gray-500"
+                          className="text-2xl hover:text-gray-500"
                         >
-                          <h2 className="text-2xl">{x.title}</h2>
+                          {x.title}
                         </Link>
 
                         <div className="flex justify-between my-2 text-gray-500">

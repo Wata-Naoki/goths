@@ -150,9 +150,9 @@ export const BlogIdArticleId = () => {
       </div>
 
       <div className="flex justify-center mb-10">
-        <div className="w-2/5">
+        <div className="w-2/5 2xl:w-1/4">
           <div className="w-full">
-            <div className="flex justify-center mb-6 text-xl">
+            <div className="flex justify-center mb-6 text-xl 2xl:mt-8 2xl:mb-12">
               <div>{articleData?.Article[0].Blog.title}</div>
             </div>
             <div className="my-10 text-2xl">

@@ -1,23 +1,22 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const Sidebar = () => {
   const { id } = useParams();
-  const redirectToGoogle = () => {
-    window.location.href = "https://www.google.com/?hl=ja";
-  };
 
+  const navigate = useNavigate();
   const articleList = () => {
+    // navigate(`/admin/blogs/${id}`);
     window.location.href = `/admin/blogs/${id}`;
   };
   const createArticle = () => {
-    window.location.href = `/admin/blogs/${id}/articles/create`;
+    navigate(`/admin/blogs/${id}/articles/create`);
   };
 
   const handleEditors = () => {
-    window.location.href = `/admin/blogs/${id}/editors`;
+    navigate(`/admin/blogs/${id}/editors`);
   };
   const handleSetting = () => {
-    window.location.href = `/admin/blogs/${id}/config`;
+    navigate(`/admin/blogs/${id}/config`);
   };
   return (
     <>
@@ -141,7 +140,7 @@ export const Sidebar = () => {
           </div>
 
           <div className="">
-            <button className="relative flex items-center w-56 px-4 py-3 text-sm text-gray-600 hover:bg-teal-100">
+            <div className="relative flex items-center w-56 px-4 py-3 text-sm text-gray-600 hover:bg-teal-100">
               <div className="mr-1">
                 <svg
                   className="w-5 h-5 text-gray-500"
@@ -157,10 +156,8 @@ export const Sidebar = () => {
                   />
                 </svg>
               </div>
-              <div className="" onClick={redirectToGoogle}>
-                ヘルプ
-              </div>
-            </button>
+              <div>ヘルプ</div>
+            </div>
           </div>
         </div>
       </div>

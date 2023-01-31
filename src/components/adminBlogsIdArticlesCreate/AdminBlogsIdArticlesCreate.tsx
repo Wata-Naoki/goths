@@ -1,7 +1,11 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { CREATE_ARTICLE, GET_BLOG_USER } from "../../queries";
+import {
+  CREATE_ARTICLE,
+  GET_BLOG_ARTICLES,
+  GET_BLOG_USER,
+} from "../../queries";
 import {
   BlogUserQuery,
   CreateArticleOneMutation,
@@ -17,8 +21,17 @@ export const AdminBlogsIdArticlesCreate = () => {
   const [text, setText] = useState();
   const [allText, setAllText] = useState();
   const { toastLoading, toastSucceeded, toastFailed } = useToast();
+  const [
+    execute,
+    {
+      data: blogArticlesData,
+      loading: blogArticlesDataLoading,
+      error: blogArticlesDataError,
+      refetch: blogArticlesDataRefetch,
+    },
+  ] = useLazyQuery(GET_BLOG_ARTICLES, { variables: { id: id } });
 
-  const { data, loading } = useQuery<BlogUserQuery>(GET_BLOG_USER, {
+  const { data, loading, refetch } = useQuery<BlogUserQuery>(GET_BLOG_USER, {
     variables: { id: id },
   });
 
@@ -26,6 +39,8 @@ export const AdminBlogsIdArticlesCreate = () => {
     useMutation<CreateArticleOneMutation>(CREATE_ARTICLE, {
       onCompleted: () => {
         toastSucceeded();
+        refetch();
+        blogArticlesDataRefetch();
       },
       onError: () => {
         toastFailed();
@@ -57,11 +72,10 @@ export const AdminBlogsIdArticlesCreate = () => {
             all_text: allText,
           },
         });
-        toastSucceeded();
+
         //alert("記事が作成されました");
       } catch (err: any) {
-        toastFailed();
-        //alert(err.message);
+        alert(err.message);
       }
     }
   };

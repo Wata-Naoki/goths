@@ -57,7 +57,7 @@ export const AdminBlogsId = () => {
     });
 
     // }
-  }, [executeBlog, numblog, id]);
+  }, [numblog, blogData, id]);
 
   if (blogLoading) {
     return <Loading />;
@@ -66,7 +66,7 @@ export const AdminBlogsId = () => {
   return (
     <>
       <div>
-        <BlogHeader blogTitle={blogData?.Blog[0].title} />
+        <BlogHeader blogTitle={blogData?.Blog[0]?.title} />
       </div>
 
       <div className="flex justify-start w-screen ">
@@ -74,19 +74,16 @@ export const AdminBlogsId = () => {
           <Sidebar />
         </div>
 
-        <div className="flex justify-center w-6/12 px-12 mt-4 ml-12 gap-y-8">
+        <div className="flex justify-center w-7/12 max-w-3xl px-12 mt-4 ml-12 2xl:ml-72 gap-y-8">
           {/* ゴリ押しだから改善の余地あり */}
           <div className="w-full">
             <div className="flex flex-col gap-y-6">
-              {blogData?.Blog[0].Articles.map((x: any) => (
+              {blogData?.Blog[0]?.Articles?.map((x: any) => (
                 <div key={x.id}>
                   <Link
                     className="w-full"
                     to={`/admin/blogs/${id}/articles/${x.id}`}
-                    /* onClick={() => {setBlogIdStateValue(`/admin/blogs/${id}/articles/${x.id}`)}} */ state={{
-                      title: x.title,
-                      text: x.text,
-                    }}
+                    /* onClick={() => {setBlogIdStateValue(`/admin/blogs/${id}/articles/${x.id}`)}} */
                   >
                     <h2 className="w-full mt-8 text-2xl whitespace-pre-wrap ">
                       {x.title}

@@ -18,7 +18,11 @@ export const GET_ARTICLES = gql`
 
 export const GET_BLOG_ARTICLES = gql`
   query GetBlogArticles($limit: Int, $id: uuid!) {
-    Blog(where: { id: { _eq: $id } }, limit: $limit) {
+    Blog(
+      where: { id: { _eq: $id } }
+      limit: $limit
+      order_by: { createdAt: desc }
+    ) {
       id
       title
       Articles {
@@ -66,7 +70,11 @@ export const GET_ARTICLE = gql`
 
 export const GET_BLOGS = gql`
   query GetBlogs($limit: Int) {
-    Blog(order_by: { createdAt: desc }, limit: $limit) {
+    Blog(
+      order_by: { createdAt: desc }
+      limit: $limit
+      where: { Articles_aggregate: { count: { predicate: { _gte: 1 } } } }
+    ) {
       id
       title
       blog_users {
@@ -74,6 +82,11 @@ export const GET_BLOGS = gql`
           name
           id
         }
+      }
+    }
+    Blog_aggregate {
+      aggregate {
+        count
       }
     }
   }
@@ -276,8 +289,12 @@ export const DELETE_USER_ONE = gql`
 `;
 
 export const GET_BLOGS_MODAL = gql`
-  query GetBlogsModal($email: String) {
+  query GetBlogsModal($email: String, $id: uuid!) {
     Blog(where: { blog_users: { User: { email: { _eq: $email } } } }) {
+      id
+      title
+    }
+    Blog_by_pk(id: $id) {
       id
       title
     }

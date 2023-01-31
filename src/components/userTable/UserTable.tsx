@@ -1,5 +1,5 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
-import React from "react";
+import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { GET_BLOG_EDITORS } from "../../queries";
 import { GetBlogEditorsQuery } from "../../types/generated/graphql.tsx/graphql";
@@ -38,12 +38,15 @@ export const UserTable1 = () => {
   // const { loading, error, data } = useQuery(ADMIN_TABLE_USERS_QUERY);
 
   const { id } = useParams();
-  const { data, loading, error } = useQuery<GetBlogEditorsQuery>(
-    GET_BLOG_EDITORS,
-    {
+  const [execute, { data, loading, error, refetch }] =
+    useLazyQuery<GetBlogEditorsQuery>(GET_BLOG_EDITORS, {
       variables: { blog_id: id },
-    }
-  );
+    });
+
+  useEffect(() => {
+    execute();
+    console.log("data", data?.User.length);
+  }, [id]);
 
   if (loading) return <SectionLoading />;
 
@@ -75,23 +78,29 @@ export const UserTable1 = () => {
               </thead>
 
               <tbody className="bg-white divide-y divide-gray-200">
-                {data?.User.map((u: any) => (
-                  <tr key={u.id}>
+                {data?.User?.map((user: any) => (
+                  <tr key={user.id}>
                     <td className="py-4 pl-6 pr-14 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">
-                            {u.name}
+                            {user.name}
                           </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{u.email}</div>
+                      <div className="text-sm text-gray-500">{user?.email}</div>
                     </td>
 
                     <td className="py-4 pr-6 text-red-500 whitespace-nowrap">
-                      <div>{<DeleteTableUsers id={u.id} />}</div>
+                      <div>
+                        <DeleteTableUsers
+                          id={user.id}
+                          refetch={refetch}
+                          dataCount={data?.User?.length}
+                        />
+                      </div>
                     </td>
                   </tr>
                 ))}

@@ -91,7 +91,7 @@ export const UserForm = () => {
               <p className="mb-2 text-gray-500">ユーザー名</p>
               <input
                 defaultValue={userDate?.User[0]?.name}
-                value={username ? username : userDate?.User[0].name}
+                value={username ? username : userDate?.User[0]?.name}
                 onChange={(e: any) => setUsername(e.target.value)}
                 className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-96 "
               />

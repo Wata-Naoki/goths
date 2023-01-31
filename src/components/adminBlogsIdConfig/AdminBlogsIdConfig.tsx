@@ -1,5 +1,5 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
-import React, { useState } from "react";
+import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DELETE_BLOG_ONE, GET_BLOG_ONE, UPDATE_BLOG_ONE } from "../../queries";
 import {
@@ -15,9 +15,17 @@ import { Sidebar } from "../sidebar/navbar";
 export const AdminBlogsIdConfig = () => {
   const { id: blogId } = useParams();
   const [title, setTitle] = useState();
-  const { data, loading, error } = useQuery(GET_BLOG_ONE, {
-    variables: { id: blogId },
-  });
+  const [execute, { data, loading, error, refetch }] = useLazyQuery(
+    GET_BLOG_ONE,
+    {
+      variables: { id: blogId },
+    }
+  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    execute();
+  }, [blogId]);
   const { toastLoading, toastSucceeded, toastFailed } = useToast();
 
   const [
@@ -26,6 +34,7 @@ export const AdminBlogsIdConfig = () => {
   ] = useMutation<UpdateBlogOneMutation>(UPDATE_BLOG_ONE, {
     onCompleted: () => {
       toastSucceeded();
+      refetch();
     },
     onError: () => {
       toastFailed();
@@ -37,6 +46,8 @@ export const AdminBlogsIdConfig = () => {
   ] = useMutation<DeleteBlogOneMutation>(DELETE_BLOG_ONE, {
     onCompleted: () => {
       toastSucceeded();
+      refetch();
+      navigate(`/admin/blogs`);
     },
     onError: () => {
       toastFailed();
@@ -58,11 +69,9 @@ export const AdminBlogsIdConfig = () => {
         await update_Blog_by_pk({
           variables: { id: blogId, title: title ? title : data?.Blog[0].title },
         });
-        toastSucceeded();
         //alert("変更が保存されました");
       } catch (err: any) {
-        toastFailed();
-        //alert(err.message);
+        alert(err.message);
       }
     }
   };
@@ -70,16 +79,15 @@ export const AdminBlogsIdConfig = () => {
   const handleDelete = async (e: any) => {
     e.preventDefault();
     if (blogId) {
-      //toastLoading();
       try {
         await delete_Blog_by_pk({ variables: { id: blogId } });
-        alert("ブログを削除しました");
-        window.location.href = `/admin/blogs`;
+        // alert("ブログを削除しました");
+
         // alert("変更が保存されました");
         // navigate(-1);
       } catch (err: any) {
         console.log(err);
-        toastFailed();
+        // toastFailed();
         //window.location.href = `/admin/blogs`;
         // alert(err.message);
       }
@@ -114,8 +122,8 @@ export const AdminBlogsIdConfig = () => {
                   type=""
                   id=""
                   name="title"
-                  defaultValue={data?.Blog[0].title}
-                  value={title}
+                  defaultValue={data?.Blog[0]?.title}
+                  value={title ? title : data?.Blog[0]?.title}
                   onChange={handleTitleChange}
                   className="w-full py-1 pl-4 pr-4 ml-2 text-left border rounded border-slate-300 focus:outline-0 "
                 ></input>

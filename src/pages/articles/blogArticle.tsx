@@ -8,6 +8,7 @@ import { formatJst } from "../../components/formatJst/FormatJst";
 import { Pagination } from "../../components/ui/pagination/pagination";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
+// TODO: さらに読み込むのところデータがないときは非表示にする
 export const BlogArticle = () => {
   const [page, setPage] = useState<"新着記事" | "新着ブログ">("新着記事");
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ export const BlogArticle = () => {
         </div>
 
         <div className="flex justify-center w-full">
-          <div className="w-2/5">
+          <div className="w-2/5 max-w-3xl 2xl:w-1/4">
             <div className="flex justify-center mb-2">
               <button
                 className={`mr-8 ${
@@ -100,12 +101,12 @@ export const BlogArticle = () => {
             {page === "新着記事" ? (
               <div>
                 {articleData?.Article.map((x: any) => (
-                  <div key={x.id} className="my-8">
+                  <div key={x.id} className="my-8 2xl:my-16">
                     <Link
                       to={`/blogs/articles/${x.id}`}
-                      className="hover:text-gray-500"
+                      className="text-2xl hover:text-gray-500"
                     >
-                      <h2 className="text-2xl">{x.title}</h2>
+                      {x.title}
                     </Link>
 
                     <div className="flex justify-between my-2 text-gray-500">
@@ -127,7 +128,7 @@ export const BlogArticle = () => {
                 {blogData?.Blog.map((x: any) => (
                   <div
                     key={x.id}
-                    className="flex items-center justify-between my-8 "
+                    className="flex items-center justify-between my-8 2xl:my-16"
                   >
                     <div>
                       <h2 className="text-2xl">{x.title}</h2>

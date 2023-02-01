@@ -38,13 +38,16 @@ export const BlogArticle = () => {
   ] = useLazyQuery(GET_BLOGS);
 
   const onClickFetchBlog = () => {
-    setNumBlog(numblog + 1);
+    setNumBlog(numblog + 2);
   };
 
   useEffect(() => {
     executeBlog({
       variables: { limit: numblog },
     });
+    console.log(blogData);
+    console.log(numblog);
+    console.log("blogData", blogData?.Blog_aggregate?.aggregate?.count);
   }, [executeBlog, numblog]);
 
   if (articleLoading || blogLoading) {
@@ -159,7 +162,11 @@ export const BlogArticle = () => {
                 ))}
 
                 <div className="flex justify-center mt-10 mb-10 mr-4">
-                  <Pagination onClickFetchBlog={onClickFetchBlog} />
+                  {blogData?.Blog_aggregate?.aggregate?.count === numblog ? (
+                    <></>
+                  ) : (
+                    <Pagination onClickFetchBlog={onClickFetchBlog} />
+                  )}
                 </div>
               </div>
             )}

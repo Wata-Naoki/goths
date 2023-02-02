@@ -7,12 +7,14 @@ type Props = {
   onClickFetchBlog?: () => void;
   setNextPageNum?: (pageNum: number) => void;
   pageNum?: number;
+  totalPageNum?: number;
 };
 
 export const Pagination: React.FC<Props> = ({
   onClickFetchBlog,
   setNextPageNum,
   pageNum,
+  totalPageNum,
 }) => {
   // TODO: クエリーパラメータを使ってページネーションを実装する
   // const search = useLocation().search;
@@ -35,7 +37,7 @@ export const Pagination: React.FC<Props> = ({
     <button
       type="button"
       onClick={handleOnClick}
-      className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700"
+      className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700 hover:bg-emerald-800 focus: focus:ring-2 focus:ring-emerald-800 focus:ring-opacity-50"
     >
       さらに読み込む
     </button>

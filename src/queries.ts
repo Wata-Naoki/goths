@@ -13,6 +13,11 @@ export const GET_ARTICLES = gql`
         title
       }
     }
+    Article_aggregate {
+      aggregate {
+        count
+      }
+    }
   }
 `;
 

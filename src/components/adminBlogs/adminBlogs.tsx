@@ -12,50 +12,7 @@ import { Loading } from "../loading/Loading";
 import { Modal } from "../ui/modal/Modal";
 import { Pagination } from "../ui/pagination/pagination";
 
-const ARTICLESBYMYBLOG_QUERY = gql`
-  query myBlogsByUser {
-    myBlogsByUser {
-      mockMyBlogs {
-        id
-        title
-        user
-      }
-    }
-  }
-`;
-
-const ARTICLESBYBLOG_QUERY = gql`
-  query blogsByUser {
-    blogsByUser {
-      mockAdminBlogs {
-        id
-        title
-        user
-      }
-    }
-  }
-`;
-
-const BLOG_CHOICE_QUERY = gql`
-  query blogChoice {
-    blogChoice {
-      mockBlogChoice {
-        mockMyBlogs {
-          id
-        }
-        blogName
-      }
-    }
-  }
-`;
-
 export const AdminBlogs = () => {
-  const {
-    loading: myblogloading,
-    error: myblogerror,
-    data: myblogdata,
-  } = useQuery(ARTICLESBYMYBLOG_QUERY);
-  const { loading, error, data } = useQuery(ARTICLESBYBLOG_QUERY);
   const { userValue, setUserValue } = useLocalStorage();
 
   const [page, setPage] = useState<"Myブログ" | "編集者ブログ">("Myブログ");
@@ -148,7 +105,7 @@ export const AdminBlogs = () => {
             </div>
           </div>
           <div></div>
-          <div className="flex justify-center my-5">
+          <div className="flex justify-center mt-8">
             <button
               onClick={() => {
                 setPage("Myブログ");
@@ -170,7 +127,7 @@ export const AdminBlogs = () => {
             </button> */}
           </div>
           {page === "Myブログ" ? (
-            <div className="flex flex-col justify-start mt-10 gap-y-6 2xl:gap-y-12">
+            <div className="flex flex-col justify-start mt-5 gap-y-6 2xl:gap-y-12">
               {blogData?.Blog.map((x: any) => (
                 <div key={x.id} className="flex justify-between mt-8">
                   <div>
@@ -201,7 +158,7 @@ export const AdminBlogs = () => {
             </div>
           ) : (
             <div>
-              {data?.blogsByUser.data.map((x: any) => (
+              {/* {data?.blogsByUser.data.map((x: any) => (
                 <div key={x.id} className="flex justify-between mt-10">
                   <div>
                     <h2>{x.title}</h2>
@@ -227,11 +184,15 @@ export const AdminBlogs = () => {
                     </div>
                   </Link>
                 </div>
-              ))}
+              ))} */}
             </div>
           )}
           <div className="flex justify-center my-16">
-            <Pagination onClickFetchBlog={onClickFetchBlog} />
+            <Pagination
+              onClickFetchBlog={onClickFetchBlog}
+              pageNum={numblog}
+              totalPageNum={blogData?.Blog_aggregate?.aggregate?.count}
+            />
           </div>
         </div>
       </div>

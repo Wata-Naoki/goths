@@ -30,7 +30,7 @@ export const GET_BLOG_ARTICLES = gql`
     ) {
       id
       title
-      Articles {
+      Articles(limit: $limit, order_by: { createdAt: desc }) {
         id
         text
         title
@@ -44,6 +44,11 @@ export const GET_BLOG_ARTICLES = gql`
         }
         Blog {
           title
+        }
+      }
+      Articles_aggregate {
+        aggregate {
+          count
         }
       }
     }
@@ -112,6 +117,13 @@ export const GET_USER_BLOGS = gql`
         }
       }
     }
+    Blog_aggregate(
+      where: { blog_users: { User: { email: { _eq: $email } } } }
+    ) {
+      aggregate {
+        count
+      }
+    }
   }
 `;
 
@@ -138,6 +150,11 @@ export const GET_BLOG = gql`
         text
         all_text
         status
+      }
+      Articles_aggregate {
+        aggregate {
+          count
+        }
       }
     }
   }
@@ -277,7 +294,10 @@ export const CREATE_USER_ONE = gql`
 
 export const GET_BLOG_EDITORS = gql`
   query GetBlogEditors($blog_id: uuid!) {
-    User(where: { blog_users: { blog_id: { _eq: $blog_id } } }) {
+    User(
+      where: { blog_users: { blog_id: { _eq: $blog_id } } }
+      order_by: { name: asc }
+    ) {
       id
       name
       email
@@ -295,7 +315,10 @@ export const DELETE_USER_ONE = gql`
 
 export const GET_BLOGS_MODAL = gql`
   query GetBlogsModal($email: String, $id: uuid!) {
-    Blog(where: { blog_users: { User: { email: { _eq: $email } } } }) {
+    Blog(
+      where: { blog_users: { User: { email: { _eq: $email } } } }
+      order_by: { updatedAt: desc }
+    ) {
       id
       title
     }
@@ -339,6 +362,11 @@ export const GET_SEARCH_ARTICLES = gql`
       title
       text
       createdAt
+    }
+    Article_aggregate(where: { title: { _iregex: $_iregex } }) {
+      aggregate {
+        count
+      }
     }
   }
 `;
@@ -396,6 +424,7 @@ export const GET_USER_FAVORITES_ARTICLES = gql`
   query GetUserFavoritesArticles($id: uuid!, $limit: Int) {
     Article(
       where: { user_favorite_article_ids: { user_id: { _eq: $id } } }
+      order_by: { createdAt: desc }
       limit: $limit
     ) {
       id
@@ -408,6 +437,13 @@ export const GET_USER_FAVORITES_ARTICLES = gql`
       all_text
       Blog {
         title
+      }
+    }
+    Article_aggregate(
+      where: { user_favorite_article_ids: { user_id: { _eq: $id } } }
+    ) {
+      aggregate {
+        count
       }
     }
   }

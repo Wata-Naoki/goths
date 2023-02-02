@@ -9,24 +9,6 @@ import { Sidebar } from "../../components/sidebar/navbar";
 import { formatJst } from "../../components/formatJst/FormatJst";
 import { Pagination } from "../../components/ui/pagination/pagination";
 
-const ADMINARTICLESBYBLOG_QUERY = gql`
-  query adminArticlesByBlog {
-    adminArticlesByBlog {
-      mockAdminBlogsArticles {
-        mockMyBlogs {
-          id
-        }
-        blog
-        id
-        title
-        user
-        createAt
-        text3
-      }
-    }
-  }
-`;
-
 export const AdminBlogsId = () => {
   // const { loading, error, data } = useQuery(ADMINARTICLESBYBLOG_QUERY);
   const { id } = useParams();
@@ -48,14 +30,13 @@ export const AdminBlogsId = () => {
       variables: { id: id, limit: numblog },
     }); */
 
-    if (id === "undefined") {
+    if (!id) {
       navigate("/authentication");
     }
 
     executeBlog({
       variables: { id: id, limit: numblog },
     });
-
     // }
   }, [numblog, blogData, id]);
 
@@ -105,7 +86,13 @@ export const AdminBlogsId = () => {
             </div>
 
             <div className="flex justify-center my-14">
-              <Pagination onClickFetchBlog={onClickFetchBlog} />
+              <Pagination
+                onClickFetchBlog={onClickFetchBlog}
+                pageNum={numblog}
+                totalPageNum={
+                  blogData?.Blog[0]?.Articles_aggregate?.aggregate?.count
+                }
+              />
             </div>
           </div>
         </div>

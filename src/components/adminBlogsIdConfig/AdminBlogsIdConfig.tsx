@@ -86,7 +86,7 @@ export const AdminBlogsIdConfig = () => {
         // alert("変更が保存されました");
         // navigate(-1);
       } catch (err: any) {
-        console.log(err);
+        err;
         // toastFailed();
         //window.location.href = `/admin/blogs`;
         // alert(err.message);

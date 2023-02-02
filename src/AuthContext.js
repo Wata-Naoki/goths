@@ -21,10 +21,10 @@ export const AuthProvider = ({ children }) => {
         CREATE_ADMIN_USER_ONE,
         {
             onCompleted: () => {
-                console.log("ユーザー登録が完了しました。");
+                ("ユーザー登録が完了しました。");
             },
             onError: () => {
-                console.log("ユーザー登録に失敗しました。");
+                ("ユーザー登録に失敗しました。");
             },
         }
     );

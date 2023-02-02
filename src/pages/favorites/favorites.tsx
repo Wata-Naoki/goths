@@ -96,7 +96,13 @@ export const Favorites = () => {
                   ))}
                 </div>
                 <div className="flex justify-center my-10">
-                  <Pagination onClickFetchBlog={onClickFetchBlog} />
+                  <Pagination
+                    onClickFetchBlog={onClickFetchBlog}
+                    pageNum={numblog}
+                    totalPageNum={
+                      userFavoriteData?.Article_aggregate?.aggregate?.count
+                    }
+                  />
                 </div>
               </>
             )}

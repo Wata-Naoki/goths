@@ -79,13 +79,13 @@ export const BlogIdArticleId = () => {
       CREATE_USER_FAVORITES_ARTICLES,
       {
         onCompleted: () => {
-          console.log("お気に入りに追加しました");
+          ("お気に入りに追加しました");
           refetch();
           refetchFavorite();
           // toastSucceeded();
         },
         onError: () => {
-          console.log("お気に入りに追加できませんでした");
+          ("お気に入りに追加できませんでした");
           toastFailed();
         },
       }
@@ -97,13 +97,13 @@ export const BlogIdArticleId = () => {
       DELETE_USER_FAVORITES_ARTICLES,
       {
         onCompleted: () => {
-          console.log("お気に入りから削除しました");
+          ("お気に入りから削除しました");
           refetch();
           refetchFavorite();
           // toastSucceeded();
         },
         onError: () => {
-          console.log("お気に入りから削除できませんでした");
+          ("お気に入りから削除できませんでした");
           toastFailed();
         },
       }

@@ -7,23 +7,7 @@ import { Loading } from "../../components/loading/Loading";
 import { formatJst } from "../../components/formatJst/FormatJst";
 import { Pagination } from "../../components/ui/pagination/pagination";
 
-const BLOGIDARTICLES_QUERY = gql`
-  query articlesByBlog($blogId: String!) {
-    articlesByBlog {
-      mockBlogsIdArticles(blogId: $blogId) {
-        id
-        articleId
-        blog
-        title
-        users
-        createAt
-        text
-      }
-    }
-  }
-`;
-
-const BlogIdArticle = () => {
+export const BlogIdArticle = () => {
   const { id } = useParams();
   /* const { loading, error, data } = useQuery(BLOGIDARTICLES_QUERY, {
     variables: { blogId: id },
@@ -38,7 +22,7 @@ const BlogIdArticle = () => {
   const [numblog, setNumBlog] = useState(1);
 
   const onClickFetchBlog = () => {
-    setNumBlog(numblog + 1);
+    setNumBlog(numblog + 2);
   };
 
   const [
@@ -91,7 +75,14 @@ const BlogIdArticle = () => {
               </div>
             ))}
             <div className="flex justify-center my-10">
-              <Pagination onClickFetchBlog={onClickFetchBlog} />
+              <Pagination
+                onClickFetchBlog={onClickFetchBlog}
+                pageNum={numblog}
+                totalPageNum={
+                  blogArticlesData?.Blog[0]?.Articles_aggregate?.aggregate
+                    ?.count
+                }
+              />
             </div>
           </div>
         </div>
@@ -99,5 +90,3 @@ const BlogIdArticle = () => {
     </>
   );
 };
-
-export default BlogIdArticle;

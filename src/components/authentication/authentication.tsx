@@ -53,7 +53,6 @@ export const Authentication = () => {
         window.location.href = `/`;
       }
     } catch (error: any) {
-      console.log(error);
       setError("ログインに失敗しました。");
     }
   };
@@ -103,7 +102,7 @@ export const Authentication = () => {
               {/* <Link to="/login"> */}
               <button
                 type="submit"
-                className="px-4 py-2 my-4 text-sm font-medium text-white rounded bg-emerald-700 w-80"
+                className="px-4 py-2 my-4 text-sm font-medium text-white rounded outline-none bg-emerald-700 w-80 hover:bg-emerald-800 focus: focus:ring-2 focus:ring-emerald-800 focus:ring-opacity-50"
               >
                 ログイン
               </button>
@@ -114,7 +113,7 @@ export const Authentication = () => {
             <button
               onClick={handleLogin}
               type="submit"
-              className="px-4 py-2 my-4 text-sm font-medium text-white bg-green-800 rounded w-80"
+              className="px-4 py-2 my-4 text-sm font-medium text-white rounded outline-none bg-emerald-700 w-80 hover:bg-emerald-800 focus: focus:ring-2 focus:ring-emerald-800 focus:ring-opacity-50"
             >
               Googleログイン
             </button>

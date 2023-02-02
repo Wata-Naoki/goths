@@ -21,7 +21,7 @@ export const BlogArticle = () => {
   ] = useLazyQuery(GET_ARTICLES);
 
   const onClickFetch = () => {
-    setNum(num + 1);
+    setNum(num + 2);
   };
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export const BlogArticle = () => {
   ] = useLazyQuery(GET_BLOGS);
 
   const onClickFetchBlog = () => {
-    setNumBlog(numblog + 1);
+    setNumBlog(numblog + 2);
   };
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export const BlogArticle = () => {
     return <Loading />;
   }
 
-  if (!userValue) {
+  if (!userValue.email) {
     navigate("/authentication");
     return (
       <>
@@ -120,7 +120,13 @@ export const BlogArticle = () => {
                   </div>
                 ))}
                 <div className="flex justify-center mt-10 mb-10 mr-4">
-                  <Pagination onClickFetchBlog={onClickFetch} />
+                  <Pagination
+                    onClickFetchBlog={onClickFetch}
+                    totalPageNum={
+                      articleData?.Article_aggregate?.aggregate?.count
+                    }
+                    pageNum={num}
+                  />
                 </div>
               </div>
             ) : (
@@ -159,7 +165,15 @@ export const BlogArticle = () => {
                 ))}
 
                 <div className="flex justify-center mt-10 mb-10 mr-4">
-                  <Pagination onClickFetchBlog={onClickFetchBlog} />
+                  {blogData?.Blog_aggregate?.aggregate?.count === numblog ? (
+                    <></>
+                  ) : (
+                    <Pagination
+                      onClickFetchBlog={onClickFetchBlog}
+                      pageNum={numblog}
+                      totalPageNum={blogData?.Blog_aggregate?.aggregate?.count}
+                    />
+                  )}
                 </div>
               </div>
             )}

@@ -48,3 +48,84 @@ export const FAVORITES_QUERY = gql`
     }
   }
 `;
+export const ARTICLESBYMYBLOG_QUERY = gql`
+  query myBlogsByUser {
+    myBlogsByUser {
+      mockMyBlogs {
+        id
+        title
+        user
+      }
+    }
+  }
+`;
+
+export const ARTICLESBYBLOG_QUERY = gql`
+  query blogsByUser {
+    blogsByUser {
+      mockAdminBlogs {
+        id
+        title
+        user
+      }
+    }
+  }
+`;
+
+export const BLOG_CHOICE_QUERY = gql`
+  query blogChoice {
+    blogChoice {
+      mockBlogChoice {
+        mockMyBlogs {
+          id
+        }
+        blogName
+      }
+    }
+  }
+`;
+
+export const SEARCHE_QUERY = gql`
+  query search {
+    search {
+      mockSearch {
+        title
+        users
+        createAt
+        text
+      }
+    }
+  }
+`;
+export const ADMINARTICLESBYBLOG_QUERY = gql`
+  query adminArticlesByBlog {
+    adminArticlesByBlog {
+      mockAdminBlogsArticles {
+        mockMyBlogs {
+          id
+        }
+        blog
+        id
+        title
+        user
+        createAt
+        text3
+      }
+    }
+  }
+`;
+export const BLOGIDARTICLES_QUERY = gql`
+  query articlesByBlog($blogId: String!) {
+    articlesByBlog {
+      mockBlogsIdArticles(blogId: $blogId) {
+        id
+        articleId
+        blog
+        title
+        users
+        createAt
+        text
+      }
+    }
+  }
+`;

@@ -1,33 +1,18 @@
 import React, { useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { Header } from "../header/SearchHeader";
-
 import { Link, useParams } from "react-router-dom";
 import { GET_SEARCH_ARTICLES } from "../../queries";
 import { formatJst } from "../formatJst/FormatJst";
 import { Loading } from "../loading/Loading";
 import { Pagination } from "../ui/pagination/pagination";
 
-// mswのmock
-// const SEARCHE_QUERY = gql`
-//   query search {
-//     search {
-//       mockSearch {
-//         title
-//         users
-//         createAt
-//         text
-//       }
-//     }
-//   }
-// `;
-
 const Searches = () => {
   const { text } = useParams();
   const [pageNum, setPageNum] = React.useState<number>(1);
 
   const [
-    excute,
+    execute,
     {
       data: searchResultData,
       loading: searchResultLoading,
@@ -42,7 +27,7 @@ const Searches = () => {
   };
 
   useEffect(() => {
-    excute();
+    execute();
   }, [text, pageNum]);
   return (
     <>
@@ -51,7 +36,7 @@ const Searches = () => {
       </div>
 
       <div className="flex justify-center">
-        <div className="w-2/5 ">
+        <div className="w-2/5 max-w-3xl 2xl:w-1/4">
           <div>
             <div className="flex justify-center">
               <div>"{text}"の検索結果</div>
@@ -80,7 +65,13 @@ const Searches = () => {
               )}
             </div>
             <div className="flex justify-center mt-10">
-              <Pagination onClickFetchBlog={onClickFetchBlog} />
+              <Pagination
+                onClickFetchBlog={onClickFetchBlog}
+                pageNum={pageNum}
+                totalPageNum={
+                  searchResultData?.Article_aggregate?.aggregate?.count
+                }
+              />
             </div>
           </div>
         </div>

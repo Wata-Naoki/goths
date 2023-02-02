@@ -49,6 +49,15 @@ export const Register = () => {
       window.location.href = "/";
     } catch (error: any) {
       switch (error.code) {
+        case "auth/invalid-email":
+          setError("正しいメールアドレスの形式で入力してください。");
+          break;
+        case "auth/email-already-in-use":
+          setError("既に登録済みのメールアドレスです。");
+          break;
+        case "auth/weak-password":
+          setError("パスワードは6文字以上で入力してください。");
+          break;
         default:
           setError("既に登録済みのメールアドレスです。");
           break;
@@ -113,7 +122,7 @@ export const Register = () => {
               {/* <Link to="/"> */}
               <button
                 type="submit"
-                className="px-4 py-2 my-4 text-sm font-medium text-white rounded bg-emerald-700 w-80"
+                className="px-4 py-2 my-4 text-sm font-medium text-white rounded outline-none bg-emerald-700 w-80 hover:bg-emerald-800 focus: focus:ring-2 focus:ring-emerald-800 focus:ring-opacity-50"
               >
                 登録
               </button>

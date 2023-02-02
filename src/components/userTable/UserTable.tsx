@@ -45,7 +45,6 @@ export const UserTable1 = () => {
 
   useEffect(() => {
     execute();
-    console.log("data", data?.User.length);
   }, [id]);
 
   if (loading) return <SectionLoading />;

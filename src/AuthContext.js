@@ -11,6 +11,7 @@ export const useAuthContext = () => {
     return useContext(AuthContext)
 }
 
+// TODO: localStorageを使用したので、必要ないかも。
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState('')
     const [loading, setLoading] = useState(true)
@@ -21,10 +22,10 @@ export const AuthProvider = ({ children }) => {
         CREATE_ADMIN_USER_ONE,
         {
             onCompleted: () => {
-                ("ユーザー登録が完了しました。");
+                // ("ユーザー登録が完了しました。");
             },
             onError: () => {
-                ("ユーザー登録に失敗しました。");
+                // ("ユーザー登録に失敗しました。");
             },
         }
     );

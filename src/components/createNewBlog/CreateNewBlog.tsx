@@ -43,7 +43,7 @@ export const CreateNewBlog: React.FC<Props> = ({
           },
         });
       } catch (error) {
-        error;
+        console.log(error);
       }
     }
     setIsModalOpen(false);

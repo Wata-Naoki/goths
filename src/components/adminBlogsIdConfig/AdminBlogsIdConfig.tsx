@@ -58,9 +58,6 @@ export const AdminBlogsIdConfig = () => {
     setTitle(e.target.value);
   };
 
-  // const [deleteBlog, { loading: deleteLoading, error: deleteError }] =
-  //   useMutation(DELETE_BLOG);
-
   const handleUpdate = async () => {
     toastLoading();
 
@@ -81,15 +78,8 @@ export const AdminBlogsIdConfig = () => {
     if (blogId) {
       try {
         await delete_Blog_by_pk({ variables: { id: blogId } });
-        // alert("ブログを削除しました");
-
-        // alert("変更が保存されました");
-        // navigate(-1);
       } catch (err: any) {
         console.log(err);
-        // toastFailed();
-        //window.location.href = `/admin/blogs`;
-        // alert(err.message);
       }
     }
   };
@@ -103,8 +93,6 @@ export const AdminBlogsIdConfig = () => {
 
   return (
     <>
-      {/* <div>AdminBlogsIdConfig</div> */}
-
       <div>
         <BlogHeader />
       </div>
@@ -130,10 +118,10 @@ export const AdminBlogsIdConfig = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-center mt-10 focus:outline-none focus-visible:ring-opacity-75">
+            <div className="flex items-center justify-center mt-10 ">
               <div>
                 <div
-                  className="flex rounded cursor-pointer bg-emerald-700"
+                  className="flex text-sm font-medium text-white rounded cursor-pointer bg-emerald-700 hover:bg-emerald-800 focus: focus:ring-2 focus:ring-emerald-900 focus:ring-opacity-50"
                   onClick={handleUpdate}
                 >
                   <div className="flex items-center ">

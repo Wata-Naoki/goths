@@ -4,39 +4,9 @@ import { useParams } from "react-router-dom";
 import { GET_BLOG_EDITORS } from "../../queries";
 import { GetBlogEditorsQuery } from "../../types/generated/graphql.tsx/graphql";
 import { DeleteTableUsers } from "../deleteTableUsers/DeleteTableUsers";
-
-import { Loading } from "../loading/Loading";
 import { SectionLoading } from "../loading/SectionLoading";
 
-// const ADMIN_TABLE_USERS_QUERY = gql`
-//   query adminTableUsers {
-//     adminTableUsers {
-//       mockTableUsers {
-//         mockMyBlogs {
-//           id
-//         }
-//         id
-//         name
-//         email
-//         delete
-//       }
-//     }
-//   }
-// `;
-
-// const DELETE_EDITOR = gql`
-//   mutation DeleteEditor($id: ID!) {
-//     DeleteEditor(id: $id) {
-//       mockTableUsers {
-//         id
-//       }
-//     }
-//   }
-// `;
-
 export const UserTable1 = () => {
-  // const { loading, error, data } = useQuery(ADMIN_TABLE_USERS_QUERY);
-
   const { id } = useParams();
   const [execute, { data, loading, error, refetch }] =
     useLazyQuery<GetBlogEditorsQuery>(GET_BLOG_EDITORS, {

@@ -9,16 +9,6 @@ import { Pagination } from "../../components/ui/pagination/pagination";
 
 export const BlogIdArticle = () => {
   const { id } = useParams();
-  /* const { loading, error, data } = useQuery(BLOGIDARTICLES_QUERY, {
-    variables: { blogId: id },
-  }); */
-
-  // if (id) {
-  //   const { data: blogArticlesData, loading: blogArticlesLoading } = useQuery(
-  //     GET_BLOG_ARTICLES,
-  //     { variables: { where: { id: { _eq: id } } } }
-  //   );
-  // }
   const [numblog, setNumBlog] = useState(1);
 
   const onClickFetchBlog = () => {
@@ -57,12 +47,11 @@ export const BlogIdArticle = () => {
               <h3 className="text-xl text-gray-800">
                 {blogArticlesData?.Blog[0].title}
               </h3>
-              {/* <h3>{blogState}</h3> */}
             </div>
             {blogArticlesData?.Blog[0].Articles.map((x: any) => (
               <div key={x.id} className="my-12 2xl:my-16">
                 <Link to={`/blogs/articles/${x?.id}`} className="mt-8 text-2xl">
-                  {x.title}
+                  <span className="hover:text-gray-500">{x.title}</span>
                 </Link>
 
                 <div className="flex justify-between my-2 text-gray-500">

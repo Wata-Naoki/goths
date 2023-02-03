@@ -10,7 +10,6 @@ import { formatJst } from "../../components/formatJst/FormatJst";
 import { Pagination } from "../../components/ui/pagination/pagination";
 
 export const AdminBlogsId = () => {
-  // const { loading, error, data } = useQuery(ADMINARTICLESBYBLOG_QUERY);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -25,11 +24,6 @@ export const AdminBlogsId = () => {
   };
 
   useEffect(() => {
-    // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
-    /* refetch({
-      variables: { id: id, limit: numblog },
-    }); */
-
     if (!id) {
       navigate("/authentication");
     }
@@ -58,17 +52,17 @@ export const AdminBlogsId = () => {
         <div className="flex justify-center w-7/12 max-w-3xl px-12 mt-4 ml-12 2xl:ml-72 gap-y-8">
           {/* ゴリ押しだから改善の余地あり */}
           <div className="w-full">
-            <div className="flex flex-col gap-y-6">
+            <div className="flex flex-col mt-6 gap-y-6">
               {blogData?.Blog[0]?.Articles?.map((x: any) => (
                 <div key={x.id}>
                   <Link
-                    className="w-full"
+                    className="w-full "
                     to={`/admin/blogs/${id}/articles/${x.id}`}
                     /* onClick={() => {setBlogIdStateValue(`/admin/blogs/${id}/articles/${x.id}`)}} */
                   >
-                    <h2 className="w-full mt-8 text-2xl whitespace-pre-wrap ">
+                    <span className="w-full text-2xl whitespace-pre-wrap hover:text-gray-500">
                       {x.title}
-                    </h2>
+                    </span>
                   </Link>
 
                   <div className="flex justify-between w-full pr-10 my-5">

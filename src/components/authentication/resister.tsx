@@ -1,70 +1,10 @@
-import { useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../../firebaseConfig";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { CREATE_ADMIN_USER_ONE } from "../../queries";
+import { Link } from "react-router-dom";
+import { useRegister } from "../../hooks/useRegister";
+import { SectionLoading } from "../loading/SectionLoading";
 
 export const Register = () => {
-  const navigate = useNavigate();
-  const [error, setError] = useState<string>("");
-  const { userValue, setUserValue } = useLocalStorage();
-
-  const [execute, { error: adminError, loading: adminLoading }] = useMutation(
-    CREATE_ADMIN_USER_ONE,
-    {
-      onCompleted: () => {
-        alert("ユーザー登録が完了しました。");
-      },
-      onError: () => {
-        alert("ユーザー登録に失敗しました。");
-      },
-    }
-  );
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const { name, email, password } = e.target.elements;
-
-    try {
-      const result = await auth.createUserWithEmailAndPassword(
-        email.value,
-        password.value
-      );
-      await result.user?.updateProfile({
-        displayName: name.value,
-      });
-      await execute({
-        variables: {
-          name: name.value,
-          email: email.value,
-        },
-      });
-      setUserValue({
-        name: name.value,
-        email: email.value,
-      });
-
-      navigate("/");
-      window.location.href = "/";
-    } catch (error: any) {
-      switch (error.code) {
-        case "auth/invalid-email":
-          setError("正しいメールアドレスの形式で入力してください。");
-          break;
-        case "auth/email-already-in-use":
-          setError("既に登録済みのメールアドレスです。");
-          break;
-        case "auth/weak-password":
-          setError("パスワードは6文字以上で入力してください。");
-          break;
-        default:
-          setError("既に登録済みのメールアドレスです。");
-          break;
-      }
-    }
-  };
-
+  const { error, handleSubmit, adminLoading, adminError } = useRegister();
   return (
     <>
       <div className="flex items-center justify-center w-screen h-screen">
@@ -119,14 +59,16 @@ export const Register = () => {
             </div>
 
             <div>
-              {/* <Link to="/"> */}
               <button
                 type="submit"
                 className="px-4 py-2 my-4 text-sm font-medium text-white rounded outline-none bg-emerald-700 w-80 hover:bg-emerald-800 focus: focus:ring-2 focus:ring-emerald-800 focus:ring-opacity-50"
               >
-                登録
+                {adminLoading ? (
+                  <SectionLoading variant="secondary" />
+                ) : (
+                  <span>登録</span>
+                )}
               </button>
-              {/* </Link> */}
             </div>
           </form>
           <div>

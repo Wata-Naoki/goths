@@ -39,9 +39,7 @@ export const Favorites = () => {
   });
 
   useEffect(() => {
-    // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
     if (userData) {
-      // excute({ variables: { id: userData?.User[0]?.id, limit: numblog } });
       executeUserFavorite({
         variables: { id: userData?.User[0]?.id, limit: numblog },
       });
@@ -51,10 +49,6 @@ export const Favorites = () => {
   const onClickFetchBlog = () => {
     setNumBlog(numblog + 1);
   };
-
-  // if (userFavoriteLoading) {
-  //   return <SectionLoading />;
-  // }
 
   return (
     <>

@@ -129,3 +129,28 @@ export const BLOGIDARTICLES_QUERY = gql`
     }
   }
 `;
+export const ADMIN_TABLE_USERS_QUERY = gql`
+  query adminTableUsers {
+    adminTableUsers {
+      mockTableUsers {
+        mockMyBlogs {
+          id
+        }
+        id
+        name
+        email
+        delete
+      }
+    }
+  }
+`;
+
+export const DELETE_EDITOR = gql`
+  mutation DeleteEditor($id: ID!) {
+    DeleteEditor(id: $id) {
+      mockTableUsers {
+        id
+      }
+    }
+  }
+`;

@@ -6,7 +6,7 @@ import { GetBlogEditorsQuery } from "../../types/generated/graphql.tsx/graphql";
 import { DeleteTableUsers } from "../deleteTableUsers/DeleteTableUsers";
 import { SectionLoading } from "../loading/SectionLoading";
 
-export const UserTable1 = () => {
+export const UserTable = () => {
   const { id } = useParams();
   const [execute, { data, loading, error, refetch }] =
     useLazyQuery<GetBlogEditorsQuery>(GET_BLOG_EDITORS, {
@@ -15,6 +15,7 @@ export const UserTable1 = () => {
 
   useEffect(() => {
     execute();
+    console.log(data?.User);
   }, [id]);
 
   if (loading) return <SectionLoading />;
@@ -65,7 +66,9 @@ export const UserTable1 = () => {
                     <td className="py-4 pr-6 text-red-500 whitespace-nowrap">
                       <div>
                         <DeleteTableUsers
+                          blogUserId={user?.blog_users[0]?.id}
                           id={user.id}
+                          email={user.email}
                           refetch={refetch}
                           dataCount={data?.User?.length}
                         />

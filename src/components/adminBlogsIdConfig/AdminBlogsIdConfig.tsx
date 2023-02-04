@@ -78,6 +78,7 @@ export const AdminBlogsIdConfig = () => {
     if (blogId) {
       try {
         await delete_Blog_by_pk({ variables: { id: blogId } });
+        window.location.href = `/admin/blogs`;
       } catch (err: any) {
         console.log(err);
       }

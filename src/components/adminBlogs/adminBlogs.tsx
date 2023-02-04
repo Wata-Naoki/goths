@@ -49,7 +49,7 @@ export const AdminBlogs = () => {
       variables: { email: userValue?.email, limit: numblog },
     });
     // }
-  }, [executeBlog, numblog]);
+  }, [executeBlog, numblog, blogData]);
 
   if (blogLoading) {
     return <Loading />;

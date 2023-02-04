@@ -142,8 +142,16 @@ export const AdminBlogsIdArticlesCreate = () => {
                 <div className="flex items-center justify-center mt-10">
                   <div>
                     <button
-                      className="flex flex-wrap items-stretch "
+                      className="flex flex-wrap items-stretch disabled:cursor-not-allowed "
                       type="submit"
+                      disabled={
+                        articleLoading ||
+                        blogArticlesDataLoading ||
+                        loading ||
+                        !title ||
+                        !text ||
+                        !allText
+                      }
                     >
                       <div className="relative flex items-center ">
                         <svg

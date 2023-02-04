@@ -301,6 +301,9 @@ export const GET_BLOG_EDITORS = gql`
       id
       name
       email
+      blog_users(where: { Blog: { id: { _eq: $blog_id } } }) {
+        id
+      }
     }
   }
 `;
@@ -473,6 +476,14 @@ export const GET_USER_FAVORITES_ARTICLE_TABLE = gql`
       id
       user_id
       article_id
+    }
+  }
+`;
+
+export const DELETE_BLOG_USER = gql`
+  mutation DeleteBlogUser($id: uuid!) {
+    delete_blog_user_by_pk(id: $id) {
+      id
     }
   }
 `;

@@ -8,10 +8,10 @@ export const BlogHeader = ({ blogTitle }: any) => {
     <>
       <div className="flex justify-between w-screen px-3 my-4 ">
         <div>
-          <Link to="/admin/blogs">
-            <div className="flex-none order-none h-10 text-3xl not-italic font-medium text-black w-28 grow-0">
+          <Link to="/">
+            <span className="flex-none order-none h-10 text-3xl not-italic font-medium text-black w-28 grow-0">
               Goths
-            </div>
+            </span>
           </Link>
         </div>
 

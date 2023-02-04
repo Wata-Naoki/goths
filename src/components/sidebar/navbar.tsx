@@ -140,7 +140,7 @@ export const Sidebar = () => {
           </div>
 
           <div className="">
-            <div className="relative flex items-center w-56 px-4 py-3 text-sm text-gray-600 hover:bg-teal-100">
+            <div className="relative flex items-center w-56 px-4 py-3 text-sm text-gray-600 cursor-not-allowed hover:bg-teal-100">
               <div className="mr-1">
                 <svg
                   className="w-5 h-5 text-gray-500"

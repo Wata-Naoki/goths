@@ -26,9 +26,9 @@ export const AdminBlogsIdEditors = () => {
     variables: { id: articleId },
   });
 
-  const [title, setTitle] = useState();
-  const [text, setText] = useState();
-  const [allText, setAllText] = useState();
+  const [title, setTitle] = useState(data?.Article[0]?.title);
+  const [text, setText] = useState(data?.Article[0]?.text);
+  const [allText, setAllText] = useState(data?.Article[0]?.all_text);
 
   const handleTitleChange = (e: any) => {
     setTitle(e.target.value);
@@ -145,8 +145,16 @@ export const AdminBlogsIdEditors = () => {
                 <div className="flex items-center justify-center mt-10">
                   <div>
                     <button
-                      className="flex items-center justify-center rounded bg-emerald-700"
+                      className="flex items-center justify-center rounded bg-emerald-700 disabled:cursor-not-allowed"
                       type="submit"
+                      disabled={
+                        loading ||
+                        !title ||
+                        !text ||
+                        !allText ||
+                        !blogId ||
+                        !articleId
+                      }
                     >
                       <div className="flex items-center ">
                         <svg

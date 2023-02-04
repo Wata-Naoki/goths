@@ -2,8 +2,8 @@
 # goths
 
 ## デプロイURL
+<a href="https://goths.vercel.app/" target="_blank" rel="noopener noreferrer">https://goths.vercel.app/</a>
 
-https://goths.vercel.app/
 
 ## ローカル環境
 

@@ -1,9 +1,9 @@
 
 # goths
 
-## デプロイURL
-<a href="https://goths.vercel.app/" target="_blank" rel="noopener noreferrer">https://goths.vercel.app/</a>
+### ▶ <a href="https://goths.vercel.app/" target="_blank" rel="noopener noreferrer">デプロイURL</a>
 
+</br>
 
 ## ローカル環境
 
@@ -16,6 +16,7 @@ yarn
 ```bash
 yarn start
 ```
+</br>
 
 ## 環境変数の設定
 

@@ -1,5 +1,9 @@
 
-# population-chart
+# goths
+
+## デプロイURL
+
+https://goths.vercel.app/
 
 ## ローカル環境
 
@@ -31,6 +35,3 @@ REACT_APP_FIREBASE_APP_ID=
 REACT_APP_URL=
 ```
 
-## デプロイURL
-
-https://goths.vercel.app/

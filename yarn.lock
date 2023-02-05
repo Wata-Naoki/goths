@@ -1363,6 +1363,18 @@
     selenium-webdriver "4.1.2"
     tslib "^2.1.0"
 
+"@firebase/auth-compat@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@firebase/auth-compat/-/auth-compat-0.3.3.tgz#e52f654e3f14b81cecb2fe252e564778fbba0a47"
+  integrity sha512-9asUuGtkzUVELH3LYXdiom1nVVV9bqEPqzHohanoofHL/oVTNcHZ4AQ5CXjNATfb6c1WH32U+nEuPiYg26UUIw==
+  dependencies:
+    "@firebase/auth" "0.21.3"
+    "@firebase/auth-types" "0.12.0"
+    "@firebase/component" "0.6.3"
+    "@firebase/util" "1.9.2"
+    node-fetch "2.6.7"
+    tslib "^2.1.0"
+
 "@firebase/auth-interop-types@0.1.6":
   version "0.1.6"
   resolved "https://registry.npmjs.org/@firebase/auth-interop-types/-/auth-interop-types-0.1.6.tgz"
@@ -1372,6 +1384,11 @@
   version "0.11.0"
   resolved "https://registry.npmjs.org/@firebase/auth-types/-/auth-types-0.11.0.tgz"
   integrity sha512-q7Bt6cx+ySj9elQHTsKulwk3+qDezhzRBFC9zlQ1BjgMueUOnGMcvqmU0zuKlQ4RhLSH7MNAdBV2znVaoN3Vxw==
+
+"@firebase/auth-types@0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@firebase/auth-types/-/auth-types-0.12.0.tgz#f28e1b68ac3b208ad02a15854c585be6da3e8e79"
+  integrity sha512-pPwaZt+SPOshK8xNoiQlK5XIrS97kFYc3Rc7xmy373QsOJ9MmqXxLaYssP5Kcds4wd2qK//amx/c+A8O2fVeZA==
 
 "@firebase/auth@0.20.10":
   version "0.20.10"
@@ -1385,12 +1402,31 @@
     selenium-webdriver "4.1.2"
     tslib "^2.1.0"
 
+"@firebase/auth@0.21.3":
+  version "0.21.3"
+  resolved "https://registry.yarnpkg.com/@firebase/auth/-/auth-0.21.3.tgz#277a3bf4b09db1b5dd471970cecd844d1835dcbf"
+  integrity sha512-HPbcwgArLBVTowFcn4qaQr6LCx7BidI9yrQ5MRbQNv4PsgK/3UGpzCYaNPPbvgr9fe+0jNdJO+uC0+dk4xIzCQ==
+  dependencies:
+    "@firebase/component" "0.6.3"
+    "@firebase/logger" "0.4.0"
+    "@firebase/util" "1.9.2"
+    node-fetch "2.6.7"
+    tslib "^2.1.0"
+
 "@firebase/component@0.5.20":
   version "0.5.20"
   resolved "https://registry.npmjs.org/@firebase/component/-/component-0.5.20.tgz"
   integrity sha512-wP51tQBlPFprfAWxWjzC/56hG4APhl43jFsgwuqCl3bhVbiKcr278QbrbGNmIXDeGKo4sGZLAnH9whl2apeCmA==
   dependencies:
     "@firebase/util" "1.7.2"
+    tslib "^2.1.0"
+
+"@firebase/component@0.6.3":
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/@firebase/component/-/component-0.6.3.tgz#2baea3fa37861eef314a612eba194b0ff7c7ac11"
+  integrity sha512-rnhq5SOsB5nuJphZF50iwqnBiuuyg9kdnlUn1rBrKfu7/cUVJZF5IG1cWrL0rXXyiZW1WBI/J2pmTvVO8dStGQ==
+  dependencies:
+    "@firebase/util" "1.9.2"
     tslib "^2.1.0"
 
 "@firebase/database-compat@0.2.9":
@@ -1517,6 +1553,13 @@
   dependencies:
     tslib "^2.1.0"
 
+"@firebase/logger@0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@firebase/logger/-/logger-0.4.0.tgz#15ecc03c452525f9d47318ad9491b81d1810f113"
+  integrity sha512-eRKSeykumZ5+cJPdxxJRgAC3G5NknY2GwEbKfymdnXtnT0Ucm4pspfR6GT4MUQEDuJwRVbVcSx85kgJulMoFFA==
+  dependencies:
+    tslib "^2.1.0"
+
 "@firebase/messaging-compat@0.1.19":
   version "0.1.19"
   resolved "https://registry.npmjs.org/@firebase/messaging-compat/-/messaging-compat-0.1.19.tgz"
@@ -1630,6 +1673,13 @@
   version "1.7.2"
   resolved "https://registry.npmjs.org/@firebase/util/-/util-1.7.2.tgz"
   integrity sha512-P3aTihYEMoz2QQlcn0T7av7HLEK9gsTc1ZiN9VA8wnUtEJscUNemCmTmP3RRysqEb3Z+tVVoycztY8f6R36rRw==
+  dependencies:
+    tslib "^2.1.0"
+
+"@firebase/util@1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@firebase/util/-/util-1.9.2.tgz#f5e9e393c5bae3547b9c823ee12076be1e23b1e2"
+  integrity sha512-9l0uMGPGw3GsoD5khjMmYCCcMq/OR/OOSViiWMN+s2Q0pxM+fYzrii1H+r8qC/uoMjSVXomjLZt0vZIyryCqtQ==
   dependencies:
     tslib "^2.1.0"
 

@@ -1,85 +1,44 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
-import { type } from "@testing-library/user-event/dist/type";
-import React, { FormEvent, useEffect, useState } from "react";
-import { GET_USER, UPDATE_USER } from "../../queries";
-import { UpdateUserMutation } from "../../types/generated/graphql.tsx/graphql";
-import { Header } from "../../components/header/SearchHeader";
-import { Loading } from "../../components/loading/Loading";
-import { useAuthContext } from "../../AuthContext";
-import { useToast } from "../../components/loading/useToast";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { SectionLoading } from "../loading/SectionLoading";
+import { useUserForm } from "../../hooks/useUserForm";
 
 export const UserForm = () => {
-  const { userValue, setUserValue } = useLocalStorage();
+  const navigate = useNavigate();
 
   const {
-    data: userDate,
-    loading: userLoading,
-    error: userError,
-  } = useQuery(GET_USER, { variables: { email: userValue?.email } });
+    userValue,
+    userDate,
+    toastFailed,
+    toastLoading,
+    handleSubmit,
+    isEdit,
+    setIsEdit,
+    setUsername,
+    setEmail,
+    email,
+    username,
+    userLoading,
+  } = useUserForm();
 
-  const [username, setUsername] = useState();
-  const [email, setEmail] = useState();
-  const [gitToken, setGitToken] = useState("");
-  const { toastLoading, toastSucceeded, toastFailed } = useToast();
-
-  // const [userSetting, { loading, error }] = useMutation(USER_SETTING);
-  const [update_users_by_pk, { loading, error }] =
-    useMutation<UpdateUserMutation>(UPDATE_USER, {
-      onCompleted: () => {
-        toastSucceeded();
-      },
-      onError: () => {
+  // 5秒間経ってもLoadingが終わらなかったらエラーを表示する
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isEdit) {
         toastFailed();
-      },
-    });
-
-  /* useEffect(() => {
-     setUsername(userDate?.User[0].name)
-  },[username, email])
- */
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    if (username !== "" && email !== "") {
-      toastLoading();
-      try {
-        await update_users_by_pk({
-          variables: {
-            id: userDate?.User[0]?.id,
-            name: username ? username : userDate?.User[0]?.name,
-            email: email ? email : userDate?.User[0]?.email,
-          },
-        });
-        // TODO: ユーザー名とメールアドレスを変更するロジックを書く
-        // const user = firebase.auth().currentUser;
-        // if (user) {
-        //   await user
-        //     .updateProfile({
-        //       displayName: username ? username : userDate?.User[0]?.name,
-        //       email: email ? email : userDate?.User[0]?.email,
-        //     })
-        //     .catch((error) => {
-        //       // An error occurred
-        //       // ...
-        //     });
-        // }
-        // await userValue?.updateProfile({
-        //   displayName: username ? username : userDate?.User[0]?.name,
-        //   email: email ? email : userDate?.User[0]?.email,
-        // });
-        toastSucceeded();
-        // alert("変更が保存されました");
-      } catch (err: any) {
-        toastFailed();
-        // alert(err.message);
+        setIsEdit(false);
       }
-    }
-  };
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [toastLoading]);
 
   if (userLoading) {
-    return <Loading />;
+    return <SectionLoading />;
+  }
+
+  // userValueかuserDateがない場合はログインページにリダイレクトする
+  if (!userValue || !userDate) {
+    navigate("/authentication");
   }
 
   return (
@@ -91,7 +50,7 @@ export const UserForm = () => {
               <p className="mb-2 text-gray-500">ユーザー名</p>
               <input
                 defaultValue={userDate?.User[0]?.name}
-                value={username ? username : userDate?.User[0]?.name}
+                value={username}
                 onChange={(e: any) => setUsername(e.target.value)}
                 className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-96 "
               />
@@ -101,20 +60,11 @@ export const UserForm = () => {
               <p className="mb-2 text-gray-500">メールアドレス</p>
               <input
                 defaultValue={userDate?.User[0]?.email}
-                value={email ? email : userDate?.User[0]?.email}
+                value={email}
                 onChange={(e: any) => setEmail(e.target.value)}
                 className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-96"
               />
             </div>
-
-            {/* <div className="mb-5">
-              <p className="mb-2 text-gray-500">GitHub Token</p>
-              <input
-                value={gitToken}
-                onChange={(e: any) => setGitToken(e.target.value)}
-                className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-96 "
-              />
-            </div> */}
 
             <button
               className="flex items-center justify-center px-3 my-12 rounded bg-emerald-700"

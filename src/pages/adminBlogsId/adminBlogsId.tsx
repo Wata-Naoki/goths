@@ -24,10 +24,6 @@ export const AdminBlogsId = () => {
   };
 
   useEffect(() => {
-    if (!id) {
-      navigate("/authentication");
-    }
-
     executeBlog({
       variables: { id: id, limit: numblog },
     });
@@ -37,6 +33,7 @@ export const AdminBlogsId = () => {
   if (blogLoading) {
     return <Loading />;
   }
+  if (!id || !blogData) navigate("/authentication");
 
   return (
     <>

@@ -1,22 +1,21 @@
 import { Header } from "../../components/header/SearchHeader";
 import { UserForm } from "../../components/userForm/UserForm";
 
+const month = [
+  "1月",
+  "2月",
+  "3月",
+  "4月",
+  "5月",
+  "6月",
+  "7月",
+  "8月",
+  "9月",
+  "10月",
+  "11月",
+  "12月",
+];
 export const Mypage = () => {
-  const month = [
-    "1月",
-    "2月",
-    "3月",
-    "4月",
-    "5月",
-    "6月",
-    "7月",
-    "8月",
-    "9月",
-    "10月",
-    "11月",
-    "12月",
-  ];
-
   return (
     <>
       <div>
@@ -34,7 +33,7 @@ export const Mypage = () => {
                     <th className="py-2 font-normal text-gray-400 bg-gray-100">
                       1月
                     </th>
-                    {month.map((x: any, index) => (
+                    {month.map((x: string, index: number) => (
                       <th className="py-2 font-normal text-gray-400 bg-gray-100 whitespace-nowrap">
                         {x}
                       </th>
@@ -42,7 +41,7 @@ export const Mypage = () => {
 
                     <tr>
                       {[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].map(
-                        (x: any, index) => (
+                        (x: number, index: number) => (
                           <td className="px-6 py-4 ">
                             <div key={index} className="flex justify-center">
                               <h2>{x}</h2>
@@ -60,7 +59,6 @@ export const Mypage = () => {
       </div>
 
       <div className="mt-24 mb-10 text-2xl text-center">ユーザー設定</div>
-
       <div className="">
         <UserForm />
       </div>

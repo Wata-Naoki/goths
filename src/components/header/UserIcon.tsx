@@ -6,14 +6,15 @@ import { useAuthContext } from "../../AuthContext";
 import { auth } from "../../firebaseConfig";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { GET_USER, GET_USER_BLOGS } from "../../queries";
+import { Loading } from "../loading/Loading";
 
 export const UserIcon = () => {
   const { userValue, setUserValue } = useLocalStorage();
 
-  const [excute, { data: userDate, loading: userLoading, error: userError }] =
+  const [execute, { data: userDate, loading: userLoading, error: userError }] =
     useLazyQuery(GET_USER, { variables: { email: userValue?.email } });
   useEffect(() => {
-    if (userValue?.email) excute();
+    if (userValue?.email) execute();
   }, [userValue]);
   const {
     data: blogData,
@@ -25,6 +26,8 @@ export const UserIcon = () => {
     auth.signOut();
     navigate("/authentication");
   };
+  if (!userDate?.User[0]?.name || !userValue?.email)
+    navigate("/authentication");
   return (
     <div className="text-right ">
       <Menu as="div" className="relative z-20 inline-block text-left">

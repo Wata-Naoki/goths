@@ -57,12 +57,20 @@ export const UserForm = () => {
             </div>
 
             <div className="my-6">
-              <p className="mb-2 text-gray-500">メールアドレス</p>
+              <p className="mb-2 text-gray-500">
+                メールアドレス
+                {userValue.googleLogin && (
+                  <span className="text-gray-400 ">
+                    （Googleログインのため変更不可）
+                  </span>
+                )}
+              </p>
               <input
                 defaultValue={userDate?.User[0]?.email}
                 value={email}
                 onChange={(e: any) => setEmail(e.target.value)}
-                className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-96"
+                className="py-1 pl-1 text-left border rounded border-slate-400 focus:outline-0 w-96 disabled:opacity-50"
+                disabled={userValue.googleLogin ? true : false}
               />
             </div>
 

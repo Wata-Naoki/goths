@@ -17,7 +17,7 @@ export const useAuthenticate = () => {
       );
       const currentUser = result.user;
       if (currentUser?.email) {
-        setUserValue({ email: currentUser?.email });
+        setUserValue({ email: currentUser?.email, googleLogin: false });
         navigate("/");
         window.location.href = `/`;
       }
@@ -39,14 +39,14 @@ export const useAuthenticate = () => {
     }
   };
 
-  const handleLogin = async () => {
+  const handleGoogleLogin = async () => {
     try {
       // await auth.signInWithPopup(provider)
       const result = await auth.signInWithPopup(provider);
       const currentUser = result.user;
 
       if (currentUser?.email) {
-        setUserValue({ email: currentUser?.email });
+        setUserValue({ email: currentUser?.email, googleLogin: true });
         navigate("/");
         window.location.href = `/`;
       }
@@ -54,5 +54,5 @@ export const useAuthenticate = () => {
       setError("ログインに失敗しました。");
     }
   };
-  return { error, handleSubmit, handleLogin };
+  return { error, handleSubmit, handleGoogleLogin };
 };

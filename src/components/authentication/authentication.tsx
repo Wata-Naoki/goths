@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthenticate } from "../../hooks/useAuthenticate";
 
 export const Authentication = () => {
-  const { error, handleSubmit, handleLogin } = useAuthenticate();
+  const { error, handleSubmit, handleGoogleLogin } = useAuthenticate();
   return (
     <>
       <div className="flex items-center justify-center w-screen h-screen">
@@ -59,7 +59,7 @@ export const Authentication = () => {
           </form>
           <div>
             <button
-              onClick={handleLogin}
+              onClick={handleGoogleLogin}
               type="submit"
               className="px-4 py-2 my-4 text-sm font-medium text-white rounded outline-none bg-emerald-700 w-80 hover:bg-emerald-800 focus: focus:ring-2 focus:ring-emerald-800 focus:ring-opacity-50"
             >

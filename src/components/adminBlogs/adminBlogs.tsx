@@ -5,7 +5,6 @@ import { useRecoilState } from "recoil";
 import { useAuthContext } from "../../AuthContext";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { GET_BLOGS, GET_USER, GET_USER_BLOGS } from "../../queries";
-
 import { CreateNewBlog } from "../createNewBlog/CreateNewBlog";
 import { Header } from "../header/SearchHeader";
 import { Loading } from "../loading/Loading";

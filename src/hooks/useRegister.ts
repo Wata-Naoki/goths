@@ -42,6 +42,7 @@ export const useRegister = () => {
       setUserValue({
         name: name.value,
         email: email.value,
+        googleLogin: false,
       });
 
       navigate("/");

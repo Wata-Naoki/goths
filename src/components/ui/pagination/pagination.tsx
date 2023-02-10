@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "../button/Button";
 
 const QUERY_PARAM_NAME = "_p";
 
@@ -38,13 +39,7 @@ export const Pagination: React.FC<Props> = ({
     return totalPageNum <= pageNum ? (
       <> </>
     ) : (
-      <button
-        type="button"
-        onClick={handleOnClick}
-        className="px-4 py-2 text-sm font-medium text-white rounded bg-emerald-700 hover:bg-emerald-800 focus: focus:ring-2 focus:ring-emerald-800 focus:ring-opacity-50"
-      >
-        さらに読み込む
-      </button>
+      <Button handleOnClick={handleOnClick}>さらに読み込む</Button>
     );
   } else {
     return <></>;

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { Header } from "../header/SearchHeader";
 import { Link, useParams } from "react-router-dom";
 import { GET_SEARCH_ARTICLES } from "../../queries";
@@ -22,6 +22,10 @@ const Searches = () => {
     variables: { _iregex: text, limit: pageNum },
   });
 
+  const { data, loading, error } = useQuery(GET_SEARCH_ARTICLES, {
+    variables: { _iregex: text },
+  });
+
   const onClickFetchBlog = () => {
     setPageNum((prev) => prev + 2);
   };
@@ -39,7 +43,9 @@ const Searches = () => {
         <div className="w-2/5 max-w-3xl 2xl:w-1/4">
           <div>
             <div className="flex justify-center">
-              <div>"{text}"の検索結果</div>
+              <div>
+                "{text}"の検索結果：{data?.Article?.length}件
+              </div>
             </div>
             <div>
               {searchResultLoading ? (

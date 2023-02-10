@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SectionLoading } from "../loading/SectionLoading";
 import { useUserForm } from "../../hooks/useUserForm";
+import { Button } from "../ui/button/Button";
 
 export const UserForm = () => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ export const UserForm = () => {
               />
             </div>
 
-            <div className="my-6">
+            <div className="mt-6 mb-10">
               <p className="mb-2 text-gray-500">
                 メールアドレス
                 {userValue.googleLogin && (
@@ -74,30 +75,29 @@ export const UserForm = () => {
               />
             </div>
 
-            <button
-              className="flex items-center justify-center px-3 my-12 rounded bg-emerald-700"
-              type="submit"
-            >
-              <div className="flex items-center ">
-                <svg
-                  className="h-4 w-4 text-white  ml-1.5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
-                  />
-                </svg>
-              </div>
+            <Button type="submit">
+              <div className="flex items-center justify-center">
+                <div className="flex items-center ">
+                  <svg
+                    className="h-4 w-4 text-white  ml-1.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
+                    />
+                  </svg>
+                </div>
 
-              <div className=" text-white text-sm py-1.5 ml-1  pr-1.5  font-medium ">
-                保存
+                <div className=" text-white text-sm  ml-1  pr-1.5  font-medium ">
+                  保存
+                </div>
               </div>
-            </button>
+            </Button>
           </form>
         </div>
       </div>

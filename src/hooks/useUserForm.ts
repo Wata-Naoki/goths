@@ -56,6 +56,7 @@ export const useUserForm = () => {
         }
         //   ローカルストレージのユーザー情報を更新
         setUserValue({
+          ...userValue,
           email: email ? email : userDate?.User[0]?.email,
         });
       } catch (err: any) {

@@ -26,8 +26,7 @@ export const UserIcon = () => {
     auth.signOut();
     navigate("/authentication");
   };
-  if (!userDate?.User[0]?.name || !userValue?.email)
-    navigate("/authentication");
+  if (!userValue?.email) navigate("/authentication");
   return (
     <div className="text-right ">
       <Menu as="div" className="relative z-20 inline-block text-left">

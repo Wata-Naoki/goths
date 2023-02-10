@@ -38,7 +38,7 @@ export const UserForm = () => {
   }
 
   // userValueかuserDateがない場合はログインページにリダイレクトする
-  if (!userValue || !userDate) {
+  if (!userValue) {
     navigate("/authentication");
   }
 

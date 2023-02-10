@@ -34,7 +34,7 @@ export const Header = () => {
                 strokeLinejoin="round"
                 onClick={() => {
                   if (text) {
-                    window.location.href = `/search/${text}`;
+                    navigate(`/search/${text}`);
                   }
                 }}
               >

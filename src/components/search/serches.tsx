@@ -9,7 +9,7 @@ import { Pagination } from "../ui/pagination/pagination";
 
 const Searches = () => {
   const { text } = useParams();
-  const [pageNum, setPageNum] = React.useState<number>(1);
+  const [pageNum, setPageNum] = React.useState<number>(2);
 
   const [
     execute,
@@ -23,7 +23,7 @@ const Searches = () => {
   });
 
   const onClickFetchBlog = () => {
-    setPageNum((prev) => prev + 1);
+    setPageNum((prev) => prev + 2);
   };
 
   useEffect(() => {

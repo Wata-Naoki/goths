@@ -33,7 +33,7 @@ export const AdminBlogsId = () => {
   if (blogLoading) {
     return <Loading />;
   }
-  if (!id || !blogData) navigate("/authentication");
+  if (!id) navigate("/authentication");
 
   return (
     <>

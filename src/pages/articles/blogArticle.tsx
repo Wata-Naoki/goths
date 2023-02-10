@@ -53,8 +53,7 @@ export const BlogArticle = () => {
     return <Loading />;
   }
 
-  if (!userValue.email || !blogData || !articleData)
-    navigate("/authentication");
+  if (!userValue.email) navigate("/authentication");
 
   return (
     <div className="">

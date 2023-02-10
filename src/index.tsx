@@ -17,7 +17,7 @@ const createApolloClient = () => {
   return new ApolloClient({
     link: new HttpLink({
       //.env.localのREACT_APP_URLを読み込む
-      uri: process.env.REACT_APP_URL,
+      uri: process.env.REACT_APP_HASURA_ENDOPOINT_URL,
       credentials: "same-origin", //URL が呼び出し元のスクリプトと同一オリジンだった場合のみ、ユーザーの資格情報 (HTTP Basic 認証、など) を送信
     }),
     cache: new InMemoryCache(),

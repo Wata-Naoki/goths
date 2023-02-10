@@ -1,26 +1,29 @@
-
 # goths
 
-### ▶ <a href="https://goths.vercel.app/" target="_blank" rel="noopener noreferrer">デプロイURL</a>
+### ▶ <a href="https://goths.vercel.app/" target="_blank" rel="noopener noreferrer">デプロイ URL</a>
 
 </br>
 
 ## ローカル環境
 
 パッケージのインストール
+
 ```
 yarn
 ```
 
 画面起動
+
 ```bash
 yarn start
 ```
+
 </br>
 
 ## 環境変数の設定
 
 環境変数準備
+
 ```bash
 cp .env.example .env
 ```
@@ -32,7 +35,5 @@ REACT_APP_FIREBASE_PROJECT_ID=
 REACT_APP_FIREBASE_STORAGE_BUCKET=
 REACT_APP_FIREBASE_MESSAGE_SENDER_ID=
 REACT_APP_FIREBASE_APP_ID=
-// hasuraのエンドポイント
-REACT_APP_URL=
+REACT_APP_HASURA_ENDOPOINT_URL=
 ```
-

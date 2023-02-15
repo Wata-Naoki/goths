@@ -5,10 +5,9 @@
 </br>
 
 ## 技術スタック
-### フロントエンド：
-### バックエンド：
-
-### その他：
+### フロントエンド：React/TypeScript/Tailwind CSS
+### バックエンド：Hasura 
+### その他：GraphQL/Apollo Server/MSW
 
 
 

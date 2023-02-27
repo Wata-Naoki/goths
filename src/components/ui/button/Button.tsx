@@ -4,6 +4,7 @@ type Props = {
   handleOnClick?: () => void;
   children: React.ReactNode;
   type?: "button" | "submit" | "reset";
+  variant?: "primary" | "sub";
 };
 
 export const Button = (props: Props) => {

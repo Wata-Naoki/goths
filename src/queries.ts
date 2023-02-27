@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_ARTICLES = gql`
-  query GetArticles($limit: Int) {
-    Article(order_by: { createdAt: desc }, limit: $limit) {
+  query GetArticles($limit: Int, $offset: Int) {
+    Article(order_by: { createdAt: desc }, limit: $limit, offset: $offset) {
       id
       title
       text
@@ -79,10 +79,11 @@ export const GET_ARTICLE = gql`
 `;
 
 export const GET_BLOGS = gql`
-  query GetBlogs($limit: Int) {
+  query GetBlogs($limit: Int, $offset: Int) {
     Blog(
       order_by: { createdAt: desc }
       limit: $limit
+      offset: $offset
       where: { Articles_aggregate: { count: { predicate: { _gte: 1 } } } }
     ) {
       id
@@ -94,7 +95,9 @@ export const GET_BLOGS = gql`
         }
       }
     }
-    Blog_aggregate {
+    Blog_aggregate(
+      where: { Articles_aggregate: { count: { predicate: { _gte: 1 } } } }
+    ) {
       aggregate {
         count
       }

@@ -78,8 +78,11 @@ export const AdminBlogsId = () => {
 
             <div className="flex justify-center my-14">
               <Pagination
+                // データの取得
                 onClickFetchBlog={onClickFetchBlog}
+                // データの取得数
                 pageNum={numblog}
+                // データの総数
                 totalPageNum={
                   blogData?.Blog[0]?.Articles_aggregate?.aggregate?.count
                 }

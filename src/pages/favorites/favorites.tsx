@@ -12,6 +12,8 @@ import { formatJst } from "../../components/formatJst/FormatJst";
 import { Pagination } from "../../components/ui/pagination/pagination";
 import { ArticleLoading } from "../../components/loading/ArticleLoading";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { usePagination } from "../../hooks/usePagination";
+import { FullPagination } from "../../components/ui/pagination/FullPagination";
 
 export const Favorites = () => {
   const { id, articleId } = useParams();
@@ -37,14 +39,27 @@ export const Favorites = () => {
   } = useQuery<GetUserQuery>(GET_USER, {
     variables: { email: userValue?.email },
   });
+  const {
+    take,
+    skip,
+    currentPage,
+    totalPage,
+    goNext,
+    goPrev,
+    goPage,
+    hasNextPage,
+    hasPrevPage,
+  } = usePagination({
+    totalCount: userFavoriteData?.Article_aggregate?.aggregate?.count || 0,
+  });
 
   useEffect(() => {
     if (userData) {
       executeUserFavorite({
-        variables: { id: userData?.User[0]?.id, limit: numblog },
+        variables: { id: userData?.User[0]?.id, limit: take, offset: skip },
       });
     }
-  }, [numblog, userData]);
+  }, [take, currentPage]);
 
   const onClickFetchBlog = () => {
     setNumBlog(numblog + 1);
@@ -90,12 +105,14 @@ export const Favorites = () => {
                   ))}
                 </div>
                 <div className="flex justify-center my-10">
-                  <Pagination
-                    onClickFetchBlog={onClickFetchBlog}
-                    pageNum={numblog}
-                    totalPageNum={
-                      userFavoriteData?.Article_aggregate?.aggregate?.count
-                    }
+                  <FullPagination
+                    totalPage={totalPage}
+                    onPageClick={(page) => goPage(page)}
+                    currentPage={currentPage}
+                    onNextClick={goNext}
+                    onPrevClick={goPrev}
+                    showNext={hasNextPage}
+                    showPrev={hasPrevPage}
                   />
                 </div>
               </>

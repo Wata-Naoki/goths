@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { useAuthContext } from "../../AuthContext";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { usePagination } from "../../hooks/usePagination";
 import { GET_BLOGS, GET_USER, GET_USER_BLOGS } from "../../queries";
 import { CreateNewBlog } from "../createNewBlog/CreateNewBlog";
 import { Header } from "../header/SearchHeader";
 import { Loading } from "../loading/Loading";
 import { Modal } from "../ui/modal/Modal";
+import { FullPagination } from "../ui/pagination/FullPagination";
 import { Pagination } from "../ui/pagination/pagination";
 
 export const AdminBlogs = () => {
@@ -31,7 +33,20 @@ export const AdminBlogs = () => {
     executeBlog,
     { data: blogData, error: blogError, loading: blogLoading, refetch },
   ] = useLazyQuery(GET_USER_BLOGS);
-
+  const {
+    take,
+    skip,
+    totalCount,
+    currentPage,
+    totalPage,
+    goNext,
+    goPrev,
+    goPage,
+    hasNextPage,
+    hasPrevPage,
+  } = usePagination({
+    totalCount: blogData?.Blog_aggregate?.aggregate?.count || 0,
+  });
   const {
     data: userData,
     loading: userLoading,
@@ -45,10 +60,10 @@ export const AdminBlogs = () => {
   useEffect(() => {
     // if (id='1bf773a5-9c62-43bc-b5ce-43633fdb3b14') {
     executeBlog({
-      variables: { email: userValue?.email, limit: numblog },
+      variables: { email: userValue?.email, limit: take, offset: skip },
     });
     // }
-  }, [executeBlog, numblog, blogData]);
+  }, [take, currentPage]);
 
   if (blogLoading) {
     return <Loading />;
@@ -187,10 +202,14 @@ export const AdminBlogs = () => {
             </div>
           )}
           <div className="flex justify-center my-16">
-            <Pagination
-              onClickFetchBlog={onClickFetchBlog}
-              pageNum={numblog}
-              totalPageNum={blogData?.Blog_aggregate?.aggregate?.count}
+            <FullPagination
+              totalPage={totalPage}
+              onPageClick={(num) => goPage(num)}
+              currentPage={currentPage}
+              onNextClick={goNext}
+              onPrevClick={goPrev}
+              showNext={hasNextPage}
+              showPrev={hasPrevPage}
             />
           </div>
         </div>

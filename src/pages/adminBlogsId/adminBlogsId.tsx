@@ -8,6 +8,8 @@ import { Loading } from "../../components/loading/Loading";
 import { Sidebar } from "../../components/sidebar/navbar";
 import { formatJst } from "../../components/formatJst/FormatJst";
 import { Pagination } from "../../components/ui/pagination/pagination";
+import { usePagination } from "../../hooks/usePagination";
+import { FullPagination } from "../../components/ui/pagination/FullPagination";
 
 export const AdminBlogsId = () => {
   const { id } = useParams();
@@ -22,13 +24,28 @@ export const AdminBlogsId = () => {
   const onClickFetchBlog = () => {
     setNumBlog(numblog + 1);
   };
+  const {
+    take: takeArticle,
+    skip: skipArticle,
+    totalCount: totalCountArticle,
+    currentPage: currentPageArticle,
+    totalPage: totalPageArticle,
+    goNext: goNextArticle,
+    goPrev: goPrevArticle,
+    goPage: goPageArticle,
+    hasNextPage: hasNextPageArticle,
+    hasPrevPage: hasPrevPageArticle,
+  } = usePagination({
+    totalCount: blogData?.Blog[0]?.Articles_aggregate?.aggregate?.count || 0,
+  });
 
   useEffect(() => {
+    console.log(blogData?.Blog[0]?.Articles_aggregate?.aggregate?.count);
     executeBlog({
-      variables: { id: id, limit: numblog },
+      variables: { id: id, limit: takeArticle, offset: skipArticle },
     });
     // }
-  }, [numblog, blogData, id]);
+  }, [takeArticle, skipArticle, id, blogData]);
 
   if (blogLoading) {
     return <Loading />;
@@ -77,15 +94,14 @@ export const AdminBlogsId = () => {
             </div>
 
             <div className="flex justify-center my-14">
-              <Pagination
-                // データの取得
-                onClickFetchBlog={onClickFetchBlog}
-                // データの取得数
-                pageNum={numblog}
-                // データの総数
-                totalPageNum={
-                  blogData?.Blog[0]?.Articles_aggregate?.aggregate?.count
-                }
+              <FullPagination
+                totalPage={totalPageArticle}
+                onPageClick={(page) => goPageArticle(page)}
+                currentPage={currentPageArticle}
+                onNextClick={goNextArticle}
+                onPrevClick={goPrevArticle}
+                showNext={hasNextPageArticle}
+                showPrev={hasPrevPageArticle}
               />
             </div>
           </div>

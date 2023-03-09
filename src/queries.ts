@@ -360,11 +360,12 @@ export const GET_BLOGS_MODAL = gql`
 // `;
 
 export const GET_SEARCH_ARTICLES = gql`
-  query GetSearchArticles($_iregex: String!, $limit: Int) {
+  query GetSearchArticles($_iregex: String!, $limit: Int, $offset: Int) {
     Article(
       where: { title: { _iregex: $_iregex } }
       order_by: { createdAt: desc }
       limit: $limit
+      offset: $offset
     ) {
       id
       title

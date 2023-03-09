@@ -6,10 +6,30 @@ import { GET_SEARCH_ARTICLES } from "../../queries";
 import { formatJst } from "../formatJst/FormatJst";
 import { Loading } from "../loading/Loading";
 import { Pagination } from "../ui/pagination/pagination";
+import { usePagination } from "../../hooks/usePagination";
+import { FullPagination } from "../ui/pagination/FullPagination";
 
 const Searches = () => {
   const { text } = useParams();
   const [pageNum, setPageNum] = React.useState<number>(2);
+
+  const { data, loading, error } = useQuery(GET_SEARCH_ARTICLES, {
+    variables: { _iregex: text },
+  });
+  const {
+    take,
+    skip,
+    totalCount,
+    currentPage,
+    totalPage,
+    goNext,
+    goPrev,
+    goPage,
+    hasNextPage,
+    hasPrevPage,
+  } = usePagination({
+    totalCount: data?.Article?.length || 0,
+  });
 
   const [
     execute,
@@ -19,11 +39,7 @@ const Searches = () => {
       error: searchResultError,
     },
   ] = useLazyQuery(GET_SEARCH_ARTICLES, {
-    variables: { _iregex: text, limit: pageNum },
-  });
-
-  const { data, loading, error } = useQuery(GET_SEARCH_ARTICLES, {
-    variables: { _iregex: text },
+    variables: { _iregex: text, limit: take, offset: skip },
   });
 
   const onClickFetchBlog = () => {
@@ -32,7 +48,7 @@ const Searches = () => {
 
   useEffect(() => {
     execute();
-  }, [text, pageNum]);
+  }, [text, take, skip]);
   return (
     <>
       <div>
@@ -71,12 +87,14 @@ const Searches = () => {
               )}
             </div>
             <div className="flex justify-center mt-10">
-              <Pagination
-                onClickFetchBlog={onClickFetchBlog}
-                pageNum={pageNum}
-                totalPageNum={
-                  searchResultData?.Article_aggregate?.aggregate?.count
-                }
+              <FullPagination
+                totalPage={totalPage}
+                onPageClick={(num) => goPage(num)}
+                currentPage={currentPage}
+                onNextClick={goNext}
+                onPrevClick={goPrev}
+                showNext={hasNextPage}
+                showPrev={hasPrevPage}
               />
             </div>
           </div>

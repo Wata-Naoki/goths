@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_ARTICLES = gql`
-  query GetArticles($limit: Int) {
-    Article(order_by: { createdAt: desc }, limit: $limit) {
+  query GetArticles($limit: Int, $offset: Int) {
+    Article(order_by: { createdAt: desc }, limit: $limit, offset: $offset) {
       id
       title
       text
@@ -79,10 +79,11 @@ export const GET_ARTICLE = gql`
 `;
 
 export const GET_BLOGS = gql`
-  query GetBlogs($limit: Int) {
+  query GetBlogs($limit: Int, $offset: Int) {
     Blog(
       order_by: { createdAt: desc }
       limit: $limit
+      offset: $offset
       where: { Articles_aggregate: { count: { predicate: { _gte: 1 } } } }
     ) {
       id
@@ -94,7 +95,9 @@ export const GET_BLOGS = gql`
         }
       }
     }
-    Blog_aggregate {
+    Blog_aggregate(
+      where: { Articles_aggregate: { count: { predicate: { _gte: 1 } } } }
+    ) {
       aggregate {
         count
       }
@@ -103,11 +106,12 @@ export const GET_BLOGS = gql`
 `;
 
 export const GET_USER_BLOGS = gql`
-  query GetUserBlogs($email: String, $limit: Int) {
+  query GetUserBlogs($email: String, $limit: Int, $offset: Int) {
     Blog(
       where: { blog_users: { User: { email: { _eq: $email } } } }
       order_by: { createdAt: desc }
       limit: $limit
+      offset: $offset
     ) {
       id
       title
@@ -128,7 +132,7 @@ export const GET_USER_BLOGS = gql`
 `;
 
 export const GET_BLOG = gql`
-  query GetBlog($id: uuid!, $limit: Int) {
+  query GetBlog($id: uuid!, $limit: Int, $offset: Int) {
     Blog(where: { id: { _eq: $id } }) {
       id
       title
@@ -142,6 +146,7 @@ export const GET_BLOG = gql`
       Articles(
         order_by: { createdAt: desc }
         limit: $limit
+        offset: $offset
         where: { status: { _eq: true } }
       ) {
         id
@@ -151,7 +156,7 @@ export const GET_BLOG = gql`
         all_text
         status
       }
-      Articles_aggregate {
+      Articles_aggregate(where: { status: { _eq: true } }) {
         aggregate {
           count
         }
@@ -355,11 +360,12 @@ export const GET_BLOGS_MODAL = gql`
 // `;
 
 export const GET_SEARCH_ARTICLES = gql`
-  query GetSearchArticles($_iregex: String!, $limit: Int) {
+  query GetSearchArticles($_iregex: String!, $limit: Int, $offset: Int) {
     Article(
       where: { title: { _iregex: $_iregex } }
       order_by: { createdAt: desc }
       limit: $limit
+      offset: $offset
     ) {
       id
       title
@@ -424,11 +430,12 @@ export const CREATE_ADMIN_USER_ONE = gql`
 
 //お気に入り記事の取得
 export const GET_USER_FAVORITES_ARTICLES = gql`
-  query GetUserFavoritesArticles($id: uuid!, $limit: Int) {
+  query GetUserFavoritesArticles($id: uuid!, $limit: Int, $offset: Int) {
     Article(
       where: { user_favorite_article_ids: { user_id: { _eq: $id } } }
       order_by: { createdAt: desc }
       limit: $limit
+      offset: $offset
     ) {
       id
       text

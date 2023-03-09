@@ -7,6 +7,8 @@ import { Loading } from "../../components/loading/Loading";
 import { formatJst } from "../../components/formatJst/FormatJst";
 import { Pagination } from "../../components/ui/pagination/pagination";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { usePagination } from "../../hooks/usePagination";
+import { FullPagination } from "../../components/ui/pagination/FullPagination";
 
 // TODO: さらに読み込むのところデータがないときは非表示にする
 export const BlogArticle = () => {
@@ -35,20 +37,48 @@ export const BlogArticle = () => {
     setNumBlog(numblog + 2);
   };
 
+  const {
+    take,
+    skip,
+    totalCount,
+    currentPage,
+    totalPage,
+    goNext,
+    goPrev,
+    goPage,
+    hasNextPage,
+    hasPrevPage,
+  } = usePagination({
+    totalCount: blogData?.Blog_aggregate?.aggregate?.count || 0,
+  });
+
+  const {
+    take: takeArticle,
+    skip: skipArticle,
+    totalCount: totalCountArticle,
+    currentPage: currentPageArticle,
+    totalPage: totalPageArticle,
+    goNext: goNextArticle,
+    goPrev: goPrevArticle,
+    goPage: goPageArticle,
+    hasNextPage: hasNextPageArticle,
+    hasPrevPage: hasPrevPageArticle,
+  } = usePagination({
+    totalCount: articleData?.Article_aggregate?.aggregate?.count || 0,
+  });
   //  記事のpaginationで再度クエリを実行するために必要
   useEffect(() => {
     execute({
-      variables: { limit: num },
+      variables: { limit: takeArticle, offset: skipArticle },
     });
-  }, [execute, num]);
+  }, [takeArticle, currentPageArticle]);
 
   // ブログのpaginationで再度クエリを実行するために必要
   useEffect(() => {
     executeBlog({
-      variables: { limit: numblog },
+      variables: { limit: take, offset: skip },
     });
-  }, [executeBlog, numblog]);
-
+  }, [take, currentPage]);
   if (articleLoading || blogLoading) {
     return <Loading />;
   }
@@ -72,6 +102,7 @@ export const BlogArticle = () => {
               }`}
               onClick={() => {
                 setPage("新着記事");
+                navigate("/");
               }}
             >
               新着記事
@@ -85,6 +116,7 @@ export const BlogArticle = () => {
               }`}
               onClick={() => {
                 setPage("新着ブログ");
+                navigate("/");
               }}
             >
               新着ブログ
@@ -112,14 +144,18 @@ export const BlogArticle = () => {
                   <p>{x.text}</p>
                 </div>
               ))}
-              <div className="flex justify-center mt-10 mb-10 mr-4">
-                <Pagination
-                  onClickFetchBlog={onClickFetch}
-                  totalPageNum={
-                    articleData?.Article_aggregate?.aggregate?.count
-                  }
-                  pageNum={num}
-                />
+              <div className="flex justify-center mt-14 mb-10 mr-4 w-full mx-4">
+                <div>
+                  <FullPagination
+                    totalPage={totalPageArticle}
+                    onPageClick={(page) => goPageArticle(page)}
+                    currentPage={currentPageArticle}
+                    onNextClick={goNextArticle}
+                    onPrevClick={goPrevArticle}
+                    showNext={hasNextPageArticle}
+                    showPrev={hasPrevPageArticle}
+                  />
+                </div>
               </div>
             </div>
           ) : (
@@ -157,16 +193,18 @@ export const BlogArticle = () => {
                 </div>
               ))}
 
-              <div className="flex justify-center mt-10 mb-10 mr-4">
-                {blogData?.Blog_aggregate?.aggregate?.count === numblog ? (
-                  <></>
-                ) : (
-                  <Pagination
-                    onClickFetchBlog={onClickFetchBlog}
-                    pageNum={numblog}
-                    totalPageNum={blogData?.Blog_aggregate?.aggregate?.count}
+              <div className="flex justify-center mt-10 mb-10 mr-4 ">
+                <div className="">
+                  <FullPagination
+                    totalPage={totalPage}
+                    onPageClick={(num) => goPage(num)}
+                    currentPage={currentPage}
+                    onNextClick={goNext}
+                    onPrevClick={goPrev}
+                    showNext={hasNextPage}
+                    showPrev={hasPrevPage}
                   />
-                )}
+                </div>
               </div>
             </div>
           )}

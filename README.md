@@ -2,7 +2,8 @@
 
 #### ▶ <a href="https://youtu.be/_hF6FRd_vZ4" target="_blank" rel="noopener noreferrer">デモ動画 URL</a>
 #### ▶ <a href="https://goths.vercel.app/" target="_blank" rel="noopener noreferrer">デプロイ URL</a>
-サンプル用）　email：「sample1@gmail.com」,　pw：「sample1」
+サンプル用）　email：「sample1@gmail.com」,　pw：「sample1」 </br>
+＊Googleでのログインも可能です！
 
 </br>
 
